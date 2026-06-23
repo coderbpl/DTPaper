@@ -1,0 +1,9 @@
+{
+  "seed": 42,
+  "cv_folds": 5,
+  "bootstrap": 1000,
+  "use_smote": true,
+  "data": {"csv_path": "data/raw/CIC-Darknet2020.csv", "test_size": 0.2},
+  "model": {"rf_trees": 200},
+  "paths": {"tables": "results/tables", "figures": "results/figures", "logs": "results/logs", "processed": "data/processed"}
+}
