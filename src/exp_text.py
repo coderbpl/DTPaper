@@ -64,22 +64,109 @@ def _make_synthetic(n_per=400, seed=42):
     return df
 
 
-def load_dataset(cfg, logger):
+class MissingRealDataError(FileNotFoundError):
+    """Raised in normal (reportable) mode when the real corpus is absent."""
+
+
+# common column-name variants for CoDA / DUTA-style corpora
+TEXT_COL_CANDIDATES = ["text", "content", "body", "document", "raw_text", "page_text"]
+LABEL_COL_CANDIDATES = ["label", "category", "class", "type", "target", "main_category"]
+
+
+def _auto_detect_columns(df, cfg, logger):
+    """Resolve text/label columns: explicit config first, then auto-detect."""
+    tcol = cfg["data"].get("text_col")
+    lcol = cfg["data"].get("label_col")
+    cols_lower = {c.lower(): c for c in df.columns}
+
+    if not tcol or tcol not in df.columns:
+        for cand in TEXT_COL_CANDIDATES:
+            if cand in cols_lower:
+                tcol = cols_lower[cand]; break
+    if not lcol or lcol not in df.columns:
+        for cand in LABEL_COL_CANDIDATES:
+            if cand in cols_lower:
+                lcol = cols_lower[cand]; break
+
+    if tcol is None or tcol not in df.columns:
+        raise ValueError(
+            f"Could not find a text column. Set data.text_col in the config. "
+            f"Available columns: {list(df.columns)}")
+    if lcol is None or lcol not in df.columns:
+        raise ValueError(
+            f"Could not find a label column. Set data.label_col in the config. "
+            f"Available columns: {list(df.columns)}")
+    logger.info(f"Using text column '{tcol}' and label column '{lcol}'.")
+    return tcol, lcol
+
+
+def _report_class_distribution(y, logger, title="Class distribution"):
+    vals, counts = np.unique(y, return_counts=True)
+    total = counts.sum()
+    logger.info(f"{title} (n={total}, classes={len(vals)}):")
+    order = np.argsort(-counts)
+    dist = {}
+    for i in order:
+        pct = 100.0 * counts[i] / total
+        logger.info(f"    {str(vals[i]):<24} {counts[i]:>8}  ({pct:5.2f}%)")
+        dist[str(vals[i])] = {"count": int(counts[i]), "pct": round(pct, 3)}
+    imbalance = float(counts.max() / counts.min()) if counts.min() > 0 else None
+    if imbalance:
+        logger.info(f"    imbalance ratio (max/min) = {imbalance:.1f}")
+    return {"n": int(total), "n_classes": int(len(vals)),
+            "distribution": dist, "imbalance_ratio": imbalance}
+
+
+def load_dataset(cfg, logger, smoke_test=False):
+    """Load CoDA/DUTA text. In normal mode the real corpus is mandatory."""
     path = cfg["data"]["csv_path"]
-    if os.path.exists(path):
+
+    if smoke_test:
+        logger.warning("SMOKE-TEST MODE: generating SYNTHETIC text (NON-REPORTABLE).")
+        df = _make_synthetic(); synthetic = True
+    else:
+        if not os.path.exists(path):
+            raise MissingRealDataError(
+                f"Real text corpus not found at '{path}'.\n"
+                f"Normal mode requires real data for reportable results.\n"
+                f"  - Download CoDA (Hugging Face s2w-ai/CoDA) or DUTA-10K "
+                f"(see DATASETS.md) and place it at that path, or\n"
+                f"  - run with --smoke-test to exercise the pipeline on synthetic data.")
         logger.info(f"Loading real text corpus from {path}")
         df = pd.read_csv(path)
         synthetic = False
-        tcol = cfg["data"]["text_col"]; lcol = cfg["data"]["label_col"]
+        tcol, lcol = _auto_detect_columns(df, cfg, logger)
         df = df[[tcol, lcol]].rename(columns={tcol: "text", lcol: "label"})
-    else:
-        logger.warning(f"{path} not found -> generating SYNTHETIC text for pipeline test")
-        df = _make_synthetic(); synthetic = True
+
+    # --- text/label validation (CoDA mitigation, manuscript Section 8.2) ---
+    n0 = len(df)
     df = df.dropna(subset=["text", "label"])
-    # length filtering for short/empty docs (manuscript Section 8.2 mitigation)
+    df["text"] = df["text"].astype(str)
+    df["label"] = df["label"].astype(str).str.strip()
+    # drop empty / whitespace-only text and empty labels
+    df = df[df["text"].str.strip().str.len() > 0]
+    df = df[df["label"].str.len() > 0]
     minlen = cfg["data"].get("min_chars", 10)
-    df = df[df["text"].str.len() >= minlen].reset_index(drop=True)
-    return df, synthetic
+    df = df[df["text"].str.len() >= minlen]
+    # drop exact-duplicate documents (common in dark web scrapes)
+    df = df.drop_duplicates(subset=["text"]).reset_index(drop=True)
+    if not synthetic:
+        logger.info(f"Text validation: {n0} -> {len(df)} rows after cleaning "
+                    f"(dropped empties, short docs < {minlen} chars, duplicates).")
+        if len(df) == 0:
+            raise ValueError("No valid documents remain after cleaning; check the corpus.")
+        # require at least 2 classes with enough samples to stratify
+        vc = df["label"].value_counts()
+        if len(vc) < 2:
+            raise ValueError(f"Need >= 2 classes; found {len(vc)}.")
+        rare = vc[vc < cfg["cv_folds"]]
+        if len(rare) > 0:
+            logger.warning(f"{len(rare)} class(es) have < {cfg['cv_folds']} samples and "
+                           f"may break stratified CV: {rare.to_dict()}")
+
+    class_report = _report_class_distribution(df["label"].values, logger,
+                                              f"{cfg['data']['name']} classes")
+    return df, synthetic, class_report
 
 
 def build_models(cfg, seed):
@@ -98,9 +185,9 @@ def build_models(cfg, seed):
     }
 
 
-def run(cfg, logger):
+def run(cfg, logger, smoke_test=False):
     seed = cfg["seed"]; set_seed(seed)
-    df, synthetic = load_dataset(cfg, logger)
+    df, synthetic, class_report = load_dataset(cfg, logger, smoke_test=smoke_test)
     classes = sorted(df["label"].unique())
     cls_to_id = {c: i for i, c in enumerate(classes)}
     y = df["label"].map(cls_to_id).values
@@ -111,6 +198,7 @@ def run(cfg, logger):
     skf = StratifiedKFold(n_splits=cfg["cv_folds"], shuffle=True, random_state=seed)
 
     results = {"dataset": cfg["data"]["name"], "synthetic": synthetic,
+               "reportable": (not synthetic), "class_report": class_report,
                "classes": classes, "seed": seed,
                "n_train": int(len(ytr)), "n_test": int(len(yte)), "models": {}}
     test_preds = {}
@@ -145,7 +233,7 @@ def run(cfg, logger):
 
 def write_table6_fragment(results, out_path, logger):
     rows = []
-    flag = " (SYNTHETIC)" if results.get("synthetic") else ""
+    flag = " [SMOKE-TEST/NON-REPORTABLE]" if results.get("synthetic") else ""
     for name, r in results["models"].items():
         t = r["test"]
         rows.append({
@@ -161,18 +249,35 @@ def write_table6_fragment(results, out_path, logger):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--config", default="configs/text.yaml")
+    ap.add_argument("--config", default="configs/text.json")
+    ap.add_argument("--smoke-test", action="store_true",
+                    help="Run on SYNTHETIC data to verify the pipeline (NON-REPORTABLE).")
     args = ap.parse_args()
     cfg = load_config(args.config)
     ensure_dirs(cfg)
     logger = get_logger("text", cfg["paths"]["logs"])
     t0 = time.time()
-    results = run(cfg, logger)
-    save_json(results, os.path.join(cfg["paths"]["tables"], "text_results.json"))
-    write_table6_fragment(
-        results, os.path.join(cfg["paths"]["tables"], "table6_text.csv"), logger)
-    logger.info(f"Done in {time.time()-t0:.1f}s. "
-                f"{'SYNTHETIC — not for reporting.' if results['synthetic'] else 'Real data.'}")
+
+    try:
+        results = run(cfg, logger, smoke_test=args.smoke_test)
+    except MissingRealDataError as e:
+        logger.error(str(e))
+        raise SystemExit(2)
+
+    tables = cfg["paths"]["tables"]
+    if results["synthetic"]:
+        save_json(results, os.path.join(tables, "text_results_SMOKETEST.json"))
+        write_table6_fragment(
+            results, os.path.join(tables, "table6_text_SMOKETEST.csv"), logger)
+        logger.warning("SMOKE TEST complete — outputs marked NON-REPORTABLE. "
+                       "Table 6 fragment NOT written (real data required).")
+    else:
+        save_json(results, os.path.join(tables, "text_results.json"))
+        write_table6_fragment(
+            results, os.path.join(tables, "table6_text.csv"), logger)
+        logger.info("Real-data run complete — Table 6 text fragment written.")
+
+    logger.info(f"Done in {time.time()-t0:.1f}s.")
 
 
 if __name__ == "__main__":

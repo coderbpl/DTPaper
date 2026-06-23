@@ -1,64 +1,110 @@
 # Dataset Preparation — DarkTrace Phase 1
 
-Phase 1 uses two **public** datasets. Until you place the real files here, every
-script runs on a clearly-labelled **synthetic fallback** so you can test the
-pipeline immediately. Synthetic outputs are tagged `(SYNTHETIC)` and must never
-be reported as results.
+Phase 1 runs in two modes:
+
+- **Normal mode (default, reportable):** requires the **real** datasets. If a
+  required file is missing, the experiment **fails hard** (exit code 2) and writes
+  no Table 6 output. This guarantees reported numbers always come from real data.
+- **Smoke-test mode (`--smoke-test`, NON-reportable):** generates synthetic data to
+  verify the pipeline executes. Outputs are written to separate `*_SMOKETEST.*`
+  files and are excluded from `build_table6`.
+
+```bash
+# normal (real data required):
+python -m src.exp_traffic --config configs/traffic.json
+python -m src.exp_text    --config configs/text.json
+
+# smoke test (synthetic, non-reportable):
+python -m src.exp_traffic --config configs/traffic.json --smoke-test
+python -m src.exp_text    --config configs/text.json --smoke-test
+```
 
 ---
 
 ## 1. CIC-Darknet2020 (traffic classification)
 
-- **Source:** Canadian Institute for Cybersecurity (University of New Brunswick).
-  Search "CIC-Darknet2020 UNB" and download from the official CIC datasets page.
-- **Manuscript reference:** [1] Lashkari, Kaur, Rahali, DIDarknet, ICCNS 2020.
-- **Access:** free for research; the page asks for name/affiliation. No GPU needed.
-- **What to download:** the CSV of CICFlowMeter features (≈158,659 flows).
-- **Place it at:** `data/raw/CIC-Darknet2020.csv`
-- **Label column:** the script auto-detects `Label`; if your export differs, edit
-  `configs/traffic.json` is not needed — the loader scans common label names.
+- **Source (official):** Canadian Institute for Cybersecurity, University of New
+  Brunswick (UNB CIC). Download page:
+  `https://www.unb.ca/cic/datasets/darknet-2020.html`
+- **Reference:** [1] Lashkari, Kaur, Rahali, "DIDarknet," ICCNS 2020.
+- **Access:** free for research; the page requests name/affiliation. No GPU needed.
+- **Download:** the CSV of CICFlowMeter features (~158,659 flows).
+- **Place at:** `data/raw/CIC-Darknet2020.csv`
+- **Columns:** the loader **auto-detects** the label column (Label / Application /
+  Traffic Type / Category) and strips leading/trailing spaces from headers.
+- **Leakage removal (automatic):** Flow ID, Src/Dst IP, Src/Dst Port, Timestamp,
+  and index columns are dropped (manuscript [3]) to prevent label leakage that can
+  inflate accuracy. This is done for you; no manual editing required.
 
-Notes:
-- The loader automatically drops identifier/leakage columns (Flow ID, IPs,
-  Timestamp) following the caution in manuscript [3]; this is important because
-  some published >99% figures may leak from such fields.
+Steps:
+```bash
+# after downloading the CSV from the UNB page:
+mv ~/Downloads/Darknet.csv data/raw/CIC-Darknet2020.csv   # name may vary
+python -m src.exp_traffic --config configs/traffic.json
+```
 
-## 2. CoDA and/or DUTA-10K (dark web text classification)
+## 2. CoDA (dark web text classification) — Hugging Face
 
-- **CoDA:** a 10,000-document dark web text benchmark (10 illicit categories).
-  Obtain from the authors' release; search "CoDA dark web dataset Jin".
-- **DUTA-10K:** Darknet Usage Text Addresses; request from the authors
-  (manuscript [23], [24] — Al-Nabki et al.). Access may require an email request.
-- **Manuscript references:** [23] EACL 2017, [24] Expert Systems w/ Apps 2019.
-- **Format expected:** a CSV with a text column and a label column.
-- **Place it at:** `data/raw/coda.csv`
-- **Configure columns** in `configs/text.json`:
-  ```json
-  "data": {"name": "CoDA", "csv_path": "data/raw/coda.csv",
-           "text_col": "text", "label_col": "label", ...}
-  ```
+- **Source:** Hugging Face dataset `s2w-ai/CoDA`
+  (`https://huggingface.co/datasets/s2w-ai/CoDA`).
+- **Reference:** CoDA dark web text benchmark (10 illicit categories).
+- **Access:** via the `datasets` library or direct download; check the dataset card
+  for any access conditions.
+- **Prepare a CSV** with a text column and a label column:
 
-If your corpus uses different column names, set `text_col` / `label_col`
-accordingly. Short/empty documents (< `min_chars`) are filtered, mirroring the
-DUTA-imbalance mitigation in manuscript Section 8.2.
+```python
+# one-time export to the CSV layout Phase 1 expects
+from datasets import load_dataset
+ds = load_dataset("s2w-ai/CoDA")                  # may require: pip install datasets
+split = ds["train"] if "train" in ds else ds[list(ds.keys())[0]]
+df = split.to_pandas()
+# inspect df.columns, then rename the text/label columns if needed.
+# the loader auto-detects common names (text/content/body, label/category/class).
+df.to_csv("data/raw/coda.csv", index=False)
+```
+
+- **Place at:** `data/raw/coda.csv`
+- **Configure (if auto-detect needs help):** set `text_col` / `label_col` in
+  `configs/text.json`.
+
+## 3. DUTA-10K (alternative dark web text corpus)
+
+- **Source (official):** GVIS research group / dataset authors (Al-Nabki et al.).
+  Project page: `https://gvis.unileon.es/dataset/duta-darknet-usage-text-addresses/`
+  (request access from the authors; terms may apply).
+- **References:** [23] Al-Nabki et al., EACL 2017; [24] Expert Systems w/ Apps 2019.
+- **Access:** by request to the authors; not redistributable.
+- **Prepare a CSV** with text and label columns, then **place at:** `data/raw/coda.csv`
+  (or point `configs/text.json:data.csv_path` to your DUTA file and set
+  `data.name` to `DUTA-10K`).
 
 ---
 
-## Verifying real data is picked up
+## Verifying real data is used
 
-When a real file is present, the log line changes from:
-
-    [WARNING] ... not found -> generating SYNTHETIC data for pipeline test
-
-to:
+Real-data runs log:
 
     [INFO] Loading real CIC-Darknet2020 from data/raw/CIC-Darknet2020.csv
+    [INFO] Real-data run complete — Table 6 traffic fragment written.
 
-and the output CSV rows lose the `(SYNTHETIC)` marker.
+Missing data in normal mode fails hard:
+
+    [ERROR] Real CIC-Darknet2020 CSV not found at 'data/raw/CIC-Darknet2020.csv'.
+    (exit code 2)
+
+Smoke-test runs are clearly marked:
+
+    [WARNING] SMOKE-TEST MODE: generating SYNTHETIC data (NON-REPORTABLE).
+    [WARNING] SMOKE TEST complete — outputs marked NON-REPORTABLE.
+
+## Class-distribution reporting
+
+Both loaders print per-class counts, percentages, and the max/min imbalance ratio,
+and store them under `class_report` in the `*_results.json`. Use this to document
+dataset composition (manuscript Section 8.2) and to anticipate minority-class
+behaviour in per-class F1 (Section 8.18).
 
 ## Ethics / licensing
 
-Respect each dataset's licence and terms. Do not redistribute raw corpora.
-Phase 1 uses only public, research-released data and requires no dark web
-crawling (that begins in later phases under the ethical controls described in
-manuscript Section 8.18).
+Respect each dataset's licence and terms; do not redistribute raw corpora. Phase 1
+uses only public/by-request research datasets and requires no dark web crawling.

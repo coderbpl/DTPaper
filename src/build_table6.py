@@ -27,13 +27,23 @@ PRIOR_ROWS = [
 
 def main():
     frags = []
+    missing = []
     for f in ("table6_text.csv", "table6_traffic.csv"):
         p = os.path.join(TABLES, f)
         if os.path.exists(p):
             frags.append(pd.read_csv(p))
+        else:
+            missing.append(f)
     if not frags:
-        print("No fragments found. Run exp_text and exp_traffic first.")
+        print("No real-data Table 6 fragments found.")
+        print("Run the experiments on REAL data first (without --smoke-test):")
+        print("  python -m src.exp_traffic --config configs/traffic.json")
+        print("  python -m src.exp_text    --config configs/text.json")
+        print("(Smoke-test outputs ending in _SMOKETEST are intentionally excluded.)")
         return
+    if missing:
+        print(f"WARNING: missing real-data fragment(s): {missing}. "
+              f"Table 6 will be partial until those experiments are run on real data.")
     ours = pd.concat(frags, ignore_index=True)
     prior = pd.DataFrame(PRIOR_ROWS)
     full = pd.concat([prior, ours], ignore_index=True)
@@ -41,10 +51,8 @@ def main():
     full.to_csv(out, index=False)
     print(f"Wrote {out}")
     print(full.to_string(index=False))
-    # note on provenance
     print("\nNOTE: rows marked '(reported)' are cited from prior work [2],[4]; "
-          "rows marked '(SYNTHETIC)' are pipeline-test outputs and must be "
-          "replaced with real-data runs before reporting.")
+          "all other rows are this study's measured results on real data.")
 
 
 if __name__ == "__main__":

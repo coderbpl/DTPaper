@@ -7,6 +7,7 @@ imbalanced-learn>=0.11   # SMOTE (manuscript ref [25])
 matplotlib>=3.7          # figures (confusion matrices, PR curves)
 pyyaml>=6.0              # optional; JSON configs work without it
 pytest>=7.0              # optional; smoke tests
+datasets>=2.14           # optional; only to export CoDA from Hugging Face
 # Phase 2+ only (NOT needed for Phase 1):
 # torch>=2.0
 # transformers>=4.35

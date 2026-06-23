@@ -3,11 +3,15 @@
 Runnable Phase 1 of the DarkTrace experimental plan: **CPU-only** darknet traffic
 classification (CIC-Darknet2020) and dark web text classification (CoDA/DUTA).
 No GPU, blockchain, or actor-profiling code is included here — those are later
-phases. Every script runs immediately on a **synthetic fallback**, so you can
-verify the pipeline before obtaining the real datasets.
+phases.
 
-> Outputs from synthetic data are tagged `(SYNTHETIC)` and must never be reported
-> as results. Replace them with real-data runs (see `DATASETS.md`).
+**Reportable results require real data.** In normal mode the experiments run only
+on the real datasets and **fail hard** if a required file is missing. Synthetic
+data exists solely to verify the pipeline and is gated behind a `--smoke-test`
+flag; smoke-test outputs are written to separate `*_SMOKETEST.*` files, marked
+NON-REPORTABLE, and excluded from `build_table6`.
+
+> Place the real datasets per `DATASETS.md` before producing Table 6.
 
 ## Folder structure
 
@@ -47,23 +51,29 @@ pip install -r requirements.txt
 Only `numpy pandas scipy scikit-learn` are strictly required; `imbalanced-learn`
 enables SMOTE, `matplotlib` enables figures, `pyyaml`/`pytest` are optional.
 
-## Quickstart (synthetic — proves the pipeline works)
+## Quickstart
 
+**Verify the pipeline (smoke test — synthetic, NON-reportable):**
 ```bash
 # from darktrace_phase1/
+python tests/test_smoke.py
+python -m src.exp_traffic --config configs/traffic.json --smoke-test
+python -m src.exp_text    --config configs/text.json --smoke-test
+```
+Smoke-test outputs are written as `*_SMOKETEST.*` and are never used for Table 6.
+
+**Produce reportable results (real data — required):**
+1. Follow `DATASETS.md` to place `data/raw/CIC-Darknet2020.csv` and
+   `data/raw/coda.csv` (CoDA from Hugging Face `s2w-ai/CoDA`, or DUTA-10K).
+2. Run:
+```bash
 python -m src.exp_traffic --config configs/traffic.json
 python -m src.exp_text    --config configs/text.json
 python -m src.build_table6
 python -m src.make_figures
-python tests/test_smoke.py
 ```
-
-## Run on real data
-
-1. Follow `DATASETS.md` to place `data/raw/CIC-Darknet2020.csv` and
-   `data/raw/coda.csv`.
-2. Re-run the four commands above. The `(SYNTHETIC)` markers disappear and the
-   numbers become reportable.
+If a required dataset is missing, normal mode **fails with exit code 2** and writes
+no Table 6 output.
 
 ## What each experiment does (and how it maps to the manuscript)
 

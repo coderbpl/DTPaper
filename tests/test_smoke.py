@@ -37,7 +37,7 @@ def test_traffic_runs():
     cfg["bootstrap"] = 50; cfg["cv_folds"] = 3   # speed up
     from src.utils import get_logger
     logger = get_logger("test_traffic", cfg["paths"]["logs"])
-    res = exp_traffic.run(cfg, logger)
+    res = exp_traffic.run(cfg, logger, smoke_test=True)
     assert res["synthetic"] is True
     for name, r in res["models"].items():
         assert 0.0 <= r["test"]["macro_f1"] <= 1.0
@@ -50,7 +50,7 @@ def test_text_runs():
     cfg["bootstrap"] = 50; cfg["cv_folds"] = 3
     from src.utils import get_logger
     logger = get_logger("test_text", cfg["paths"]["logs"])
-    res = exp_text.run(cfg, logger)
+    res = exp_text.run(cfg, logger, smoke_test=True)
     assert res["synthetic"] is True
     # with 12% label noise the synthetic task must NOT be perfectly separable
     for name, r in res["models"].items():
