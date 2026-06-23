@@ -1,0 +1,20 @@
+23:51:55 [WARNING] SMOKE-TEST MODE: generating SYNTHETIC text (NON-REPORTABLE).
+23:51:55 [INFO] CoDA classes (n=1600, classes=6):
+23:51:55 [INFO]     Drugs                         381  (23.81%)
+23:51:55 [INFO]     Other                         361  (22.56%)
+23:51:55 [INFO]     Fraud                         308  (19.25%)
+23:51:55 [INFO]     Hacking                       250  (15.62%)
+23:51:55 [INFO]     Weapons                       170  (10.62%)
+23:51:55 [INFO]     Counterfeit                   130  ( 8.12%)
+23:51:55 [INFO]     imbalance ratio (max/min) = 2.9
+23:51:55 [INFO] === TFIDF_LogReg ===
+23:51:55 [INFO]   fold 0: macro-F1=0.4250
+23:51:55 [INFO]   fold 1: macro-F1=0.4715
+23:51:55 [INFO]   fold 2: macro-F1=0.4577
+23:51:55 [INFO]   TEST macro-F1=0.4813 CI95=[0.4221,0.5339]
+23:51:55 [INFO] === TFIDF_LinearSVM ===
+23:51:55 [INFO]   fold 0: macro-F1=0.3769
+23:51:55 [INFO]   fold 1: macro-F1=0.4174
+23:51:55 [INFO]   fold 2: macro-F1=0.3685
+23:51:55 [INFO]   TEST macro-F1=0.4126 CI95=[0.3721,0.4637]
+23:51:55 [INFO] McNemar TFIDF_LogReg vs TFIDF_LinearSVM: p=8.529e-03

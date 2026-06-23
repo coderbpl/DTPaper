@@ -1,0 +1,19 @@
+23:51:41 [WARNING] SMOKE-TEST MODE: generating SYNTHETIC data (NON-REPORTABLE).
+23:51:41 [INFO] Auto-detected label column: 'Label'
+23:51:41 [INFO] CIC-Darknet2020 classes (n=4000, classes=4):
+23:51:41 [INFO]     Browsing                     2198  (54.95%)
+23:51:41 [INFO]     Chat                          998  (24.95%)
+23:51:41 [INFO]     P2P                           560  (14.00%)
+23:51:41 [INFO]     VOIP                          244  ( 6.10%)
+23:51:41 [INFO]     imbalance ratio (max/min) = 9.0
+23:51:41 [INFO] === RandomForest ===
+23:51:42 [INFO]   fold 0: macro-F1=0.9017 acc=0.8960
+23:51:43 [INFO]   fold 1: macro-F1=0.9246 acc=0.9091
+23:51:44 [INFO]   fold 2: macro-F1=0.9215 acc=0.9071
+23:51:45 [INFO]   TEST macro-F1=0.9083 CI95=[0.8919,0.9289] acc=0.9062
+23:51:45 [INFO] === HistGradientBoosting ===
+23:51:47 [INFO]   fold 0: macro-F1=0.8986 acc=0.8866
+23:51:50 [INFO]   fold 1: macro-F1=0.9132 acc=0.8978
+23:51:52 [INFO]   fold 2: macro-F1=0.9178 acc=0.9024
+23:51:55 [INFO]   TEST macro-F1=0.9024 CI95=[0.8886,0.9228] acc=0.8950
+23:51:55 [INFO] McNemar RandomForest vs HistGradientBoosting: p=1.763e-01
