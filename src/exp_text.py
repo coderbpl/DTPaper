@@ -69,33 +69,118 @@ class MissingRealDataError(FileNotFoundError):
 
 
 # common column-name variants for CoDA / DUTA-style corpora
-TEXT_COL_CANDIDATES = ["text", "content", "body", "document", "raw_text", "page_text"]
-LABEL_COL_CANDIDATES = ["label", "category", "class", "type", "target", "main_category"]
+TEXT_COL_CANDIDATES = ["text", "content", "body", "document", "raw_text",
+                       "page_text", "txt", "html", "page", "data"]
+LABEL_COL_CANDIDATES = ["label", "category", "class", "type", "target",
+                        "main_category", "cls", "labels", "category_name",
+                        "__key__"]
+
+
+def _derive_label_from_key(df, key_col, logger):
+    """Derive a categorical label (and language, when present) from a WebDataset
+    __key__ column.
+
+    Handles the real CoDA key format, where each key looks like:
+        coda_dataset/{id}-{Category}-{lang}-{sha256}
+    e.g. 'coda_dataset/5756-Arms-en-06dd9c0e...'  -> category 'Arms', lang 'en'.
+
+    Falls back to a generic 'first path segment' heuristic for other layouts.
+    Returns (labels_series, lang_series_or_None) or (None, None) if unusable.
+    """
+    import re
+    s = df[key_col].astype(str)
+    tail = s.str.split("/").str[-1]            # drop any leading 'coda_dataset/'
+
+    # Pattern 1: CoDA  {id}-{Category}-{lang}-{hash}
+    coda_re = re.compile(r"^\d+-([A-Za-z][A-Za-z _]*?)-([a-z]{2})-[0-9a-f]{8,}$")
+    m = tail.str.match(coda_re)
+    if m.mean() >= 0.8:                         # most rows match the CoDA layout
+        cat = tail.str.replace(coda_re, r"\1", regex=True)
+        lang = tail.str.replace(coda_re, r"\2", regex=True)
+        n_cat = cat.nunique()
+        logger.warning(
+            f"Parsed CoDA __key__ format: {n_cat} categories "
+            f"(e.g. {sorted(cat.unique())[:8]}); languages "
+            f"(e.g. {sorted(lang.unique())[:8]}). Labels = category.")
+        return cat, lang
+
+    # Pattern 2: generic 'category/...' path prefix
+    prefix = tail.str.split("-").str[1] if tail.str.contains("-").mean() > 0.8 else None
+    if prefix is None:
+        prefix = s.str.split("/").str[0].str.replace(r"^[a-zA-Z_]+=", "", regex=True)
+    n_unique = prefix.nunique()
+    if 2 <= n_unique <= max(50, int(0.2 * len(df))):
+        logger.warning(
+            f"Derived label from '{key_col}' ({n_unique} classes, e.g. "
+            f"{list(prefix.unique()[:6])}). VERIFY these are real categories.")
+        return prefix, None
+
+    return None, None
 
 
 def _auto_detect_columns(df, cfg, logger):
-    """Resolve text/label columns: explicit config first, then auto-detect."""
+    """Resolve text/label columns: explicit config first, then auto-detect.
+
+    Handles the CoDA WebDataset export whose columns are like
+    ['__key__', '__url__', 'txt'] by (a) detecting 'txt' as text and
+    (b) deriving a label from the '__key__' path prefix when no label column
+    exists. Raises a clear, actionable error otherwise.
+    """
     tcol = cfg["data"].get("text_col")
     lcol = cfg["data"].get("label_col")
     cols_lower = {c.lower(): c for c in df.columns}
 
+    # --- text column ---
     if not tcol or tcol not in df.columns:
         for cand in TEXT_COL_CANDIDATES:
-            if cand in cols_lower:
+            if cand in cols_lower and cols_lower[cand] not in ("__key__", "__url__"):
                 tcol = cols_lower[cand]; break
+    # last resort: the longest-average-string column that isn't key/url
+    if tcol is None or tcol not in df.columns:
+        cand_cols = [c for c in df.columns if c not in ("__key__", "__url__")]
+        if cand_cols:
+            avg_len = {c: df[c].astype(str).str.len().mean() for c in cand_cols}
+            tcol = max(avg_len, key=avg_len.get)
+            logger.warning(f"No standard text column; using longest-text column '{tcol}'. "
+                           f"Override with data.text_col if wrong.")
+    if tcol is None or tcol not in df.columns:
+        raise ValueError(
+            "Could not find a text column. Set data.text_col in configs/text.json.\n"
+            f"Available columns: {list(df.columns)}")
+
+    # --- label column ---
     if not lcol or lcol not in df.columns:
         for cand in LABEL_COL_CANDIDATES:
+            if cand == "__key__":
+                continue  # handled specially below
             if cand in cols_lower:
                 lcol = cols_lower[cand]; break
 
-    if tcol is None or tcol not in df.columns:
-        raise ValueError(
-            f"Could not find a text column. Set data.text_col in the config. "
-            f"Available columns: {list(df.columns)}")
+    if (lcol is None or lcol not in df.columns):
+        # try to derive a label from a __key__ WebDataset column
+        key_col = next((c for c in df.columns if c.lower() == "__key__"), None)
+        if key_col is not None:
+            derived, lang = _derive_label_from_key(df, key_col, logger)
+            if derived is not None:
+                df["__derived_label__"] = derived.values
+                lcol = "__derived_label__"
+                # preserve language if parsed (useful for the Phase 2 multilingual split)
+                if lang is not None:
+                    df["__lang__"] = lang.values
+
     if lcol is None or lcol not in df.columns:
         raise ValueError(
-            f"Could not find a label column. Set data.label_col in the config. "
-            f"Available columns: {list(df.columns)}")
+            "Could not find a label column, and could not derive one.\n"
+            f"Available columns: {list(df.columns)}\n"
+            "This usually means the CoDA export is the raw WebDataset text shard "
+            "WITHOUT category labels. Fixes:\n"
+            "  1) Load the LABELLED CoDA split/config (the one with a category "
+            "field) and re-export; or\n"
+            "  2) If your file has a label under another name, set data.label_col "
+            "in configs/text.json; or\n"
+            "  3) Use a labelled corpus (e.g. DUTA-10K) at data.csv_path.\n"
+            "Phase 1 text classification requires per-document category labels.")
+
     logger.info(f"Using text column '{tcol}' and label column '{lcol}'.")
     return tcol, lcol
 

@@ -82,6 +82,23 @@ df.to_csv("data/raw/coda.csv", index=False)
 If auto-detection misses the columns, set `text_col`/`label_col` in
 `configs/text.json`.
 
+> **CoDA label handling (automatic).** `s2w-ai/CoDA` is a WebDataset, so
+> `to_pandas()` returns columns like `['__key__', '__url__', 'txt']` where each key
+> looks like `coda_dataset/{id}-{Category}-{lang}-{hash}` (e.g.
+> `coda_dataset/5756-Arms-en-06dd...`). The loader now parses this automatically:
+> it uses `txt` as the text column and extracts the **category** (Arms, Financial,
+> Gambling, Porn, Violence, Others, ...) as the label, and also captures the
+> **language** (`en`, `ru`, `zh`, ...) into a `__lang__` column for later
+> multilingual work. You'll see a log line: `Parsed CoDA __key__ format: N
+> categories ...`. No manual config needed for this export. Verify the parsed
+> categories in that log line look right before trusting results.
+
+### CIC-Darknet2020 ragged rows
+Real CIC exports sometimes contain malformed rows (`Expected N fields, saw M`). The
+loader now retries with `on_bad_lines='skip'` and logs how many rows were dropped.
+If the dropped fraction is large, inspect the CSV — you may have concatenated shards
+or a wrong delimiter.
+
 ### DUTA-10K (alternative text corpus)
 Upload your DUTA export as a Kaggle Dataset, then point `configs/text.json`'s
 `data.csv_path` at it (and set `data.name` to `DUTA-10K`).

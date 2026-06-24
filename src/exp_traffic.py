@@ -124,7 +124,27 @@ def load_dataset(cfg, logger, smoke_test=False):
                 f"  - Download it (see DATASETS.md) and place it at that path, or\n"
                 f"  - run with --smoke-test to exercise the pipeline on synthetic data.")
         logger.info(f"Loading real CIC-Darknet2020 from {path}")
-        df = pd.read_csv(path, low_memory=False)
+        # Real CIC exports sometimes contain ragged rows (extra commas / merged
+        # sub-files) that break the C parser ("Expected N fields, saw M").
+        # Read tolerantly: skip bad lines, then report how many were dropped.
+        try:
+            df = pd.read_csv(path, low_memory=False)
+        except Exception as e:
+            logger.warning(f"Strict CSV parse failed ({type(e).__name__}: {e}). "
+                           f"Retrying with on_bad_lines='skip'.")
+            # count total data lines to report how many we drop
+            try:
+                with open(path, "r", errors="replace") as fh:
+                    total_lines = sum(1 for _ in fh) - 1  # minus header
+            except Exception:
+                total_lines = None
+            df = pd.read_csv(path, engine="python", on_bad_lines="skip")
+            if total_lines is not None:
+                dropped = total_lines - len(df)
+                if dropped > 0:
+                    logger.warning(f"Skipped {dropped} malformed row(s) out of "
+                                   f"{total_lines} ({100*dropped/total_lines:.2f}%). "
+                                   f"If this fraction is large, inspect the CSV.")
         synthetic = False
 
     # strip whitespace from column names (CIC exports often have leading spaces)
