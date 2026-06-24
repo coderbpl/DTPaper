@@ -13,3 +13,6 @@ datasets>=2.14           # optional; only to export CoDA from Hugging Face
 # transformers>=4.35
 # shap>=0.43
 # lime>=0.2
+# Phase 3 (explainable scoring) — CPU OK
+shap>=0.44
+lime>=0.2

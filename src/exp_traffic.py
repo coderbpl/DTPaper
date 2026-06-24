@@ -135,53 +135,38 @@ def _auto_detect_label(df, cfg, logger):
     logger.warning(f"No known label column; using last column '{target}'")
     return target
 
-def _normalize_cic_application_labels(y, logger):
+
+def _normalize_labels(y, logger):
+    """Merge labels that differ only by case/whitespace into a single canonical
+    class. CIC-Darknet2020 exports sometimes contain the same application under
+    multiple casings (e.g. 'Audio-Streaming' and 'AUDIO-STREAMING', or
+    'File-Transfer' and 'File-transfer'), which inflates the class count, creates
+    tiny fragment-classes, and depresses macro-F1. We group case-insensitively
+    and map every variant to the MOST FREQUENT spelling in that group.
     """
-    Normalize CIC-Darknet2020 application labels.
-
-    The real CIC-Darknet2020 CSV may contain the same application class with
-    inconsistent casing, for example:
-        AUDIO-STREAMING  -> Audio-Streaming
-        Video-streaming  -> Video-Streaming
-        File-transfer    -> File-Transfer
-
-    This function groups labels case-insensitively and keeps the most frequent
-    spelling as the canonical label. It avoids hardcoding all class names and
-    keeps readable labels in reports/figures.
-    """
-    s = pd.Series(y, dtype="object").astype(str).str.strip()
-
-    # Build a case-insensitive grouping key.
-    # We do not directly lowercase final labels; we only use this key for merging.
-    key = (
-        s.str.lower()
-         .str.replace("_", "-", regex=False)
-         .str.replace(r"\s+", " ", regex=True)
-         .str.strip()
-    )
-
-    canonical_by_key = {}
-    normalization_report = {}
-
-    for k, group in s.groupby(key):
-        # Choose the most common original spelling as canonical.
-        canonical = group.value_counts().idxmax()
-        canonical_by_key[k] = canonical
-
-        variants = sorted(group.unique().tolist())
-        if len(variants) > 1:
-            normalization_report[canonical] = variants
-
-    normalized = key.map(canonical_by_key).to_numpy(dtype=object)
-
-    if normalization_report:
-        logger.warning(f"Normalized CIC application label variants: {normalization_report}")
-        logger.info(
-            f"CIC application labels normalized: "
-            f"{s.nunique()} raw label(s) -> {pd.Series(normalized).nunique()} canonical label(s)."
-        )
-
-    return normalized
+    import pandas as _pd
+    s = _pd.Series([str(v).strip() for v in y])
+    counts = s.value_counts()
+    canon = {}
+    by_key = {}
+    for label, n in counts.items():
+        by_key.setdefault(label.lower(), []).append((label, n))
+    merged = 0
+    for key, variants in by_key.items():
+        variants.sort(key=lambda x: -x[1])
+        canonical = variants[0][0]
+        for label, _ in variants:
+            canon[label] = canonical
+            if label != canonical:
+                merged += 1
+    if merged:
+        groups = {v[0][0]: [x[0] for x in v]
+                  for v in by_key.values() if len(v) > 1}
+        logger.warning(
+            f"Normalized {merged} case-variant label(s) into canonical forms, "
+            f"merging {len(counts)} -> {len(set(canon.values()))} classes. "
+            f"Merged groups: {groups}")
+    return np.asarray(s.map(canon).values, dtype=object)
 
 
 def load_dataset(cfg, logger, smoke_test=False):
@@ -252,12 +237,8 @@ def load_dataset(cfg, logger, smoke_test=False):
             raise ValueError("No rows remain after label cleaning; check the CSV.")
 
     y = np.asarray(df[target].astype(str).str.strip().tolist(), dtype=object)
-
-    # Fix CIC-Darknet2020 application-label casing variants before reporting/training.
-    # Example: AUDIO-STREAMING, Video-streaming, File-transfer should not become
-    # separate classes. This is applied only to real data, not smoke-test synthetic data.
-    if not synthetic and str(target).strip().lower() in {"label.1", "application", "traffic type", "category", "class"}:
-        y = _normalize_cic_application_labels(y, logger)
+    if not synthetic:
+        y = _normalize_labels(y, logger)
     X = df.drop(columns=[target])
     X = X.apply(pd.to_numeric, errors="coerce")
     X = X.replace([np.inf, -np.inf], np.nan).fillna(0.0)

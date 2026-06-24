@@ -63,3 +63,18 @@ if __name__ == "__main__":
     test_traffic_runs()
     test_text_runs()
     print("\nALL SMOKE TESTS PASSED")
+
+
+def test_scoring_runs():
+    """Phase 3 explainable scoring smoke test (synthetic)."""
+    from src.utils import load_config, get_logger
+    from src import exp_scoring
+    cfg = load_config("configs/scoring.json")
+    cfg["bootstrap"] = 50; cfg["explain_max_eval"] = 60; cfg["lime_n"] = 5
+    logger = get_logger("test_scoring", cfg["paths"]["logs"])
+    res = exp_scoring.run(cfg, logger, smoke_test=True)
+    assert res["synthetic"] is True
+    ens = res["models"]["explainable_ensemble"]
+    assert 0.0 <= ens["ranking"]["auc"] <= 1.0
+    assert "faithfulness_gap" in ens["faithfulness"]
+    print("test_scoring_runs OK")
