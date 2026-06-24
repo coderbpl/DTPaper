@@ -3,7 +3,20 @@
   "cv_folds": 5,
   "bootstrap": 1000,
   "use_smote": true,
-  "data": {"csv_path": "data/raw/CIC-Darknet2020.csv", "test_size": 0.2},
-  "model": {"rf_trees": 200},
-  "paths": {"tables": "results/tables", "figures": "results/figures", "logs": "results/logs", "processed": "data/processed"}
+  "data": {
+    "csv_path": "data/raw/CIC-Darknet2020.csv",
+    "test_size": 0.2,
+    "label_col": "Label.1",
+    "_label_col_note": "Label.1 = 8 application classes (paper task). Set to Label for traffic-type task."
+  },
+  "model": {
+    "rf_trees": 200,
+    "gbt": "hist"
+  },
+  "paths": {
+    "tables": "results/tables",
+    "figures": "results/figures",
+    "logs": "results/logs",
+    "processed": "data/processed"
+  }
 }

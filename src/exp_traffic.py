@@ -26,7 +26,8 @@ from __future__ import annotations
 import argparse, json, os, time
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.ensemble import (RandomForestClassifier, GradientBoostingClassifier,
+                              HistGradientBoostingClassifier)
 from sklearn.model_selection import StratifiedKFold, train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 
@@ -91,13 +92,40 @@ def _report_class_distribution(y, logger, title="Class distribution"):
             "distribution": dist, "imbalance_ratio": imbalance}
 
 
-def _auto_detect_label(df, logger):
-    """Find the label column by known names, else fall back to last column."""
+def _auto_detect_label(df, cfg, logger):
+    """Resolve the label column.
+
+    CIC-Darknet2020 ships TWO label columns:
+      - 'Label'   : top-level traffic type (Non-Tor / NonVPN / VPN / Tor)
+      - 'Label.1' : the 8 APPLICATION categories (Browsing, Chat, Email, FTP,
+                    P2P, Audio-Streaming, Video-Streaming, VOIP)
+    Published baselines such as DarknetSec report APPLICATION identification, so
+    that is the task this study reports. Resolution order:
+      1) explicit cfg['data']['label_col'] if present and valid;
+      2) prefer 'Label.1' (application) when both label columns exist;
+      3) otherwise fall back to known candidates, then the last column.
+    """
+    explicit = cfg.get("data", {}).get("label_col")
+    if explicit and explicit in df.columns:
+        logger.info(f"Using configured label column: '{explicit}'")
+        return explicit
+    if explicit and explicit not in df.columns:
+        logger.warning(f"Configured label_col '{explicit}' not found; auto-detecting.")
+
+    has_label = "Label" in df.columns
+    has_label1 = "Label.1" in df.columns
+    if has_label and has_label1:
+        logger.warning(
+            "Two label columns found: 'Label' (traffic type) and 'Label.1' "
+            "(application). Using 'Label.1' for APPLICATION identification, the "
+            "task reported by the cited baselines. Set data.label_col='Label' to "
+            "run the traffic-type task instead.")
+        return "Label.1"
+
     for c in CIC_TARGET_CANDIDATES:
         if c in df.columns:
             logger.info(f"Auto-detected label column: '{c}'")
             return c
-    # case-insensitive match
     lower = {c.lower(): c for c in df.columns}
     for cand in CIC_TARGET_CANDIDATES:
         if cand.lower() in lower:
@@ -150,13 +178,21 @@ def load_dataset(cfg, logger, smoke_test=False):
     # strip whitespace from column names (CIC exports often have leading spaces)
     df.columns = [str(c).strip() for c in df.columns]
 
-    target = _auto_detect_label(df, logger)
+    target = _auto_detect_label(df, cfg, logger)
 
     # remove identifier/leakage columns (manuscript [3])
     drop_like = [c for c in df.columns if c.strip().lower() in LEAKAGE_COLUMNS]
     if drop_like:
         logger.info(f"Dropping {len(drop_like)} identifier/leakage column(s): {drop_like}")
         df = df.drop(columns=drop_like)
+
+    # CRITICAL: both label columns ('Label' and 'Label.1') must be removed from
+    # the feature matrix. If we train on 'Label.1' (application) but leave 'Label'
+    # (traffic type) in X, the model can trivially read the answer -> label leakage.
+    other_labels = [c for c in ("Label", "Label.1", "label") if c in df.columns and c != target]
+    if other_labels:
+        logger.info(f"Dropping non-target label column(s) from features: {other_labels}")
+        df = df.drop(columns=other_labels)
 
     # basic integrity checks on real data
     if not synthetic:
@@ -179,10 +215,23 @@ def load_dataset(cfg, logger, smoke_test=False):
 
 
 def build_models(cfg, seed):
+    """Build the traffic baselines.
+
+    The gradient-boosting variant is configurable via cfg["model"]["gbt"]:
+      - "hist"  -> HistGradientBoostingClassifier (multi-threaded, fast; default)
+      - "plain" -> GradientBoostingClassifier (sklearn classic; very slow on 150k+ rows)
+    """
+    gbt_kind = str(cfg.get("model", {}).get("gbt", "hist")).lower()
+    if gbt_kind == "plain":
+        gbt = ("GradientBoosting", GradientBoostingClassifier(random_state=seed))
+    else:
+        # histogram-based: 10-50x faster on large datasets, comparable accuracy
+        gbt = ("HistGradientBoosting",
+               HistGradientBoostingClassifier(random_state=seed))
     return {
         "RandomForest": RandomForestClassifier(
             n_estimators=cfg["model"]["rf_trees"], n_jobs=-1, random_state=seed),
-        "GradientBoosting": GradientBoostingClassifier(random_state=seed),
+        gbt[0]: gbt[1],
     }
 
 

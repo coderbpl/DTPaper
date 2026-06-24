@@ -92,16 +92,30 @@ def _derive_label_from_key(df, key_col, logger):
     tail = s.str.split("/").str[-1]            # drop any leading 'coda_dataset/'
 
     # Pattern 1: CoDA  {id}-{Category}-{lang}-{hash}
-    coda_re = re.compile(r"^\d+-([A-Za-z][A-Za-z _]*?)-([a-z]{2})-[0-9a-f]{8,}$")
+    # language codes may be 2 OR 3 letters (en, zh, arz, ceb, ilo, ...);
+    # hash is a long hex string.
+    coda_re = re.compile(r"^\d+-([A-Za-z][A-Za-z _]*?)-([a-z]{2,3})-[0-9a-f]{16,}$")
     m = tail.str.match(coda_re)
-    if m.mean() >= 0.8:                         # most rows match the CoDA layout
+    frac = float(m.mean())
+    if frac >= 0.5:                            # CoDA layout dominates
         cat = tail.str.replace(coda_re, r"\1", regex=True)
         lang = tail.str.replace(coda_re, r"\2", regex=True)
-        n_cat = cat.nunique()
+        # rows that did NOT match keep their raw tail in cat/lang; null them so
+        # they don't become bogus singleton classes that break stratified CV.
+        unmatched = ~tail.str.match(coda_re)
+        n_unmatched = int(unmatched.sum())
+        if n_unmatched:
+            cat = cat.where(~unmatched, other=pd.NA)
+            lang = lang.where(~unmatched, other=pd.NA)
+            logger.warning(
+                f"{n_unmatched} __key__ row(s) did not match the CoDA pattern "
+                f"and were set to NA (will be dropped in validation). "
+                f"Example: {tail[unmatched].iloc[0][:60]!r}")
+        n_cat = cat.dropna().nunique()
         logger.warning(
-            f"Parsed CoDA __key__ format: {n_cat} categories "
-            f"(e.g. {sorted(cat.unique())[:8]}); languages "
-            f"(e.g. {sorted(lang.unique())[:8]}). Labels = category.")
+            f"Parsed CoDA __key__ format ({frac*100:.1f}% matched): {n_cat} "
+            f"categories (e.g. {sorted(cat.dropna().unique())[:10]}); languages "
+            f"(e.g. {sorted(lang.dropna().unique())[:10]}). Labels = category.")
         return cat, lang
 
     # Pattern 2: generic 'category/...' path prefix
@@ -244,10 +258,24 @@ def load_dataset(cfg, logger, smoke_test=False):
         vc = df["label"].value_counts()
         if len(vc) < 2:
             raise ValueError(f"Need >= 2 classes; found {len(vc)}.")
-        rare = vc[vc < cfg["cv_folds"]]
+        # A class needs at least cv_folds members to appear in every fold, and
+        # at least 2 to survive the train/test split. Drop classes below the
+        # CV threshold so stratified splitting cannot crash. These are almost
+        # always parsing residue or genuinely unusable micro-classes.
+        min_per_class = max(2, int(cfg["cv_folds"]))
+        rare = vc[vc < min_per_class]
         if len(rare) > 0:
-            logger.warning(f"{len(rare)} class(es) have < {cfg['cv_folds']} samples and "
-                           f"may break stratified CV: {rare.to_dict()}")
+            n_before = len(df)
+            df = df[~df["label"].isin(rare.index)].reset_index(drop=True)
+            logger.warning(
+                f"Dropped {len(rare)} class(es) with < {min_per_class} samples "
+                f"({n_before - len(df)} rows) to enable stratified CV: "
+                f"{dict(list(rare.items())[:8])}"
+                + (" ..." if len(rare) > 8 else ""))
+            if df["label"].nunique() < 2:
+                raise ValueError(
+                    "After dropping rare classes, < 2 classes remain. "
+                    "Check label parsing or lower cv_folds.")
 
     class_report = _report_class_distribution(
         np.asarray(df["label"].tolist(), dtype=object), logger,
