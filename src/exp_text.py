@@ -164,8 +164,9 @@ def load_dataset(cfg, logger, smoke_test=False):
             logger.warning(f"{len(rare)} class(es) have < {cfg['cv_folds']} samples and "
                            f"may break stratified CV: {rare.to_dict()}")
 
-    class_report = _report_class_distribution(df["label"].values, logger,
-                                              f"{cfg['data']['name']} classes")
+    class_report = _report_class_distribution(
+        np.asarray(df["label"].tolist(), dtype=object), logger,
+        f"{cfg['data']['name']} classes")
     return df, synthetic, class_report
 
 
@@ -190,8 +191,13 @@ def run(cfg, logger, smoke_test=False):
     df, synthetic, class_report = load_dataset(cfg, logger, smoke_test=smoke_test)
     classes = sorted(df["label"].unique())
     cls_to_id = {c: i for i, c in enumerate(classes)}
-    y = df["label"].map(cls_to_id).values
-    texts = df["text"].values
+    # Convert to plain NumPy arrays. On environments where pandas uses the
+    # PyArrow backend (e.g. Kaggle), .values returns an arrow-backed extension
+    # array that train_test_split cannot index with an array of positions
+    # ("only integer scalar arrays can be converted to a scalar index").
+    # np.asarray(..., dtype=object/int) forces a standard NumPy array.
+    y = np.asarray(df["label"].map(cls_to_id).tolist(), dtype=int)
+    texts = np.asarray(df["text"].astype(str).tolist(), dtype=object)
 
     Xtr, Xte, ytr, yte = train_test_split(
         texts, y, test_size=cfg["data"]["test_size"], stratify=y, random_state=seed)

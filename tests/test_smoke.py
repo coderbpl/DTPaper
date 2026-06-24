@@ -45,17 +45,6 @@ def test_traffic_runs():
     print("test_traffic_runs OK")
 
 
-def test_traffic_gbt_variants():
-    cfg = load_config("configs/traffic.json")
-    models = exp_traffic.build_models(cfg, seed=42)
-    assert "HistGradientBoosting" in models
-
-    cfg["model"]["gbt_variant"] = "legacy"
-    models = exp_traffic.build_models(cfg, seed=42)
-    assert "GradientBoosting" in models
-    print("test_traffic_gbt_variants OK")
-
-
 def test_text_runs():
     cfg = load_config("configs/text.json")
     cfg["bootstrap"] = 50; cfg["cv_folds"] = 3
@@ -72,6 +61,5 @@ def test_text_runs():
 if __name__ == "__main__":
     test_stats_core()
     test_traffic_runs()
-    test_traffic_gbt_variants()
     test_text_runs()
     print("\nALL SMOKE TESTS PASSED")

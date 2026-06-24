@@ -26,11 +26,7 @@ from __future__ import annotations
 import argparse, json, os, time
 import numpy as np
 import pandas as pd
-from sklearn.ensemble import (
-    RandomForestClassifier,
-    GradientBoostingClassifier,
-    HistGradientBoostingClassifier,
-)
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.model_selection import StratifiedKFold, train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 
@@ -151,64 +147,22 @@ def load_dataset(cfg, logger, smoke_test=False):
         if len(df) == 0:
             raise ValueError("No rows remain after label cleaning; check the CSV.")
 
-    y = df[target].astype(str).str.strip().values
+    y = np.asarray(df[target].astype(str).str.strip().tolist(), dtype=object)
     X = df.drop(columns=[target])
     X = X.apply(pd.to_numeric, errors="coerce")
     X = X.replace([np.inf, -np.inf], np.nan).fillna(0.0)
+    # force a plain float64 NumPy array (avoids PyArrow-backed arrays on Kaggle)
+    X_arr = np.asarray(X.to_numpy(dtype="float64"))
 
     class_report = _report_class_distribution(y, logger, "CIC-Darknet2020 classes")
-    return X.values, y, synthetic, list(X.columns), class_report
-
-
-def _build_gradient_booster(cfg, seed):
-    model_cfg = cfg.get("model", {})
-    variant = str(model_cfg.get("gbt_variant", "hist")).lower()
-    max_iter = int(model_cfg.get("gbt_max_iter", 100))
-    learning_rate = float(model_cfg.get("gbt_learning_rate", 0.1))
-    max_leaf_nodes = int(model_cfg.get("gbt_max_leaf_nodes", 31))
-
-    if variant in {"hist", "histgradientboosting", "hist_gradient_boosting"}:
-        return "HistGradientBoosting", HistGradientBoostingClassifier(
-            max_iter=max_iter,
-            learning_rate=learning_rate,
-            max_leaf_nodes=max_leaf_nodes,
-            random_state=seed,
-        )
-    if variant in {"legacy", "classic", "gradientboosting", "gradient_boosting"}:
-        return "GradientBoosting", GradientBoostingClassifier(
-            n_estimators=max_iter,
-            learning_rate=learning_rate,
-            random_state=seed,
-        )
-    if variant in {"lightgbm", "lgbm"}:
-        try:
-            from lightgbm import LGBMClassifier
-        except ImportError as exc:
-            raise ImportError(
-                "gbt_variant='lightgbm' requires lightgbm. On Kaggle this may "
-                "already be available; otherwise install it or use "
-                "gbt_variant='hist'."
-            ) from exc
-        return "LightGBM", LGBMClassifier(
-            n_estimators=max_iter,
-            learning_rate=learning_rate,
-            num_leaves=max_leaf_nodes,
-            n_jobs=-1,
-            random_state=seed,
-            verbosity=-1,
-        )
-    raise ValueError(
-        "Unknown model.gbt_variant "
-        f"'{model_cfg.get('gbt_variant')}'. Use 'hist', 'legacy', or 'lightgbm'."
-    )
+    return X_arr, y, synthetic, list(X.columns), class_report
 
 
 def build_models(cfg, seed):
-    gbt_name, gbt_model = _build_gradient_booster(cfg, seed)
     return {
         "RandomForest": RandomForestClassifier(
             n_estimators=cfg["model"]["rf_trees"], n_jobs=-1, random_state=seed),
-        gbt_name: gbt_model,
+        "GradientBoosting": GradientBoostingClassifier(random_state=seed),
     }
 
 

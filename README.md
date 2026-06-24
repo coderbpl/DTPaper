@@ -19,7 +19,6 @@ NON-REPORTABLE, and excluded from `build_table6`.
 darktrace_phase1/
 ├── README.md                 # this file
 ├── DATASETS.md               # how to obtain & place CIC-Darknet2020 and CoDA/DUTA
-├── KAGGLE_SETUP.md           # Kaggle notebook setup and runtime guidance
 ├── requirements.txt          # CPU-only deps (Phase 2+ deps commented out)
 ├── configs/
 │   ├── traffic.json/.yaml    # traffic experiment config
@@ -51,15 +50,6 @@ pip install -r requirements.txt
 
 Only `numpy pandas scipy scikit-learn` are strictly required; `imbalanced-learn`
 enables SMOTE, `matplotlib` enables figures, `pyyaml`/`pytest` are optional.
-
-## Kaggle
-
-Use `KAGGLE_SETUP.md` for a Kaggle notebook runbook, including private Kaggle
-Dataset placement, CPU/GPU settings, and smoke-test vs reportable runs. Phase 1
-does not need a GPU. The traffic boosted-tree baseline defaults to sklearn's
-`HistGradientBoostingClassifier` for faster Kaggle runs; set
-`model.gbt_variant` to `"legacy"` in `configs/traffic.json` to use the original
-`GradientBoostingClassifier`.
 
 ## Quickstart
 

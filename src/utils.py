@@ -7,6 +7,21 @@ from __future__ import annotations
 import json, logging, os, random
 import numpy as np
 
+# --- Kaggle / newer-pandas compatibility -----------------------------------
+# Some environments (notably Kaggle) default pandas to the PyArrow string
+# backend, which yields arrow-backed extension arrays that scikit-learn's
+# train_test_split cannot index ("only integer scalar arrays can be converted
+# to a scalar index"). Force the classic NumPy backend for predictable behaviour.
+try:  # pragma: no cover - environment dependent
+    import pandas as _pd
+    _pd.set_option("mode.string_storage", "python")
+    # only set if the option exists in this pandas version
+    if "future.infer_string" in [k for k in _pd._config.config._registered_options]:
+        _pd.set_option("future.infer_string", False)
+except Exception:
+    pass
+# ---------------------------------------------------------------------------
+
 
 def load_config(path):
     """Load YAML if PyYAML is available, else fall back to JSON."""

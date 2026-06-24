@@ -4,12 +4,6 @@
   "bootstrap": 1000,
   "use_smote": true,
   "data": {"csv_path": "data/raw/CIC-Darknet2020.csv", "test_size": 0.2},
-  "model": {
-    "rf_trees": 200,
-    "gbt_variant": "hist",
-    "gbt_max_iter": 100,
-    "gbt_learning_rate": 0.1,
-    "gbt_max_leaf_nodes": 31
-  },
+  "model": {"rf_trees": 200},
   "paths": {"tables": "results/tables", "figures": "results/figures", "logs": "results/logs", "processed": "data/processed"}
 }
