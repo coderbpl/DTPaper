@@ -262,7 +262,7 @@ def load_dataset(cfg, logger, smoke_test=False):
         # at least 2 to survive the train/test split. Drop classes below the
         # CV threshold so stratified splitting cannot crash. These are almost
         # always parsing residue or genuinely unusable micro-classes.
-        min_per_class = max(2, int(cfg["cv_folds"]))
+        min_per_class = max(2, int(cfg.get("cv_folds", 5)))
         rare = vc[vc < min_per_class]
         if len(rare) > 0:
             n_before = len(df)
