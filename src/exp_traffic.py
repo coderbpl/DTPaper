@@ -135,6 +135,54 @@ def _auto_detect_label(df, cfg, logger):
     logger.warning(f"No known label column; using last column '{target}'")
     return target
 
+def _normalize_cic_application_labels(y, logger):
+    """
+    Normalize CIC-Darknet2020 application labels.
+
+    The real CIC-Darknet2020 CSV may contain the same application class with
+    inconsistent casing, for example:
+        AUDIO-STREAMING  -> Audio-Streaming
+        Video-streaming  -> Video-Streaming
+        File-transfer    -> File-Transfer
+
+    This function groups labels case-insensitively and keeps the most frequent
+    spelling as the canonical label. It avoids hardcoding all class names and
+    keeps readable labels in reports/figures.
+    """
+    s = pd.Series(y, dtype="object").astype(str).str.strip()
+
+    # Build a case-insensitive grouping key.
+    # We do not directly lowercase final labels; we only use this key for merging.
+    key = (
+        s.str.lower()
+         .str.replace("_", "-", regex=False)
+         .str.replace(r"\s+", " ", regex=True)
+         .str.strip()
+    )
+
+    canonical_by_key = {}
+    normalization_report = {}
+
+    for k, group in s.groupby(key):
+        # Choose the most common original spelling as canonical.
+        canonical = group.value_counts().idxmax()
+        canonical_by_key[k] = canonical
+
+        variants = sorted(group.unique().tolist())
+        if len(variants) > 1:
+            normalization_report[canonical] = variants
+
+    normalized = key.map(canonical_by_key).to_numpy(dtype=object)
+
+    if normalization_report:
+        logger.warning(f"Normalized CIC application label variants: {normalization_report}")
+        logger.info(
+            f"CIC application labels normalized: "
+            f"{s.nunique()} raw label(s) -> {pd.Series(normalized).nunique()} canonical label(s)."
+        )
+
+    return normalized
+
 
 def load_dataset(cfg, logger, smoke_test=False):
     """Load CIC-Darknet2020. In normal mode the real CSV is mandatory."""
