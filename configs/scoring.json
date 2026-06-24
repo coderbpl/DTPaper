@@ -1,0 +1,19 @@
+{
+  "seed": 42,
+  "bootstrap": 500,
+  "topk": 10,
+  "explain_max_eval": 200,
+  "lime_n": 30,
+  "data": {
+    "source": "text",
+    "csv_path": "data/raw/coda.csv",
+    "name": "CoDA",
+    "text_col": "txt",
+    "label_col": "label",
+    "test_size": 0.2,
+    "min_chars": 10,
+    "high_risk": ["Arms", "Drugs", "Weapons", "Hacking", "Financial", "Violence", "Crypto"]
+  },
+  "model": {"max_features": 2000},
+  "paths": {"tables": "results/tables", "figures": "results/figures", "logs": "results/logs", "processed": "data/processed"}
+}
