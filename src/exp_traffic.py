@@ -252,6 +252,12 @@ def load_dataset(cfg, logger, smoke_test=False):
             raise ValueError("No rows remain after label cleaning; check the CSV.")
 
     y = np.asarray(df[target].astype(str).str.strip().tolist(), dtype=object)
+
+    # Fix CIC-Darknet2020 application-label casing variants before reporting/training.
+    # Example: AUDIO-STREAMING, Video-streaming, File-transfer should not become
+    # separate classes. This is applied only to real data, not smoke-test synthetic data.
+    if not synthetic and str(target).strip().lower() in {"label.1", "application", "traffic type", "category", "class"}:
+        y = _normalize_cic_application_labels(y, logger)
     X = df.drop(columns=[target])
     X = X.apply(pd.to_numeric, errors="coerce")
     X = X.replace([np.inf, -np.inf], np.nan).fillna(0.0)
