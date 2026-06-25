@@ -81,3 +81,33 @@ positive, say so and treat explanations as qualitative aids only.
   large vocabulary. Report it as a convergent-validity indicator, not a pass/fail
   gate; faithfulness (comprehensiveness) is the stronger evidence of explanation
   quality.
+
+## Gold set (analyst-labelled risk) and three-method explanation agreement
+
+Two strengthening additions:
+
+**1. Analyst gold set.** The default risk label is derived from categories; a
+reviewer can call that a relabelling of classification. To counter this, sample a
+stratified subset for human labelling:
+
+```bash
+python -m src.make_gold_set --config configs/scoring.json --n 200
+# fill the 'risk' column (0=none,1=low,2=moderate,3=high) in
+# results/tables/gold_set_to_label.csv, save as gold_set_labelled.csv
+```
+
+Then set in configs/scoring.json: `data.risk_mode="analyst"` and
+`data.analyst_labels_csv="results/tables/gold_set_labelled.csv"`, and re-run. The
+loader aligns labels by `__key__`, drops unlabelled items, and marks the metrics
+"reportable as real labels". Rate the THREAT each post represents (not its
+category) so the gold set genuinely tests whether the model learns risk vs topic.
+
+**2. Three-method agreement (SHAP, LIME, Integrated Gradients).** Because SHAP and
+LIME diverge on sparse text, relying on their agreement is weak. The pipeline now
+adds model-agnostic Integrated Gradients as a third attribution method and reports
+pairwise agreement (Spearman on the union of top-k, Jaccard) plus a mean-pairwise
+consensus. Where two of three methods agree on a feature, the attribution is more
+trustworthy. Controlled by config: `use_integrated_gradients`, `ig_n`, `ig_steps`,
+`agree_k`. Report the divergence honestly — low cross-method agreement on
+high-dimensional sparse text is a documented, citable phenomenon; the faithfulness
+result (model-grounded ablation) does not depend on the methods agreeing.

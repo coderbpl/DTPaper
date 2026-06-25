@@ -38,5 +38,9 @@
   "cv_folds": 5,
   "stability_n": 30,
   "stability_perturb": 5,
-  "stability_noise": 0.02
+  "stability_noise": 0.02,
+  "use_integrated_gradients": true,
+  "ig_n": 30,
+  "ig_steps": 32,
+  "agree_k": 20
 }

@@ -235,7 +235,8 @@ def load_dataset(cfg, logger, smoke_test=False):
         df = pd.read_csv(path)
         synthetic = False
         tcol, lcol = _auto_detect_columns(df, cfg, logger)
-        df = df[[tcol, lcol]].rename(columns={tcol: "text", lcol: "label"})
+        keep_extra = [c for c in ("__key__", "__lang__") if c in df.columns]
+        df = df[[tcol, lcol] + keep_extra].rename(columns={tcol: "text", lcol: "label"})
 
     # --- text/label validation (CoDA mitigation, manuscript Section 8.2) ---
     n0 = len(df)

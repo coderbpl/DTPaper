@@ -305,6 +305,94 @@ def stability(model, X, attr_fn, logger, k=10, n_eval=40, n_perturb=5,
             "n_eval": n_eval, "n_perturb": n_perturb, "noise": noise}
 
 
+def integrated_gradients(model, X, baseline=None, steps=32, max_active=60):
+    """Model-agnostic Integrated Gradients for a non-differentiable scorer.
+
+    IG attributes the change in predicted risk between a baseline x' and the
+    input x to each feature, by integrating gradients along the straight-line
+    path x' -> x. For non-differentiable sklearn models we approximate the
+    gradient with central finite differences at each interpolation step.
+
+    For tractability on dense inputs we attribute only the `max_active` features
+    with the largest |x - baseline| (for sparse TF-IDF this is all nonzero
+    features anyway). Returns |attribution| matrix of shape (len(X), d).
+
+    This is a THIRD independent method to compare against SHAP and LIME, so the
+    explanation evidence does not rest on any single technique.
+    """
+    X = np.asarray(X, dtype=float)
+    n, d = X.shape
+    if baseline is None:
+        baseline = np.zeros(d)
+    baseline = np.asarray(baseline, dtype=float)
+    eps = 1e-3
+    attrs = np.zeros((n, d))
+    alphas = np.linspace(0, 1, steps)
+    for i in range(n):
+        diff = X[i] - baseline
+        nz = np.where(np.abs(diff) > 0)[0]
+        # cap to the most-changed features for speed on dense inputs
+        if len(nz) > max_active:
+            nz = nz[np.argsort(-np.abs(diff[nz]))[:max_active]]
+        if len(nz) == 0:
+            continue
+        # build all path points at once, evaluate base probs in one batch
+        path = baseline[None, :] + alphas[:, None] * diff[None, :]  # (steps, d)
+        base_p = model.predict_proba(path)[:, 1]                    # (steps,)
+        grad_sum = np.zeros(d)
+        for j in nz:
+            bumped = path.copy(); bumped[:, j] += eps
+            gp = model.predict_proba(bumped)[:, 1]
+            grad_sum[j] = np.sum((gp - base_p) / eps)
+        attrs[i] = np.abs(diff * grad_sum / max(1, steps))
+    return attrs
+
+
+def three_method_agreement(shap_attr, lime_attr, ig_attr, logger, k=20):
+    """Pairwise rank/set agreement between SHAP, LIME, and IG on the union of
+    each pair's top-k features. Using three methods turns a single weak
+    SHAP-LIME number into a proper multi-method robustness analysis: where two
+    of three agree, the attribution is more trustworthy.
+    """
+    from scipy.stats import spearmanr
+    methods = {"shap": shap_attr, "lime": lime_attr, "ig": ig_attr}
+    avail = {m: a for m, a in methods.items() if a is not None}
+    if len(avail) < 2:
+        logger.info("Fewer than two attribution methods available; skipping.")
+        return {"available": list(avail.keys())}
+    n = min(len(a) for a in avail.values())
+    d = next(iter(avail.values())).shape[1]
+    kk = min(k, d)
+    out = {"available": list(avail.keys()), "k": kk, "pairs": {}}
+    names = list(avail.keys())
+    for x in range(len(names)):
+        for y in range(x + 1, len(names)):
+            ma, mb = names[x], names[y]
+            A, B = avail[ma], avail[mb]
+            rhos, jaccs = [], []
+            for i in range(n):
+                at, bt = set(np.argsort(-A[i])[:kk]), set(np.argsort(-B[i])[:kk])
+                uni = sorted(at | bt)
+                if len(uni) >= 3:
+                    rho, _ = spearmanr(A[i][uni], B[i][uni])
+                    if not np.isnan(rho):
+                        rhos.append(rho)
+                inter = len(at & bt); u = len(at | bt)
+                jaccs.append(inter / u if u else 0.0)
+            pair = f"{ma}_vs_{mb}"
+            out["pairs"][pair] = {
+                "spearman_union": float(np.mean(rhos)) if rhos else None,
+                "jaccard": float(np.mean(jaccs)) if jaccs else None, "n": len(jaccs)}
+            logger.info(f"Agreement {pair}: Spearman(union)="
+                        f"{out['pairs'][pair]['spearman_union']}, "
+                        f"Jaccard={out['pairs'][pair]['jaccard']}")
+    # consensus: mean pairwise Jaccard (higher => methods converge)
+    js = [p["jaccard"] for p in out["pairs"].values() if p["jaccard"] is not None]
+    out["mean_pairwise_jaccard"] = float(np.mean(js)) if js else None
+    logger.info(f"Mean pairwise Jaccard across methods: {out['mean_pairwise_jaccard']}")
+    return out
+
+
 def lime_agreement(model, Xtr, Xte, attr, feat_names, seed, logger, n=30, k=20):
     """Convergent validity between SHAP and LIME attributions.
 
@@ -318,7 +406,8 @@ def lime_agreement(model, Xtr, Xte, attr, feat_names, seed, logger, n=30, k=20):
     """
     if not HAVE_LIME:
         logger.info("LIME not available; skipping SHAP-LIME agreement.")
-        return {"lime_spearman": None, "lime_jaccard": None, "available": False}
+        return ({"lime_spearman": None, "lime_jaccard": None, "available": False},
+                None)
     from scipy.stats import spearmanr
     expl = LimeTabularExplainer(
         Xtr, feature_names=feat_names, class_names=["low", "high"],
@@ -327,12 +416,14 @@ def lime_agreement(model, Xtr, Xte, attr, feat_names, seed, logger, n=30, k=20):
     n = min(n, len(Xte), attr.shape[0])
     d = Xte.shape[1]
     kk = min(k, d)
+    lime_mat = np.zeros((n, d))
     for i in range(n):
         e = expl.explain_instance(Xte[i], model.predict_proba,
                                   num_features=kk)
         lime_w = np.zeros(d)
         for idx, w in e.local_exp[1]:
             lime_w[idx] = abs(w)
+        lime_mat[i] = lime_w
         shap_w = attr[i]
         shap_top = set(np.argsort(-shap_w)[:kk])
         lime_top = set(np.argsort(-lime_w)[:kk])
@@ -349,9 +440,9 @@ def lime_agreement(model, Xtr, Xte, attr, feat_names, seed, logger, n=30, k=20):
     jac_val = float(np.mean(jaccs)) if jaccs else None
     logger.info(f"SHAP-LIME agreement (top-{kk}): Spearman(union)={rho_val}, "
                 f"Jaccard={jac_val}")
-    return {"lime_spearman": rho_val, "lime_jaccard": jac_val,
-            "available": True, "n": len(jaccs), "k": kk,
-            "method": "union_topk"}
+    return ({"lime_spearman": rho_val, "lime_jaccard": jac_val,
+             "available": True, "n": len(jaccs), "k": kk,
+             "method": "union_topk"}, lime_mat)
 
 
 def _rank_metrics(y_true, scores):
@@ -464,14 +555,27 @@ def run(cfg, logger, smoke_test=False):
                      n_eval=cfg.get("stability_n", 30),
                      n_perturb=cfg.get("stability_perturb", 5),
                      noise=cfg.get("stability_noise", 0.02), seed=seed)
-    agree = lime_agreement(ens_cal, Xtr_s, Xeval, attr, feat_names, seed, logger,
-                           n=cfg.get("lime_n", 30))
+    agree, lime_mat = lime_agreement(ens_cal, Xtr_s, Xeval, attr, feat_names, seed, logger,
+                                     n=cfg.get("lime_n", 30))
+
+    # Third attribution method: Integrated Gradients (model-agnostic).
+    # Turns the weak two-method SHAP-LIME comparison into a 3-way robustness check.
+    three_way = None
+    if cfg.get("use_integrated_gradients", True):
+        ig_n = min(cfg.get("ig_n", 30), len(Xeval))
+        logger.info(f"Computing Integrated Gradients on {ig_n} instances...")
+        ig_attr = integrated_gradients(ens_cal, Xeval[:ig_n],
+                                       steps=cfg.get("ig_steps", 32))
+        lime_for_cmp = lime_mat[:ig_n] if lime_mat is not None else None
+        three_way = three_method_agreement(
+            attr[:ig_n], lime_for_cmp, ig_attr, logger, k=cfg.get("agree_k", 20))
 
     results["models"]["explainable_ensemble"] = {
         "ranking": ens_rank,
         "macro_f1_at_0.5_ci95": [lo, hi],
         "attribution_method": attr_method,
         "faithfulness": fid, "stability": stab, "shap_lime_agreement": agree,
+        "three_method_agreement": three_way,
     }
 
     # --- black-box baseline (MLP) ---
