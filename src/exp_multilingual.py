@@ -33,7 +33,6 @@ Model:
 
 Run:
     python -m src.exp_multilingual --config configs/multilingual.json
-    python -m src.exp_multilingual --config configs/multilingual.json --smoke-test
 """
 from __future__ import annotations
 import argparse, json, os, time, warnings
@@ -63,24 +62,10 @@ except Exception:
 DEFAULT_MODEL = "distilbert-base-multilingual-cased"
 
 
-def _load_multilingual(cfg, logger, smoke_test):
+def _load_multilingual(cfg, logger):
     """Load CoDA with language, restrict to in-scope languages (n >= threshold)."""
-    if smoke_test:
-        rng = np.random.RandomState(cfg["seed"])
-        langs = ["en", "ru", "de", "fr", "es"]
-        cats = ["Drugs", "Arms", "Hacking", "Financial", "Others"]
-        rows = []
-        for _ in range(1200):
-            l = rng.choice(langs, p=[0.6, 0.15, 0.1, 0.08, 0.07])
-            c = rng.choice(cats)
-            rows.append({"text": f"{c} {l} " + " ".join(
-                rng.choice(["vendor", "market", "price", "ship", "escrow"], 8)),
-                "label": c, "lang": l})
-        df = pd.DataFrame(rows)
-        return df, True
-
     from .exp_text import load_dataset as load_text
-    df, synthetic, _ = load_text(cfg, logger, smoke_test=False)
+    df, _ = load_text(cfg, logger)
     if "__lang__" not in df.columns:
         raise ValueError("No __lang__ column; Phase 2 needs language info from the "
                          "CoDA key parser. Re-run with the current exp_text.py.")
@@ -98,7 +83,7 @@ def _load_multilingual(cfg, logger, smoke_test):
             f"(e.g. Hindi if present): {dict(list(dropped.items())[:12])}"
             + (" ..." if len(dropped) > 12 else ""))
     df = df[df["lang"].isin(keep_langs)].reset_index(drop=True)
-    return df, False
+    return df
 
 
 def _encode_labels(df):
@@ -189,12 +174,12 @@ def _per_language_scores(eval_df, y_true, y_pred, logger):
     return out
 
 
-def run(cfg, logger, smoke_test=False):
+def run(cfg, logger):
     seed = cfg["seed"]; set_seed(seed)
-    df, synthetic = _load_multilingual(cfg, logger, smoke_test)
+    df = _load_multilingual(cfg, logger)
     df, classes, c2i = _encode_labels(df)
     results = {"experiment": "phase2_multilingual_classification",
-               "synthetic": synthetic, "reportable": (not synthetic),
+               "reportable": True,
                "scope_note": "classification only; NER excluded (CoDA has no entity labels)",
                "model_path": None, "classes": classes, "seed": seed,
                "languages": {}, "evaluations": {}}
@@ -242,16 +227,15 @@ def run(cfg, logger, smoke_test=False):
 
 def write_table7_fragment(results, out_path, logger):
     """Manuscript Table 7 (multilingual per-language) fragment."""
-    flag = " [SMOKE-TEST/NON-REPORTABLE]" if results.get("synthetic") else ""
     rows = []
     pooled = results["evaluations"].get("pooled", {})
     for lang, m in pooled.get("per_language", {}).items():
-        rows.append({"Evaluation": f"Pooled{flag}", "Language": lang,
+        rows.append({"Evaluation": "Pooled", "Language": lang,
                      "N": m["n"], "Macro_F1": round(m["macro_f1"], 4),
                      "Accuracy": round(m["accuracy"], 4)})
     xfer = results["evaluations"].get("cross_lingual_train_en", {})
     for lang, m in xfer.get("per_language", {}).items():
-        rows.append({"Evaluation": f"Transfer(EN->){flag}", "Language": lang,
+        rows.append({"Evaluation": "Transfer(EN->)", "Language": lang,
                      "N": m["n"], "Macro_F1": round(m["macro_f1"], 4),
                      "Accuracy": round(m["accuracy"], 4)})
     pd.DataFrame(rows).to_csv(out_path, index=False)
@@ -261,22 +245,16 @@ def write_table7_fragment(results, out_path, logger):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/multilingual.json")
-    ap.add_argument("--smoke-test", action="store_true")
     args = ap.parse_args()
     cfg = load_config(args.config)
     ensure_dirs(cfg)
     logger = get_logger("multilingual", cfg["paths"]["logs"])
     t0 = time.time()
-    results = run(cfg, logger, smoke_test=args.smoke_test)
+    results = run(cfg, logger)
     tables = cfg["paths"]["tables"]
-    if results["synthetic"]:
-        save_json(results, os.path.join(tables, "multilingual_results_SMOKETEST.json"))
-        write_table7_fragment(results, os.path.join(tables, "table7_multilingual_SMOKETEST.csv"), logger)
-        logger.warning("SMOKE TEST complete — NON-REPORTABLE.")
-    else:
-        save_json(results, os.path.join(tables, "multilingual_results.json"))
-        write_table7_fragment(results, os.path.join(tables, "table7_multilingual.csv"), logger)
-        logger.info("Real-data run complete — Table 7 multilingual fragment written.")
+    save_json(results, os.path.join(tables, "multilingual_results.json"))
+    write_table7_fragment(results, os.path.join(tables, "table7_multilingual.csv"), logger)
+    logger.info("Real-data run complete — Table 7 multilingual fragment written.")
     logger.info(f"Done in {time.time()-t0:.1f}s. Model path: {results['model_path']}")
 
 

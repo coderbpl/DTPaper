@@ -1,0 +1,20 @@
+{
+  "seed": 42,
+  "data": {
+    "source": "text",
+    "csv_path": "data/raw/coda.csv",
+    "name": "CoDA",
+    "text_col": "txt",
+    "label_col": "label",
+    "min_chars": 10,
+    "n_evidence": 500,
+    "ledger_path": "results/ledger.jsonl",
+    "append_ledger": false
+  },
+  "paths": {
+    "tables": "results/tables",
+    "figures": "results/figures",
+    "logs": "results/logs",
+    "processed": "data/processed"
+  }
+}

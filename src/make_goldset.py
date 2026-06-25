@@ -39,9 +39,7 @@ def main():
     cfg = load_config(args.config)
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     logger = get_logger("goldset", cfg["paths"]["logs"])
-    df, synthetic, _ = load_text(cfg, logger, smoke_test=False)
-    if synthetic:
-        raise SystemExit("Refusing to build a gold set from synthetic data.")
+    df, _ = load_text(cfg, logger)
 
     # attach language if present from the loader
     if "__lang__" in df.columns:

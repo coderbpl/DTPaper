@@ -35,11 +35,9 @@ def main():
         else:
             missing.append(f)
     if not frags:
-        print("No real-data Table 6 fragments found.")
-        print("Run the experiments on REAL data first (without --smoke-test):")
+        print("No Table 6 fragments found. Run the experiments on real data first:")
         print("  python -m src.exp_traffic --config configs/traffic.json")
         print("  python -m src.exp_text    --config configs/text.json")
-        print("(Smoke-test outputs ending in _SMOKETEST are intentionally excluded.)")
         return
     if missing:
         print(f"WARNING: missing real-data fragment(s): {missing}. "

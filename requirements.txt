@@ -16,3 +16,10 @@ datasets>=2.14           # optional; only to export CoDA from Hugging Face
 # Phase 3 (explainable scoring) — CPU OK
 shap>=0.44
 lime>=0.2
+# Phase 2 (multilingual) — GPU
+transformers>=4.40
+torch>=2.0
+# Phase 5 (STIX/TAXII)
+stix2>=3.0
+taxii2-client>=2.3
+tabulate>=0.9  # for build_all_tables markdown output

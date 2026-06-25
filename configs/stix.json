@@ -1,0 +1,21 @@
+{
+  "seed": 42,
+  "link_evidence": false,
+  "data": {
+    "source": "text",
+    "csv_path": "data/raw/coda.csv",
+    "name": "CoDA",
+    "text_col": "txt",
+    "label_col": "label",
+    "min_chars": 10,
+    "n_findings": 300
+  },
+  "taxii": {
+    "url": "",
+    "collection_id": "",
+    "user": "",
+    "password": "",
+    "_note": "Set url + collection_id to push to a real TAXII 2.1 server; otherwise bundles are written to results/stix/ for manual SIEM import."
+  },
+  "paths": {"tables": "results/tables", "figures": "results/figures", "logs": "results/logs", "processed": "data/processed", "stix": "results/stix"}
+}

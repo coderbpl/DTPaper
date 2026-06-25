@@ -24,7 +24,6 @@ Design choices that keep this honest and reproducible:
 
 Run (after Phase 1 has produced real data files):
     python -m src.exp_scoring --config configs/scoring.json
-    python -m src.exp_scoring --config configs/scoring.json --smoke-test
 """
 from __future__ import annotations
 import argparse, json, os, time, warnings
@@ -70,20 +69,6 @@ except Exception:
 # Default high-risk categories for the CoDA text task. Override in config.
 DEFAULT_HIGH_RISK = ["Arms", "Drugs", "Weapons", "Hacking", "Financial",
                      "Violence", "Crypto", "Fraud", "Counterfeit"]
-
-
-def _make_synthetic_scoring(n=1500, seed=42):
-    """Synthetic tabular risk problem. SMOKE-TEST ONLY."""
-    rng = np.random.RandomState(seed)
-    n_feat = 12
-    X = rng.randn(n, n_feat)
-    # risk is a nonlinear function of a few features (so explanations are testable)
-    logit = (1.4 * X[:, 0] - 1.1 * X[:, 1] + 0.9 * X[:, 2] * X[:, 3]
-             + 0.6 * (X[:, 4] > 0))
-    p = 1 / (1 + np.exp(-logit))
-    y = (rng.rand(n) < p).astype(int)
-    cols = [f"feat_{i}" for i in range(n_feat)]
-    return pd.DataFrame(X, columns=cols), y, cols
 
 
 # Category -> ordinal severity (0=low ... 3=critical). A defensible, STATED
@@ -171,14 +156,14 @@ def _risk_label(df, cfg, logger):
     return y, "binary", {"high_risk": sorted(high), "n_high": pos}
 
 
-def _load_text_features(cfg, logger, smoke_test):
+def _load_text_features(cfg, logger):
     """Build features + risk label from the real CoDA text corpus.
 
     Reuses the Phase-1 text loader so casing/validation/label-derivation are
     identical, then attaches a risk label (analyst / severity / binary).
     """
     from .exp_text import load_dataset as load_text
-    df, synthetic, class_report = load_text(cfg, logger, smoke_test=smoke_test)
+    df, class_report = load_text(cfg, logger)
     df = df.reset_index(drop=True)
     y, risk_mode, risk_meta = _risk_label(df, cfg, logger)
     df = df.reset_index(drop=True)
@@ -189,7 +174,7 @@ def _load_text_features(cfg, logger, smoke_test):
     X = vec.fit_transform(df["text"].astype(str).values)
     feat_names = list(vec.get_feature_names_out())
     meta = {"risk_mode": risk_mode, "risk_meta": risk_meta}
-    return X.toarray().astype("float32"), y, feat_names, synthetic, class_report, meta
+    return X.toarray().astype("float32"), y, feat_names, class_report, meta
 
 
 def build_ensemble(seed):
@@ -472,17 +457,12 @@ def _rank_metrics(y_true, scores):
     return out
 
 
-def run(cfg, logger, smoke_test=False):
+def run(cfg, logger):
     seed = cfg["seed"]; set_seed(seed)
     source = cfg["data"].get("source", "text")
 
-    if smoke_test:
-        Xdf, y, feat_names = _make_synthetic_scoring(seed=seed)
-        X = Xdf.values.astype("float32"); synthetic = True; class_report = None
-        risk_meta = {"risk_mode": "synthetic"}
-    elif source == "text":
-        X, y, feat_names, synthetic, class_report, risk_meta = _load_text_features(
-            cfg, logger, smoke_test=False)
+    if source == "text":
+        X, y, feat_names, class_report, risk_meta = _load_text_features(cfg, logger)
     else:
         raise ValueError(f"Unsupported scoring source '{source}' in this build.")
 
@@ -508,7 +488,7 @@ def run(cfg, logger, smoke_test=False):
     Xtr_s = scaler.transform(Xtr); Xte_s = scaler.transform(Xte)
 
     results = {"experiment": "phase3_explainable_scoring",
-               "synthetic": synthetic, "reportable": (not synthetic),
+               "reportable": True,
                "source": source, "seed": seed,
                "n_train": int(len(ytr)), "n_test": int(len(yte)),
                "n_features": int(X.shape[1]),
@@ -609,14 +589,13 @@ def run(cfg, logger, smoke_test=False):
 
 def write_table10_fragment(results, out_path, logger):
     """Manuscript Table 10 (scoring + explainability) fragment."""
-    flag = " [SMOKE-TEST/NON-REPORTABLE]" if results.get("synthetic") else ""
     rows = []
     ens = results["models"].get("explainable_ensemble", {})
     bb = results["models"].get("blackbox_mlp", {})
     if ens:
         r = ens["ranking"]; f = ens["faithfulness"]; s = ens["stability"]
         rows.append({
-            "Model": f"DarkTrace Explainable Ensemble{flag}",
+            "Model": f"DarkTrace Explainable Ensemble",
             "AUC": round(r["auc"], 4) if r["auc"] else "NA",
             "AP": round(r["ap"], 4) if r["ap"] else "NA",
             "NDCG@10": round(r["ndcg@10"], 4) if r["ndcg@10"] else "NA",
@@ -627,7 +606,7 @@ def write_table10_fragment(results, out_path, logger):
     if bb:
         r = bb["ranking"]
         rows.append({
-            "Model": f"Black-box MLP (baseline){flag}",
+            "Model": f"Black-box MLP (baseline)",
             "AUC": round(r["auc"], 4) if r["auc"] else "NA",
             "AP": round(r["ap"], 4) if r["ap"] else "NA",
             "NDCG@10": round(r["ndcg@10"], 4) if r["ndcg@10"] else "NA",
@@ -641,25 +620,17 @@ def write_table10_fragment(results, out_path, logger):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/scoring.json")
-    ap.add_argument("--smoke-test", action="store_true",
-                    help="Run on SYNTHETIC data to verify the pipeline (NON-REPORTABLE).")
     args = ap.parse_args()
     cfg = load_config(args.config)
     ensure_dirs(cfg)
     logger = get_logger("scoring", cfg["paths"]["logs"])
     t0 = time.time()
-    results = run(cfg, logger, smoke_test=args.smoke_test)
+    results = run(cfg, logger)
     tables = cfg["paths"]["tables"]
-    if results["synthetic"]:
-        save_json(results, os.path.join(tables, "scoring_results_SMOKETEST.json"))
-        write_table10_fragment(
-            results, os.path.join(tables, "table10_scoring_SMOKETEST.csv"), logger)
-        logger.warning("SMOKE TEST complete — NON-REPORTABLE.")
-    else:
-        save_json(results, os.path.join(tables, "scoring_results.json"))
-        write_table10_fragment(
-            results, os.path.join(tables, "table10_scoring.csv"), logger)
-        logger.info("Real-data run complete — Table 10 scoring fragment written.")
+    save_json(results, os.path.join(tables, "scoring_results.json"))
+    write_table10_fragment(
+        results, os.path.join(tables, "table10_scoring.csv"), logger)
+    logger.info("Real-data run complete — Table 10 scoring fragment written.")
     logger.info(f"Done in {time.time()-t0:.1f}s.")
 
 

@@ -1,0 +1,3 @@
+11:25:02 [INFO] Built STIX 2.1 bundle (manual, spec-compliant): 3 objects.
+11:25:02 [INFO] Bundle validation: PASS (3 objects, 2 indicators)
+11:25:03 [WARNING] Normalized 2 case-variant label(s) into canonical forms, merging 4 -> 2 classes. Merged groups: {'Audio-Streaming': ['Audio-Streaming', 'AUDIO-STREAMING'], 'Chat': ['Chat', 'chat']}

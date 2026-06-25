@@ -28,44 +28,8 @@ from .metrics_stats import (classification_metrics, per_class_f1, aggregate_fold
 from .utils import load_config, ensure_dirs, get_logger, save_json, set_seed
 
 
-# illicit-activity categories aligned to CoDA-style labels (manuscript [23],[24])
-SYNTH_CATEGORIES = ["Drugs", "Weapons", "Fraud", "Hacking", "Counterfeit", "Other"]
-SYNTH_TERMS = {
-    "Drugs": ["gram", "cocaine", "mdma", "shipping", "stealth", "purity"],
-    "Weapons": ["pistol", "ammo", "rifle", "untraceable", "caliber", "ship"],
-    "Fraud": ["cvv", "dumps", "fullz", "paypal", "cashout", "bank"],
-    "Hacking": ["exploit", "rdp", "botnet", "ransomware", "zeroday", "shell"],
-    "Counterfeit": ["replica", "passport", "id", "banknote", "hologram", "scan"],
-    "Other": ["forum", "vendor", "review", "escrow", "mirror", "pgp"],
-}
-
-
-def _make_synthetic(n_per=400, seed=42):
-    rng = np.random.RandomState(seed)
-    rows = []
-    # imbalance: some categories rarer (manuscript notes DUTA imbalance)
-    weights = {"Drugs": 1.0, "Fraud": 0.8, "Hacking": 0.6, "Other": 0.9,
-               "Weapons": 0.4, "Counterfeit": 0.3}
-    all_terms = sum(SYNTH_TERMS.values(), [])
-    for cat, w in weights.items():
-        for _ in range(int(n_per * w)):
-            k = rng.randint(8, 30)
-            # weaker signal + heavy shared filler so classes overlap (realistic, not trivial)
-            base = rng.choice(SYNTH_TERMS[cat], size=min(k, 4)).tolist()
-            filler = rng.choice(all_terms, size=k * 2).tolist()
-            words = base + filler
-            rng.shuffle(words)
-            label = cat
-            # 12% label noise to prevent a trivially separable problem
-            if rng.rand() < 0.12:
-                label = rng.choice(SYNTH_CATEGORIES)
-            rows.append({"text": " ".join(words), "label": label})
-    df = pd.DataFrame(rows).sample(frac=1.0, random_state=seed).reset_index(drop=True)
-    return df
-
-
 class MissingRealDataError(FileNotFoundError):
-    """Raised in normal (reportable) mode when the real corpus is absent."""
+    """Raised when the real corpus is absent (real-data-only pipeline)."""
 
 
 # common column-name variants for CoDA / DUTA-style corpora
@@ -216,27 +180,22 @@ def _report_class_distribution(y, logger, title="Class distribution"):
             "distribution": dist, "imbalance_ratio": imbalance}
 
 
-def load_dataset(cfg, logger, smoke_test=False):
-    """Load CoDA/DUTA text. In normal mode the real corpus is mandatory."""
+def load_dataset(cfg, logger):
+    """Load CoDA/DUTA text. The real corpus is mandatory; no synthetic fallback.
+    Returns (df, class_report)."""
     path = cfg["data"]["csv_path"]
 
-    if smoke_test:
-        logger.warning("SMOKE-TEST MODE: generating SYNTHETIC text (NON-REPORTABLE).")
-        df = _make_synthetic(); synthetic = True
-    else:
-        if not os.path.exists(path):
-            raise MissingRealDataError(
-                f"Real text corpus not found at '{path}'.\n"
-                f"Normal mode requires real data for reportable results.\n"
-                f"  - Download CoDA (Hugging Face s2w-ai/CoDA) or DUTA-10K "
-                f"(see DATASETS.md) and place it at that path, or\n"
-                f"  - run with --smoke-test to exercise the pipeline on synthetic data.")
-        logger.info(f"Loading real text corpus from {path}")
-        df = pd.read_csv(path)
-        synthetic = False
-        tcol, lcol = _auto_detect_columns(df, cfg, logger)
-        keep_extra = [c for c in ("__key__", "__lang__") if c in df.columns]
-        df = df[[tcol, lcol] + keep_extra].rename(columns={tcol: "text", lcol: "label"})
+    if not os.path.exists(path):
+        raise MissingRealDataError(
+            f"Real text corpus not found at '{path}'.\n"
+            f"This pipeline is real-data-only. Download CoDA "
+            f"(Hugging Face s2w-ai/CoDA) or DUTA-10K (see DATASETS.md) and "
+            f"place it at that path.")
+    logger.info(f"Loading real text corpus from {path}")
+    df = pd.read_csv(path)
+    tcol, lcol = _auto_detect_columns(df, cfg, logger)
+    keep_extra = [c for c in ("__key__", "__lang__") if c in df.columns]
+    df = df[[tcol, lcol] + keep_extra].rename(columns={tcol: "text", lcol: "label"})
 
     # --- text/label validation (CoDA mitigation, manuscript Section 8.2) ---
     n0 = len(df)
@@ -250,38 +209,37 @@ def load_dataset(cfg, logger, smoke_test=False):
     df = df[df["text"].str.len() >= minlen]
     # drop exact-duplicate documents (common in dark web scrapes)
     df = df.drop_duplicates(subset=["text"]).reset_index(drop=True)
-    if not synthetic:
-        logger.info(f"Text validation: {n0} -> {len(df)} rows after cleaning "
-                    f"(dropped empties, short docs < {minlen} chars, duplicates).")
-        if len(df) == 0:
-            raise ValueError("No valid documents remain after cleaning; check the corpus.")
-        # require at least 2 classes with enough samples to stratify
-        vc = df["label"].value_counts()
-        if len(vc) < 2:
-            raise ValueError(f"Need >= 2 classes; found {len(vc)}.")
-        # A class needs at least cv_folds members to appear in every fold, and
-        # at least 2 to survive the train/test split. Drop classes below the
-        # CV threshold so stratified splitting cannot crash. These are almost
-        # always parsing residue or genuinely unusable micro-classes.
-        min_per_class = max(2, int(cfg.get("cv_folds", 5)))
-        rare = vc[vc < min_per_class]
-        if len(rare) > 0:
-            n_before = len(df)
-            df = df[~df["label"].isin(rare.index)].reset_index(drop=True)
-            logger.warning(
-                f"Dropped {len(rare)} class(es) with < {min_per_class} samples "
-                f"({n_before - len(df)} rows) to enable stratified CV: "
-                f"{dict(list(rare.items())[:8])}"
-                + (" ..." if len(rare) > 8 else ""))
-            if df["label"].nunique() < 2:
-                raise ValueError(
-                    "After dropping rare classes, < 2 classes remain. "
-                    "Check label parsing or lower cv_folds.")
+    logger.info(f"Text validation: {n0} -> {len(df)} rows after cleaning "
+                f"(dropped empties, short docs < {minlen} chars, duplicates).")
+    if len(df) == 0:
+        raise ValueError("No valid documents remain after cleaning; check the corpus.")
+    # require at least 2 classes with enough samples to stratify
+    vc = df["label"].value_counts()
+    if len(vc) < 2:
+        raise ValueError(f"Need >= 2 classes; found {len(vc)}.")
+    # A class needs at least cv_folds members to appear in every fold, and
+    # at least 2 to survive the train/test split. Drop classes below the
+    # CV threshold so stratified splitting cannot crash. These are almost
+    # always parsing residue or genuinely unusable micro-classes.
+    min_per_class = max(2, int(cfg.get("cv_folds", 5)))
+    rare = vc[vc < min_per_class]
+    if len(rare) > 0:
+        n_before = len(df)
+        df = df[~df["label"].isin(rare.index)].reset_index(drop=True)
+        logger.warning(
+            f"Dropped {len(rare)} class(es) with < {min_per_class} samples "
+            f"({n_before - len(df)} rows) to enable stratified CV: "
+            f"{dict(list(rare.items())[:8])}"
+            + (" ..." if len(rare) > 8 else ""))
+        if df["label"].nunique() < 2:
+            raise ValueError(
+                "After dropping rare classes, < 2 classes remain. "
+                "Check label parsing or lower cv_folds.")
 
     class_report = _report_class_distribution(
         np.asarray(df["label"].tolist(), dtype=object), logger,
         f"{cfg['data']['name']} classes")
-    return df, synthetic, class_report
+    return df, class_report
 
 
 def build_models(cfg, seed):
@@ -300,9 +258,9 @@ def build_models(cfg, seed):
     }
 
 
-def run(cfg, logger, smoke_test=False):
+def run(cfg, logger):
     seed = cfg["seed"]; set_seed(seed)
-    df, synthetic, class_report = load_dataset(cfg, logger, smoke_test=smoke_test)
+    df, class_report = load_dataset(cfg, logger)
     classes = sorted(df["label"].unique())
     cls_to_id = {c: i for i, c in enumerate(classes)}
     # Convert to plain NumPy arrays. On environments where pandas uses the
@@ -317,8 +275,8 @@ def run(cfg, logger, smoke_test=False):
         texts, y, test_size=cfg["data"]["test_size"], stratify=y, random_state=seed)
     skf = StratifiedKFold(n_splits=cfg["cv_folds"], shuffle=True, random_state=seed)
 
-    results = {"dataset": cfg["data"]["name"], "synthetic": synthetic,
-               "reportable": (not synthetic), "class_report": class_report,
+    results = {"dataset": cfg["data"]["name"], "reportable": True,
+               "class_report": class_report,
                "classes": classes, "seed": seed,
                "n_train": int(len(ytr)), "n_test": int(len(yte)), "models": {}}
     test_preds = {}
@@ -353,11 +311,10 @@ def run(cfg, logger, smoke_test=False):
 
 def write_table6_fragment(results, out_path, logger):
     rows = []
-    flag = " [SMOKE-TEST/NON-REPORTABLE]" if results.get("synthetic") else ""
     for name, r in results["models"].items():
         t = r["test"]
         rows.append({
-            "Model_dataset": f"DarkTrace {name} ({results['dataset']}){flag}",
+            "Model_dataset": f"DarkTrace {name} ({results['dataset']})",
             "Accuracy": round(t["accuracy"], 4),
             "Macro_F1": round(t["macro_f1"], 4),
             "AUC": "NA",
@@ -370,8 +327,6 @@ def write_table6_fragment(results, out_path, logger):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/text.json")
-    ap.add_argument("--smoke-test", action="store_true",
-                    help="Run on SYNTHETIC data to verify the pipeline (NON-REPORTABLE).")
     args = ap.parse_args()
     cfg = load_config(args.config)
     ensure_dirs(cfg)
@@ -379,23 +334,15 @@ def main():
     t0 = time.time()
 
     try:
-        results = run(cfg, logger, smoke_test=args.smoke_test)
+        results = run(cfg, logger)
     except MissingRealDataError as e:
         logger.error(str(e))
         raise SystemExit(2)
 
     tables = cfg["paths"]["tables"]
-    if results["synthetic"]:
-        save_json(results, os.path.join(tables, "text_results_SMOKETEST.json"))
-        write_table6_fragment(
-            results, os.path.join(tables, "table6_text_SMOKETEST.csv"), logger)
-        logger.warning("SMOKE TEST complete — outputs marked NON-REPORTABLE. "
-                       "Table 6 fragment NOT written (real data required).")
-    else:
-        save_json(results, os.path.join(tables, "text_results.json"))
-        write_table6_fragment(
-            results, os.path.join(tables, "table6_text.csv"), logger)
-        logger.info("Real-data run complete — Table 6 text fragment written.")
+    save_json(results, os.path.join(tables, "text_results.json"))
+    write_table6_fragment(results, os.path.join(tables, "table6_text.csv"), logger)
+    logger.info("Real-data run complete — Table 6 text fragment written.")
 
     logger.info(f"Done in {time.time()-t0:.1f}s.")
 

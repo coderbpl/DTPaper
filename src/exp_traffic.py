@@ -8,19 +8,14 @@ Baselines (manuscript Section 8.4): Random Forest and gradient-boosted trees.
 Protocol (Section 8.3): stratified 5-fold CV, SMOTE inside training folds only,
 fixed held-out test set.
 
-MODES
------
-Normal (default): runs ONLY on the real CIC-Darknet2020 CSV. If the file is
-missing, the experiment fails hard (no silent synthetic fallback). Table 6
-outputs are produced only in this mode and are reportable.
-
-Smoke test (--smoke-test): generates clearly-labelled SYNTHETIC data to verify
-the pipeline executes. Outputs are written to a separate `*_SMOKETEST.*` path,
-tagged non-reportable, and must never appear in the manuscript.
+REAL-DATA-ONLY
+--------------
+Runs exclusively on the real CIC-Darknet2020 CSV. If the file is missing, the
+experiment fails hard (exit 2) — there is no synthetic fallback, so every result
+this module produces is real and reportable.
 
 Run:
     python -m src.exp_traffic --config configs/traffic.json
-    python -m src.exp_traffic --config configs/traffic.json --smoke-test
 """
 from __future__ import annotations
 import argparse, json, os, time
@@ -57,21 +52,7 @@ LEAKAGE_COLUMNS = {
 
 
 class MissingRealDataError(FileNotFoundError):
-    """Raised in normal (reportable) mode when the real dataset is absent."""
-
-
-def _make_synthetic(n=4000, n_features=24, seed=42):
-    """Synthetic stand-in with CIC-like imbalance. SMOKE-TEST ONLY."""
-    rng = np.random.RandomState(seed)
-    probs = [0.55, 0.25, 0.14, 0.06]
-    y = rng.choice(["Browsing", "Chat", "P2P", "VOIP"], size=n, p=probs)
-    X = rng.randn(n, n_features)
-    for i, cls in enumerate(["Browsing", "Chat", "P2P", "VOIP"]):
-        mask = y == cls
-        X[mask, i] += (i + 1) * 1.2
-    cols = [f"f{i}" for i in range(n_features)]
-    df = pd.DataFrame(X, columns=cols); df["Label"] = y
-    return df
+    """Raised when the real dataset is absent (real-data-only pipeline)."""
 
 
 def _report_class_distribution(y, logger, title="Class distribution"):
@@ -169,44 +150,37 @@ def _normalize_labels(y, logger):
     return np.asarray(s.map(canon).values, dtype=object)
 
 
-def load_dataset(cfg, logger, smoke_test=False):
-    """Load CIC-Darknet2020. In normal mode the real CSV is mandatory."""
+def load_dataset(cfg, logger):
+    """Load CIC-Darknet2020. The real CSV is mandatory; there is no synthetic
+    fallback — a missing file is a hard error so results are always real."""
     path = cfg["data"]["csv_path"]
 
-    if smoke_test:
-        logger.warning("SMOKE-TEST MODE: generating SYNTHETIC data (NON-REPORTABLE).")
-        df = _make_synthetic()
-        synthetic = True
-    else:
-        if not os.path.exists(path):
-            raise MissingRealDataError(
-                f"Real CIC-Darknet2020 CSV not found at '{path}'.\n"
-                f"Normal mode requires real data for reportable results.\n"
-                f"  - Download it (see DATASETS.md) and place it at that path, or\n"
-                f"  - run with --smoke-test to exercise the pipeline on synthetic data.")
-        logger.info(f"Loading real CIC-Darknet2020 from {path}")
-        # Real CIC exports sometimes contain ragged rows (extra commas / merged
-        # sub-files) that break the C parser ("Expected N fields, saw M").
-        # Read tolerantly: skip bad lines, then report how many were dropped.
+    if not os.path.exists(path):
+        raise MissingRealDataError(
+            f"Real CIC-Darknet2020 CSV not found at '{path}'.\n"
+            f"This pipeline is real-data-only. Download it (see DATASETS.md) "
+            f"and place it at that path.")
+    logger.info(f"Loading real CIC-Darknet2020 from {path}")
+    # Real CIC exports sometimes contain ragged rows (extra commas / merged
+    # sub-files) that break the C parser ("Expected N fields, saw M").
+    # Read tolerantly: skip bad lines, then report how many were dropped.
+    try:
+        df = pd.read_csv(path, low_memory=False)
+    except Exception as e:
+        logger.warning(f"Strict CSV parse failed ({type(e).__name__}: {e}). "
+                       f"Retrying with on_bad_lines='skip'.")
         try:
-            df = pd.read_csv(path, low_memory=False)
-        except Exception as e:
-            logger.warning(f"Strict CSV parse failed ({type(e).__name__}: {e}). "
-                           f"Retrying with on_bad_lines='skip'.")
-            # count total data lines to report how many we drop
-            try:
-                with open(path, "r", errors="replace") as fh:
-                    total_lines = sum(1 for _ in fh) - 1  # minus header
-            except Exception:
-                total_lines = None
-            df = pd.read_csv(path, engine="python", on_bad_lines="skip")
-            if total_lines is not None:
-                dropped = total_lines - len(df)
-                if dropped > 0:
-                    logger.warning(f"Skipped {dropped} malformed row(s) out of "
-                                   f"{total_lines} ({100*dropped/total_lines:.2f}%). "
-                                   f"If this fraction is large, inspect the CSV.")
-        synthetic = False
+            with open(path, "r", errors="replace") as fh:
+                total_lines = sum(1 for _ in fh) - 1  # minus header
+        except Exception:
+            total_lines = None
+        df = pd.read_csv(path, engine="python", on_bad_lines="skip")
+        if total_lines is not None:
+            dropped = total_lines - len(df)
+            if dropped > 0:
+                logger.warning(f"Skipped {dropped} malformed row(s) out of "
+                               f"{total_lines} ({100*dropped/total_lines:.2f}%). "
+                               f"If this fraction is large, inspect the CSV.")
 
     # strip whitespace from column names (CIC exports often have leading spaces)
     df.columns = [str(c).strip() for c in df.columns]
@@ -227,18 +201,16 @@ def load_dataset(cfg, logger, smoke_test=False):
         logger.info(f"Dropping non-target label column(s) from features: {other_labels}")
         df = df.drop(columns=other_labels)
 
-    # basic integrity checks on real data
-    if not synthetic:
-        n_before = len(df)
-        df = df.dropna(subset=[target])
-        if len(df) < n_before:
-            logger.info(f"Dropped {n_before - len(df)} rows with missing label.")
-        if len(df) == 0:
-            raise ValueError("No rows remain after label cleaning; check the CSV.")
+    # basic integrity checks (real data only)
+    n_before = len(df)
+    df = df.dropna(subset=[target])
+    if len(df) < n_before:
+        logger.info(f"Dropped {n_before - len(df)} rows with missing label.")
+    if len(df) == 0:
+        raise ValueError("No rows remain after label cleaning; check the CSV.")
 
     y = np.asarray(df[target].astype(str).str.strip().tolist(), dtype=object)
-    if not synthetic:
-        y = _normalize_labels(y, logger)
+    y = _normalize_labels(y, logger)
     X = df.drop(columns=[target])
     X = X.apply(pd.to_numeric, errors="coerce")
     X = X.replace([np.inf, -np.inf], np.nan).fillna(0.0)
@@ -246,7 +218,7 @@ def load_dataset(cfg, logger, smoke_test=False):
     X_arr = np.asarray(X.to_numpy(dtype="float64"))
 
     class_report = _report_class_distribution(y, logger, "CIC-Darknet2020 classes")
-    return X_arr, y, synthetic, list(X.columns), class_report
+    return X_arr, y, list(X.columns), class_report
 
 
 def build_models(cfg, seed):
@@ -270,10 +242,9 @@ def build_models(cfg, seed):
     }
 
 
-def run(cfg, logger, smoke_test=False):
+def run(cfg, logger):
     seed = cfg["seed"]; set_seed(seed)
-    X, y_raw, synthetic, feat_names, class_report = load_dataset(
-        cfg, logger, smoke_test=smoke_test)
+    X, y_raw, feat_names, class_report = load_dataset(cfg, logger)
     le = LabelEncoder(); y = le.fit_transform(y_raw)
     labels = np.arange(len(le.classes_))
 
@@ -284,8 +255,7 @@ def run(cfg, logger, smoke_test=False):
     skf = StratifiedKFold(n_splits=cfg["cv_folds"], shuffle=True, random_state=seed)
     models = build_models(cfg, seed)
 
-    results = {"dataset": "CIC-Darknet2020", "synthetic": synthetic,
-               "reportable": (not synthetic),
+    results = {"dataset": "CIC-Darknet2020", "reportable": True,
                "class_report": class_report,
                "classes": le.classes_.tolist(), "seed": seed,
                "n_train": int(len(y_tr)), "n_test": int(len(y_te)),
@@ -348,12 +318,10 @@ def run(cfg, logger, smoke_test=False):
 def write_table6_fragment(results, out_path, logger):
     """Emit a manuscript-Table-6-style CSV fragment for the traffic rows."""
     rows = []
-    syn = results.get("synthetic", False)
-    flag = " [SMOKE-TEST/NON-REPORTABLE]" if syn else ""
     for name, r in results["models"].items():
         t = r["test"]
         rows.append({
-            "Model_dataset": f"DarkTrace {name} (CIC-Darknet2020){flag}",
+            "Model_dataset": f"DarkTrace {name} (CIC-Darknet2020)",
             "Accuracy": round(t["accuracy"], 4),
             "Macro_F1": round(t["macro_f1"], 4),
             "AUC": round(t["auc_macro_ovr"], 4) if t["auc_macro_ovr"] is not None else "NA",
@@ -366,8 +334,6 @@ def write_table6_fragment(results, out_path, logger):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="configs/traffic.json")
-    ap.add_argument("--smoke-test", action="store_true",
-                    help="Run on SYNTHETIC data to verify the pipeline (NON-REPORTABLE).")
     args = ap.parse_args()
     cfg = load_config(args.config)
     ensure_dirs(cfg)
@@ -375,25 +341,15 @@ def main():
     t0 = time.time()
 
     try:
-        results = run(cfg, logger, smoke_test=args.smoke_test)
+        results = run(cfg, logger)
     except MissingRealDataError as e:
         logger.error(str(e))
         raise SystemExit(2)
 
     tables = cfg["paths"]["tables"]
-    if results["synthetic"]:
-        # smoke-test outputs go to clearly separated, non-reportable paths
-        save_json(results, os.path.join(tables, "traffic_results_SMOKETEST.json"))
-        write_table6_fragment(
-            results, os.path.join(tables, "table6_traffic_SMOKETEST.csv"), logger)
-        logger.warning("SMOKE TEST complete — outputs marked NON-REPORTABLE. "
-                       "Table 6 fragment NOT written (real data required).")
-    else:
-        save_json(results, os.path.join(tables, "traffic_results.json"))
-        write_table6_fragment(
-            results, os.path.join(tables, "table6_traffic.csv"), logger)
-        logger.info("Real-data run complete — Table 6 traffic fragment written.")
-
+    save_json(results, os.path.join(tables, "traffic_results.json"))
+    write_table6_fragment(results, os.path.join(tables, "table6_traffic.csv"), logger)
+    logger.info("Real-data run complete — Table 6 traffic fragment written.")
     logger.info(f"Done in {time.time()-t0:.1f}s.")
 
 
