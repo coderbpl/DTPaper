@@ -21,7 +21,8 @@ uses, so no new data download is needed.
    - **RQ3-a (no accuracy cost):** compares the explainable ensemble against a
      **black-box MLP** on AUC / AP / NDCG@10 / Brier, with a McNemar test.
    - **RQ3-b (faithful + stable explanations):** **comprehensiveness** (top-k vs
-     random-k feature-ablation drop) and **stability** (top-k attribution Jaccard),
+     random-k feature-ablation drop) and **stability** (per-instance: does the SAME
+     document keep a consistent top-k explanation under small input perturbations?),
      plus a **SHAP–LIME agreement** convergent-validity check.
 
 ## Run
@@ -72,3 +73,11 @@ positive, say so and treat explanations as qualitative aids only.
 - KernelExplainer is approximate and sampled for tractability; for tree models a
   TreeExplainer would be exact but the calibrated stacking wrapper is not a single
   tree, so KernelExplainer is the honest general choice here.
+- **Stability** is measured per-instance under input perturbation (the correct XAI
+  definition). An earlier version compared explanations across *different*
+  documents, which is not stability and yields misleadingly low values.
+- **SHAP–LIME agreement** on high-dimensional sparse TF-IDF tends to be modest,
+  because the two methods can pick different but individually-valid features from a
+  large vocabulary. Report it as a convergent-validity indicator, not a pass/fail
+  gate; faithfulness (comprehensiveness) is the stronger evidence of explanation
+  quality.

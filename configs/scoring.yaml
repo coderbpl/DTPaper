@@ -31,5 +31,8 @@
     "logs": "results/logs",
     "processed": "data/processed"
   },
-  "cv_folds": 5
+  "cv_folds": 5,
+  "stability_n": 30,
+  "stability_perturb": 5,
+  "stability_noise": 0.02
 }

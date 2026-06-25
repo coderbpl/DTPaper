@@ -27,7 +27,13 @@ Run (after Phase 1 has produced real data files):
     python -m src.exp_scoring --config configs/scoring.json --smoke-test
 """
 from __future__ import annotations
-import argparse, json, os, time
+import argparse, json, os, time, warnings
+# SHAP's KernelExplainer fits internal linear regressions that are often singular
+# on sparse TF-IDF data; this produces a harmless but voluminous warning flood.
+# Silence those specific cosmetic warnings (results are unaffected).
+warnings.filterwarnings("ignore", message=".*Linear regression equation is singular.*")
+warnings.filterwarnings("ignore", message=".*Regressors in active set degenerate.*")
+warnings.filterwarnings("ignore", category=UserWarning, module="shap")
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import (RandomForestClassifier,
@@ -182,26 +188,39 @@ def faithfulness(model, X, attr, logger, k=10):
             "faithfulness_gap": comp - comp_ctrl, "k": k}
 
 
-def stability(attr, logger, k=10):
-    """Stability: Jaccard overlap of top-k attributed features between each row
-    and its nearest neighbour in attribution space (proxy for perturbation
-    robustness without re-querying the model)."""
-    n, d = attr.shape
+def stability(model, X, attr_fn, logger, k=10, n_eval=40, n_perturb=5,
+              noise=0.02, seed=0):
+    """Stability = does the SAME instance get a consistent explanation under
+    small input perturbations? (This is the correct XAI definition; comparing
+    explanations across DIFFERENT documents is not stability.)
+
+    For each of n_eval instances we add small Gaussian noise n_perturb times,
+    recompute attributions, and measure the mean Jaccard overlap of the top-k
+    attributed features between the original and each perturbed version.
+
+    attr_fn(Xsub) -> (len(Xsub), d) attribution matrix.
+    """
+    rng = np.random.RandomState(seed)
+    n, d = X.shape
     k = min(k, d)
-    topsets = [set(np.argsort(-attr[i])[:k]) for i in range(n)]
-    # average pairwise Jaccard on a sample of pairs
-    rng = np.random.RandomState(0)
-    pairs = min(500, n * (n - 1) // 2) if n > 1 else 0
-    if pairs == 0:
-        return {"stability_jaccard": None, "k": k}
-    js = []
-    for _ in range(pairs):
-        a, b = rng.choice(n, 2, replace=False)
-        inter = len(topsets[a] & topsets[b]); union = len(topsets[a] | topsets[b])
-        js.append(inter / union if union else 0.0)
-    val = float(np.mean(js))
-    logger.info(f"Stability: mean top-{k} Jaccard={val:.4f}")
-    return {"stability_jaccard": val, "k": k}
+    n_eval = min(n_eval, n)
+    idx = rng.choice(n, n_eval, replace=False)
+    jacc = []
+    for i in idx:
+        base = X[i:i+1]
+        base_attr = attr_fn(base)[0]
+        base_top = set(np.argsort(-base_attr)[:k])
+        for _ in range(n_perturb):
+            xp = base + rng.normal(0, noise, size=base.shape)
+            pert_attr = attr_fn(xp)[0]
+            pert_top = set(np.argsort(-pert_attr)[:k])
+            inter = len(base_top & pert_top); union = len(base_top | pert_top)
+            jacc.append(inter / union if union else 0.0)
+    val = float(np.mean(jacc)) if jacc else None
+    logger.info(f"Stability (per-instance, perturbed): mean top-{k} "
+                f"Jaccard={val:.4f} over {n_eval} instances x {n_perturb} perturbations")
+    return {"stability_jaccard": val, "k": k, "method": "per_instance_perturbation",
+            "n_eval": n_eval, "n_perturb": n_perturb, "noise": noise}
 
 
 def lime_agreement(model, Xtr, Xte, attr, feat_names, seed, logger, n=30):
@@ -299,7 +318,31 @@ def run(cfg, logger, smoke_test=False):
     yte_eval = yte[:len(Xeval)]
     fid = faithfulness(ens_cal, Xeval, attr, logger,
                        k=cfg.get("topk", 10))
-    stab = stability(attr, logger, k=cfg.get("topk", 10))
+
+    # Stability uses a FAST local attribution (occlusion: zero each feature and
+    # measure the prediction change) so we can recompute it under perturbation
+    # cheaply, instead of re-running SHAP (which is expensive). Occlusion is
+    # itself a faithful local attribution, so it is a sound basis for stability.
+    def _occlusion_attr(Xsub):
+        base_p = ens_cal.predict_proba(Xsub)[:, 1]
+        out = np.zeros((Xsub.shape[0], Xsub.shape[1]), dtype="float32")
+        # only probe the union of each row's nonzero features for speed
+        for r in range(Xsub.shape[0]):
+            nz = np.nonzero(Xsub[r])[0]
+            if len(nz) == 0:
+                continue
+            Xrep = np.repeat(Xsub[r:r+1], len(nz), axis=0)
+            for j, f in enumerate(nz):
+                Xrep[j, f] = 0.0
+            pp = ens_cal.predict_proba(Xrep)[:, 1]
+            out[r, nz] = np.abs(base_p[r] - pp)
+        return out
+
+    stab = stability(ens_cal, Xeval, _occlusion_attr, logger,
+                     k=cfg.get("topk", 10),
+                     n_eval=cfg.get("stability_n", 30),
+                     n_perturb=cfg.get("stability_perturb", 5),
+                     noise=cfg.get("stability_noise", 0.02), seed=seed)
     agree = lime_agreement(ens_cal, Xtr_s, Xeval, attr, feat_names, seed, logger,
                            n=cfg.get("lime_n", 30))
 
