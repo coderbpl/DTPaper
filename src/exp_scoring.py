@@ -86,28 +86,110 @@ def _make_synthetic_scoring(n=1500, seed=42):
     return pd.DataFrame(X, columns=cols), y, cols
 
 
-def _load_text_features(cfg, logger, smoke_test):
-    """Build features + binary risk label from the real CoDA text corpus.
+# Category -> ordinal severity (0=low ... 3=critical). A defensible, STATED
+# mapping when analyst labels are unavailable. Override via config data.severity_map.
+DEFAULT_SEVERITY = {
+    "arms": 3, "weapons": 3, "violence": 3, "hacking": 3,
+    "drugs": 2, "financial": 2, "fraud": 2, "crypto": 2, "counterfeit": 2,
+    "gambling": 1, "porn": 1, "electronic": 1,
+    "others": 0,
+}
 
-    Reuses the Phase-1 text loader so casing/validation/label-derivation are
-    identical, then derives a binary high-risk label from the category.
+
+def _risk_label(df, cfg, logger):
+    """Produce the risk target. Three modes (config data.risk_mode):
+
+      'analyst'  : load real per-item analyst risk labels from a CSV
+                   (data.analyst_labels_csv with columns id/key + risk). This is
+                   the gold standard; nothing is invented.
+      'severity' : ordinal 0-3 from a STATED category->severity map (more
+                   defensible than binary; reported as ordinal risk).
+      'binary'   : high-risk vs low-risk from data.high_risk (legacy default).
+
+    Returns (y, mode, meta). y is int. The mode and mapping are logged so the
+    manuscript can state exactly how risk was operationalised.
     """
-    from .exp_text import load_dataset as load_text
-    df, synthetic, class_report = load_text(cfg, logger, smoke_test=smoke_test)
+    mode = cfg["data"].get("risk_mode", "binary").lower()
+
+    if mode == "analyst":
+        path = cfg["data"].get("analyst_labels_csv")
+        if not path or not os.path.exists(path):
+            raise FileNotFoundError(
+                f"risk_mode='analyst' but analyst_labels_csv '{path}' not found. "
+                "Provide a CSV with a key/id column and a numeric 'risk' column "
+                "(one row per item), or switch data.risk_mode to 'severity'/'binary'.")
+        lab = pd.read_csv(path)
+        keycol = next((c for c in ("key", "__key__", "id", "doc_id") if c in lab.columns), None)
+        riskcol = next((c for c in ("risk", "label", "score", "severity") if c in lab.columns), None)
+        if keycol is None or riskcol is None:
+            raise ValueError(f"analyst CSV must have a key column and a risk column; "
+                             f"found {list(lab.columns)}")
+        # align by key if df has one, else by row order
+        if "__key__" in df.columns:
+            m = dict(zip(lab[keycol].astype(str), lab[riskcol]))
+            y = df["__key__"].astype(str).map(m)
+            n_missing = int(y.isna().sum())
+            if n_missing:
+                logger.warning(f"{n_missing} items had no analyst label; dropping them.")
+            keep = ~y.isna()
+            df.drop(df.index[~keep.values], inplace=True)
+            y = y[keep].astype(float).round().astype(int).values
+        else:
+            if len(lab) != len(df):
+                raise ValueError("No __key__ to align on and analyst-label count "
+                                 f"({len(lab)}) != item count ({len(df)}).")
+            y = lab[riskcol].astype(float).round().astype(int).values
+        logger.info(f"Risk label: ANALYST-PROVIDED from {path} "
+                    f"({len(np.unique(y))} levels). This is reportable as real labels.")
+        return y, "analyst", {"source": path, "levels": sorted(map(int, np.unique(y)))}
+
+    if mode == "severity":
+        sev = {k.lower(): v for k, v in cfg["data"].get("severity_map", DEFAULT_SEVERITY).items()}
+        y = df["label"].astype(str).str.lower().map(sev)
+        if y.isna().any():
+            unknown = sorted(df["label"][y.isna()].str.lower().unique())
+            logger.warning(f"Categories with no severity mapping (set to 0): {unknown}")
+            y = y.fillna(0)
+        y = y.astype(int).values
+        dist = {int(k): int(v) for k, v in zip(*np.unique(y, return_counts=True))}
+        logger.warning(
+            "Risk label: ORDINAL SEVERITY (0-3) from a STATED category map "
+            f"(distribution={dist}). NOTE: derived from categories, not analyst "
+            "ratings; state this in the manuscript.")
+        return y, "severity", {"severity_map": sev, "distribution": dist}
+
+    # default: binary
     high = set(c.lower() for c in cfg["data"].get("high_risk", DEFAULT_HIGH_RISK))
     y = df["label"].astype(str).str.lower().isin(high).astype(int).values
     pos = int(y.sum())
-    logger.info(f"Risk label: {pos}/{len(y)} high-risk "
-                f"({100*pos/len(y):.1f}%); high-risk categories = {sorted(high)}")
     if pos == 0 or pos == len(y):
-        raise ValueError("Risk label is constant; adjust data.high_risk in config.")
-    # TF-IDF features (sparse -> dense top-k for SHAP/LIME tractability)
+        raise ValueError("Binary risk label is constant; adjust data.high_risk.")
+    logger.warning(
+        f"Risk label: BINARY high vs low ({pos}/{len(y)}={100*pos/len(y):.1f}% high; "
+        f"high={sorted(high)}). NOTE: derived from categories, not analyst ratings; "
+        "state this in the manuscript.")
+    return y, "binary", {"high_risk": sorted(high), "n_high": pos}
+
+
+def _load_text_features(cfg, logger, smoke_test):
+    """Build features + risk label from the real CoDA text corpus.
+
+    Reuses the Phase-1 text loader so casing/validation/label-derivation are
+    identical, then attaches a risk label (analyst / severity / binary).
+    """
+    from .exp_text import load_dataset as load_text
+    df, synthetic, class_report = load_text(cfg, logger, smoke_test=smoke_test)
+    df = df.reset_index(drop=True)
+    y, risk_mode, risk_meta = _risk_label(df, cfg, logger)
+    df = df.reset_index(drop=True)
+    # TF-IDF features (sparse -> dense for SHAP/LIME tractability)
     max_feats = cfg["model"].get("max_features", 2000)
     vec = TfidfVectorizer(max_features=max_feats, ngram_range=(1, 2),
                           sublinear_tf=True)
     X = vec.fit_transform(df["text"].astype(str).values)
     feat_names = list(vec.get_feature_names_out())
-    return X.toarray().astype("float32"), y, feat_names, synthetic, class_report
+    meta = {"risk_mode": risk_mode, "risk_meta": risk_meta}
+    return X.toarray().astype("float32"), y, feat_names, synthetic, class_report, meta
 
 
 def build_ensemble(seed):
@@ -223,30 +305,53 @@ def stability(model, X, attr_fn, logger, k=10, n_eval=40, n_perturb=5,
             "n_eval": n_eval, "n_perturb": n_perturb, "noise": noise}
 
 
-def lime_agreement(model, Xtr, Xte, attr, feat_names, seed, logger, n=30):
-    """Convergent validity: rank-correlation between SHAP/fallback attributions
-    and LIME attributions on a sample. Returns mean Spearman rho or None."""
+def lime_agreement(model, Xtr, Xte, attr, feat_names, seed, logger, n=30, k=20):
+    """Convergent validity between SHAP and LIME attributions.
+
+    IMPORTANT: LIME returns weights for only `k` features per instance, leaving
+    the other ~(d-k) at zero. Correlating across the FULL feature space therefore
+    forces near-zero agreement by construction (a measurement artifact, not real
+    disagreement). We instead compare the two methods where both actually have
+    signal: on the UNION of each method's top-k features. We report:
+      - mean Spearman rho over that union (rank agreement on important features)
+      - mean Jaccard overlap of the two top-k sets (set agreement)
+    """
     if not HAVE_LIME:
         logger.info("LIME not available; skipping SHAP-LIME agreement.")
-        return {"lime_spearman": None, "available": False}
+        return {"lime_spearman": None, "lime_jaccard": None, "available": False}
     from scipy.stats import spearmanr
-    expl = LimeTabularExplainer(Xtr, feature_names=feat_names,
-                                class_names=["low", "high"], mode="classification",
-                                discretize_continuous=False, random_state=seed)
-    rhos = []
+    expl = LimeTabularExplainer(
+        Xtr, feature_names=feat_names, class_names=["low", "high"],
+        mode="classification", discretize_continuous=False, random_state=seed)
+    rhos, jaccs = [], []
     n = min(n, len(Xte), attr.shape[0])
+    d = Xte.shape[1]
+    kk = min(k, d)
     for i in range(n):
         e = expl.explain_instance(Xte[i], model.predict_proba,
-                                  num_features=min(20, Xte.shape[1]))
-        lime_w = np.zeros(Xte.shape[1])
+                                  num_features=kk)
+        lime_w = np.zeros(d)
         for idx, w in e.local_exp[1]:
             lime_w[idx] = abs(w)
-        rho, _ = spearmanr(attr[i], lime_w)
-        if not np.isnan(rho):
-            rhos.append(rho)
-    val = float(np.mean(rhos)) if rhos else None
-    logger.info(f"SHAP-LIME agreement: mean Spearman={val}")
-    return {"lime_spearman": val, "available": True, "n": len(rhos)}
+        shap_w = attr[i]
+        shap_top = set(np.argsort(-shap_w)[:kk])
+        lime_top = set(np.argsort(-lime_w)[:kk])
+        # rank agreement on the union of important features
+        union = sorted(shap_top | lime_top)
+        if len(union) >= 3:
+            rho, _ = spearmanr(shap_w[union], lime_w[union])
+            if not np.isnan(rho):
+                rhos.append(rho)
+        # set agreement
+        inter = len(shap_top & lime_top); uni = len(shap_top | lime_top)
+        jaccs.append(inter / uni if uni else 0.0)
+    rho_val = float(np.mean(rhos)) if rhos else None
+    jac_val = float(np.mean(jaccs)) if jaccs else None
+    logger.info(f"SHAP-LIME agreement (top-{kk}): Spearman(union)={rho_val}, "
+                f"Jaccard={jac_val}")
+    return {"lime_spearman": rho_val, "lime_jaccard": jac_val,
+            "available": True, "n": len(jaccs), "k": kk,
+            "method": "union_topk"}
 
 
 def _rank_metrics(y_true, scores):
@@ -278,11 +383,26 @@ def run(cfg, logger, smoke_test=False):
     if smoke_test:
         Xdf, y, feat_names = _make_synthetic_scoring(seed=seed)
         X = Xdf.values.astype("float32"); synthetic = True; class_report = None
+        risk_meta = {"risk_mode": "synthetic"}
     elif source == "text":
-        X, y, feat_names, synthetic, class_report = _load_text_features(
+        X, y, feat_names, synthetic, class_report, risk_meta = _load_text_features(
             cfg, logger, smoke_test=False)
     else:
         raise ValueError(f"Unsupported scoring source '{source}' in this build.")
+
+    # The scoring/ranking machinery is binary. If the risk label has >2 levels
+    # (ordinal severity or multi-level analyst labels), collapse to high-vs-low
+    # at a STATED threshold for the binary scorer, and record it.
+    y = np.asarray(y)
+    binary_threshold = None
+    if len(np.unique(y)) > 2:
+        binary_threshold = int(cfg["data"].get("binary_threshold", 2))
+        y_orig_levels = sorted(map(int, np.unique(y)))
+        y = (y >= binary_threshold).astype(int)
+        logger.warning(
+            f"Collapsed {len(y_orig_levels)}-level risk {y_orig_levels} to binary "
+            f"at threshold >= {binary_threshold} for the scorer "
+            f"({int(y.sum())}/{len(y)} positive).")
 
     Xtr, Xte, ytr, yte = train_test_split(
         X, y, test_size=cfg["data"]["test_size"], stratify=y, random_state=seed)
@@ -297,6 +417,7 @@ def run(cfg, logger, smoke_test=False):
                "n_train": int(len(ytr)), "n_test": int(len(yte)),
                "n_features": int(X.shape[1]),
                "xai": {"shap": HAVE_SHAP, "lime": HAVE_LIME},
+               "risk": risk_meta, "binary_threshold": binary_threshold,
                "class_report": class_report, "models": {}}
 
     # --- explainable ensemble (calibrated) ---

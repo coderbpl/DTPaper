@@ -20,7 +20,11 @@
       "Financial",
       "Violence",
       "Crypto"
-    ]
+    ],
+    "risk_mode": "severity",
+    "binary_threshold": 2,
+    "_risk_mode_note": "severity|binary|analyst. For analyst, set analyst_labels_csv to a CSV with key+risk columns.",
+    "analyst_labels_csv": ""
   },
   "model": {
     "max_features": 2000
