@@ -78,3 +78,19 @@ def test_scoring_runs():
     assert 0.0 <= ens["ranking"]["auc"] <= 1.0
     assert "faithfulness_gap" in ens["faithfulness"]
     print("test_scoring_runs OK")
+
+
+def test_multilingual_runs():
+    """Phase 2 multilingual classification smoke test (synthetic, fallback model)."""
+    from src.utils import load_config, get_logger
+    from src import exp_multilingual
+    cfg = load_config("configs/multilingual.json")
+    cfg["bootstrap"] = 50
+    cfg["model"]["force_fallback"] = True  # ensure CPU path in tests
+    logger = get_logger("test_multilingual", cfg["paths"]["logs"])
+    res = exp_multilingual.run(cfg, logger, smoke_test=True)
+    assert res["synthetic"] is True
+    assert "pooled" in res["evaluations"]
+    pl = res["evaluations"]["pooled"]["per_language"]
+    assert len(pl) >= 2  # multiple languages reported
+    print("test_multilingual_runs OK")

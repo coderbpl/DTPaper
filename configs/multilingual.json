@@ -1,0 +1,28 @@
+{
+  "seed": 42,
+  "bootstrap": 500,
+  "cross_lingual": true,
+  "data": {
+    "source": "text",
+    "csv_path": "data/raw/coda.csv",
+    "name": "CoDA",
+    "text_col": "txt",
+    "label_col": "label",
+    "test_size": 0.2,
+    "min_chars": 10,
+    "min_lang_count": 50,
+    "_min_lang_note": "languages with fewer than this many samples are excluded and logged (Hindi n=1 is auto-excluded)"
+  },
+  "model": {
+    "name": "distilbert-base-multilingual-cased",
+    "max_length": 256,
+    "epochs": 3,
+    "batch_size": 16,
+    "lr": 2e-5,
+    "max_features": 5000,
+    "force_fallback": false,
+    "_model_note": "distil multilingual transformer on GPU; TF-IDF fallback on CPU. Set name to xlm-roberta-base for the heavier option."
+  },
+  "cv_folds": 5,
+  "paths": {"tables": "results/tables", "figures": "results/figures", "logs": "results/logs", "processed": "data/processed"}
+}
