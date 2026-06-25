@@ -374,9 +374,14 @@ def three_method_agreement(shap_attr, lime_attr, ig_attr, logger, k=20):
                 at, bt = set(np.argsort(-A[i])[:kk]), set(np.argsort(-B[i])[:kk])
                 uni = sorted(at | bt)
                 if len(uni) >= 3:
-                    rho, _ = spearmanr(A[i][uni], B[i][uni])
-                    if not np.isnan(rho):
-                        rhos.append(rho)
+                    a_u, b_u = A[i][uni], B[i][uni]
+                    # spearmanr is undefined if either vector is constant over the
+                    # union (e.g. a method assigned all-zero weights here); skip
+                    # those rows rather than emit a ConstantInputWarning + NaN.
+                    if np.ptp(a_u) > 0 and np.ptp(b_u) > 0:
+                        rho, _ = spearmanr(a_u, b_u)
+                        if not np.isnan(rho):
+                            rhos.append(rho)
                 inter = len(at & bt); u = len(at | bt)
                 jaccs.append(inter / u if u else 0.0)
             pair = f"{ma}_vs_{mb}"
