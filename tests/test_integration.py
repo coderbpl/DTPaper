@@ -104,6 +104,23 @@ def test_stix():
     _run_if_data("stix", "configs/stix.json", lambda c, l: exp_stix.run(c, l, push=False))
 
 
+
+def test_multilingual_crossdomain():
+    from src import exp_multilingual_crossdomain as xd
+    cfg = load_config("configs/multilingual_crossdomain.json")
+    hi = cfg["data"]["hi"]["csv_path"]; ar = cfg["data"]["ar"]["csv_path"]
+    if not (_has(hi) or _has(ar)):
+        if os.environ.get("DARKTRACE_DATA"):
+            raise AssertionError("crossdomain: real data required but missing")
+        print("test_multilingual_crossdomain SKIPPED (no Hindi/Arabic corpus)")
+        return
+    logger = get_logger("test_xd", cfg["paths"]["logs"])
+    res = xd.run(cfg, logger)
+    assert res.get("reportable") is True
+    assert len(res["per_language"]) >= 1
+    print("test_multilingual_crossdomain OK (real data)")
+
+
 if __name__ == "__main__":
     test_pure_helpers()
     test_traffic()
@@ -112,4 +129,5 @@ if __name__ == "__main__":
     test_multilingual()
     test_blockchain()
     test_stix()
+    test_multilingual_crossdomain()
     print("\nALL INTEGRATION CHECKS DONE")

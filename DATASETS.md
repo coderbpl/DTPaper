@@ -108,3 +108,18 @@ behaviour in per-class F1 (Section 8.18).
 
 Respect each dataset's licence and terms; do not redistribute raw corpora. Phase 1
 uses only public/by-request research datasets and requires no dark web crawling.
+
+## Phase 2b cross-domain corpora (Hindi, Arabic)
+
+Native dark-web Hindi/Arabic data does not exist at scale (see PHASE2B.md). For
+the cross-domain experiment, download:
+
+- Hindi Hostility (Bhardwaj et al. 2020, CONSTRAINT-2021):
+  https://github.com/mohit19014/Hindi-Hostility-Detection-CONSTRAINT-2021
+  -> save train CSV as data/raw/hindi_hostility.csv (cols: 'Post', 'Labels Set').
+- Arabic OSACT offensive/hate (Mubarak et al.):
+  https://alt.qcri.org/resources/OSACT2022/  (TSV: text<TAB>OFF/NOT_OFF<TAB>HS/NOT_HS)
+  -> save as data/raw/arabic_osact.csv  (TSV auto-detected).
+
+Both are real, peer-reviewed, citable. Neither is dark-web data — report as
+cross-domain (see PHASE2B.md).

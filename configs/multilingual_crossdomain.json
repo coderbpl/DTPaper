@@ -1,0 +1,34 @@
+{
+  "seed": 42,
+  "bootstrap": 500,
+  "data": {
+    "test_size": 0.2,
+    "hi": {
+      "csv_path": "data/raw/hindi_hostility.csv",
+      "text_col": "Post",
+      "label_col": "Labels Set",
+      "min_chars": 3,
+      "label_map": {},
+      "_note": "Bhardwaj et al. 2020 CONSTRAINT-2021. Column names vary by release; the train CSV uses 'Post' and 'Labels Set' (comma-joined dims). If multi-label, the loader treats any hostile dim as threat=1, 'non-hostile' as 0. Adjust text_col/label_col to match your file."
+    },
+    "ar": {
+      "csv_path": "data/raw/arabic_osact.csv",
+      "text_col": "text",
+      "label_col": "label",
+      "min_chars": 3,
+      "tsv_columns": ["text", "label", "label2"],
+      "label_map": {},
+      "_note": "OSACT offensive/hate shared task. Often shipped tab-separated as text<TAB>OFF/NOT_OFF<TAB>HS/NOT_HS; the loader auto-falls back to TSV and maps OFF/HS/VULGAR/VIOLENT to threat=1."
+    }
+  },
+  "model": {
+    "name": "distilbert-base-multilingual-cased",
+    "max_length": 256,
+    "epochs": 3,
+    "batch_size": 16,
+    "lr": 2e-5,
+    "max_features": 5000,
+    "force_fallback": false
+  },
+  "paths": {"tables": "results/tables", "figures": "results/figures", "logs": "results/logs", "processed": "data/processed"}
+}
