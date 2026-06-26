@@ -61,9 +61,12 @@ HINDI_THREAT_LABELS = {  # Bhardwaj et al. 2020 hostility dimensions
     "fake": 1, "hate": 1, "offensive": 1, "defamation": 1,
     "non-hostile": 0, "non_hostile": 0, "nonhostile": 0, "none": 0,
 }
-ARABIC_THREAT_LABELS = {  # OSACT offensive/hate labels
+ARABIC_THREAT_LABELS = {  # OSACT offensive/hate/vulgar/violent labels
     "off": 1, "offensive": 1, "hs": 1, "hate": 1, "vulgar": 1, "violent": 1,
+    "vlg": 1, "vio": 1,
+    "hs1": 1, "hs2": 1, "hs3": 1, "hs4": 1, "hs5": 1, "hs6": 1,  # fine-grained hate types
     "not_off": 0, "not_offensive": 0, "not_hs": 0, "clean": 0, "normal": 0,
+    "not_vlg": 0, "not_vio": 0,
 }
 
 
@@ -110,11 +113,46 @@ def _load_one(cfg_lang, logger, lang):
         if df.shape[1] == 1:
             raise ValueError("single column; retry as TSV")
     except Exception:
-        df = pd.read_csv(path, sep="\t", header=None,
-                         names=cfg_lang.get("tsv_columns", ["text", "label", "label2"]),
-                         engine="python", on_bad_lines="skip")
+        # OSACT2022 layout: id <TAB> tweet <TAB> OFF/NOT_OFF <TAB> HS-type
+        #                   <TAB> VLG/NOT_VLG <TAB> VIO/NOT_VIO  (6 cols)
+        # Older/mirror layouts vary (3-4 cols). Read header-less, then auto-detect
+        # the text column (longest strings) and the offensive label column
+        # (cells in {OFF,NOT_OFF}). This is robust to column-count differences.
+        raw = pd.read_csv(path, sep="\t", header=None, engine="python",
+                          on_bad_lines="skip", quoting=3)
+        ncol = raw.shape[1]
+        names = cfg_lang.get("tsv_columns")
+        if names and len(names) == ncol:
+            raw.columns = names
+        else:
+            raw.columns = [f"col{i}" for i in range(ncol)]
+        # auto-detect the OFFENSIVE label column (preferred threat signal):
+        # the column whose values are dominated by OFF / NOT_OFF tokens.
+        off_col = None
+        for c in raw.columns:
+            vals = raw[c].astype(str).str.strip().str.upper()
+            frac = vals.isin(["OFF", "NOT_OFF"]).mean()
+            if frac > 0.5:
+                off_col = c; break
+        # text column = the one with the longest average string length
+        text_col = max(raw.columns,
+                       key=lambda c: raw[c].astype(str).str.len().mean())
+        if off_col is not None:
+            df = raw.rename(columns={text_col: "text", off_col: "label"})
+            logger.info(f"[{lang}] auto-detected OSACT offensive column "
+                        f"('{off_col}') as the label; text from '{text_col}'.")
+        else:
+            # fall back to the configured columns / first label-like column
+            df = raw
+            cfg_lang.setdefault("text_col", "text")
+            cfg_lang.setdefault("label_col", "label")
+            if "text" not in df.columns:
+                df = df.rename(columns={text_col: "text"})
 
-    tcol = cfg_lang["text_col"]; lcol = cfg_lang["label_col"]
+    # If the TSV auto-detection already produced 'text'/'label', use them;
+    # otherwise fall back to the configured column names (CSV path, e.g. Hindi).
+    tcol = "text" if "text" in df.columns else cfg_lang["text_col"]
+    lcol = "label" if "label" in df.columns else cfg_lang["label_col"]
     if tcol not in df.columns or lcol not in df.columns:
         raise ValueError(
             f"[{lang}] expected columns text='{tcol}' label='{lcol}' but found "
