@@ -105,20 +105,40 @@ def _indicator_stix(item, identity_id, evidence_ref=None):
     return obj
 
 
+def _obj_to_dict(o):
+    """Normalise a STIX object (stix2 lib object OR plain dict) to a plain dict."""
+    if isinstance(o, dict):
+        return o
+    # stix2 objects expose serialize() -> JSON string
+    try:
+        return json.loads(o.serialize())
+    except Exception:
+        # last resort: stix2 objects are mapping-like
+        return dict(o)
+
+
 def build_bundle(items, logger, link_evidence=False):
-    """Assemble a STIX 2.1 bundle from DarkTrace findings."""
+    """Assemble a STIX 2.1 bundle from DarkTrace findings.
+
+    Always returns a plain dict with a guaranteed "objects" key, regardless of
+    whether the stix2 library is installed. We normalise each object to a dict
+    and assemble the bundle ourselves rather than relying on Bundle.serialize()
+    round-tripping (which varies across stix2 versions and silently produced an
+    empty objects array in some)."""
     identity = _identity_stix()
     iid = identity["id"] if isinstance(identity, dict) else identity.id
     objs = [identity]
     for it in items:
         ev = it.get("evidence_ref") if link_evidence else None
         objs.append(_indicator_stix(it, iid, ev))
-    if HAVE_STIX:
-        bundle = stix2.Bundle(objs=objs, allow_custom=True)
-        logger.info(f"Built STIX 2.1 bundle (stix2 lib): {len(objs)} objects.")
-        return json.loads(bundle.serialize())
-    bundle = {"type": "bundle", "id": f"bundle--{uuid.uuid4()}", "objects": objs}
-    logger.info(f"Built STIX 2.1 bundle (manual, spec-compliant): {len(objs)} objects.")
+
+    # normalise every object to a plain dict so the bundle is consistent
+    obj_dicts = [_obj_to_dict(o) for o in objs]
+    bundle = {"type": "bundle",
+              "id": f"bundle--{uuid.uuid4()}",
+              "objects": obj_dicts}
+    src = "stix2 lib" if HAVE_STIX else "manual, spec-compliant"
+    logger.info(f"Built STIX 2.1 bundle ({src}): {len(obj_dicts)} objects.")
     return bundle
 
 
