@@ -1,0 +1,26 @@
+{
+  "seed": 42,
+  "topk": 10,
+  "data": {
+    "source": "text",
+    "csv_path": "data/raw/coda.csv",
+    "name": "CoDA",
+    "text_col": "txt",
+    "label_col": "label",
+    "min_chars": 10,
+    "n_findings": 300,
+    "risk_mode": "severity",
+    "binary_threshold": 2
+  },
+  "model": {
+    "max_features": 2000
+  },
+  "cv_folds": 5,
+  "paths": {
+    "tables": "results/tables",
+    "figures": "results/figures",
+    "logs": "results/logs",
+    "processed": "data/processed"
+  },
+  "faithfulness_margin": 0.05
+}

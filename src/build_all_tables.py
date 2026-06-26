@@ -27,9 +27,11 @@ TABLES = "results/tables"
 PHASES = {
     "Table 6 - Classification (Phase 1)": ["table6_traffic.csv", "table6_text.csv"],
     "Table 7 - Multilingual (Phase 2)": ["table7_multilingual.csv"],
+    "Table 7b - Cross-domain Hindi/Arabic (Phase 2b)": ["table7b_crossdomain.csv"],
     "Table 8 - Blockchain integrity (Phase 4)": ["table8_blockchain.csv"],
     "Table 9 - STIX/TAXII export (Phase 5)": ["table9_stix.csv"],
     "Table 10 - Explainable scoring (Phase 3)": ["table10_scoring.csv"],
+    "Table 11 - Integration ablation": ["table11_ablation.csv"],
 }
 
 

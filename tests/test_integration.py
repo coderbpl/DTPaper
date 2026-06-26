@@ -121,6 +121,27 @@ def test_multilingual_crossdomain():
     print("test_multilingual_crossdomain OK (real data)")
 
 
+
+def test_ablation():
+    from src import exp_ablation
+    cfg = load_config("configs/ablation.json")
+    csv = cfg["data"]["csv_path"]
+    if not _has(csv):
+        if os.environ.get("DARKTRACE_DATA"):
+            raise AssertionError("ablation: real data required but missing")
+        print("test_ablation SKIPPED (no real data at %s)" % csv)
+        return
+    logger = get_logger("test_ablation", cfg["paths"]["logs"])
+    res = exp_ablation.run(cfg, logger)
+    assert res.get("reportable") is True
+    full = [c for c in res["configurations"] if c["configuration"]=="full"][0]
+    # full must dominate every ablated configuration on actionability
+    for c in res["configurations"]:
+        if c["configuration"] != "full":
+            assert full["actionability"] >= c["actionability"]
+    print("test_ablation OK (real data)")
+
+
 if __name__ == "__main__":
     test_pure_helpers()
     test_traffic()
@@ -130,4 +151,5 @@ if __name__ == "__main__":
     test_blockchain()
     test_stix()
     test_multilingual_crossdomain()
+    test_ablation()
     print("\nALL INTEGRATION CHECKS DONE")

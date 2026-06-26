@@ -40,7 +40,7 @@ Run (after placing the two CSVs; see DATASETS.md):
     python -m src.exp_multilingual_crossdomain --config configs/multilingual_crossdomain.json
 """
 from __future__ import annotations
-import argparse, json, os, time
+import argparse, json, os, re, time
 import numpy as np
 import pandas as pd
 from sklearn.metrics import f1_score, accuracy_score
@@ -68,15 +68,31 @@ ARABIC_THREAT_LABELS = {  # OSACT offensive/hate labels
 
 
 def _map_binary(series, mapping, logger, lang):
-    """Map free-form source labels to {0,1} using a case-insensitive mapping.
-    Rows whose label is not in the mapping are dropped and counted (never guessed)."""
+    """Map source labels to {0,1} using a case-insensitive mapping.
+
+    Handles BOTH single labels (e.g. 'OFF', 'non-hostile') and comma-joined
+    multi-labels (e.g. 'hate,offensive', 'fake,hate,defamation' as shipped by the
+    Hindi Hostility dataset). For a multi-label row we split on commas/semicolons
+    and take the MAX over the recognised tokens: if any token maps to threat=1 the
+    row is threat; if the only recognised token(s) map to 0 the row is benign. A
+    row is dropped (NaN) only if NONE of its tokens are in the stated mapping —
+    never guessed."""
     raw = series.astype(str).str.strip().str.lower()
-    mapped = raw.map(mapping)
-    n_unmapped = int(mapped.isna().sum())
+
+    def _map_one(s):
+        # split a possibly multi-label cell into atomic tokens
+        toks = [t.strip() for t in re.split(r"[,;|/]+", s) if t.strip()]
+        vals = [mapping[t] for t in toks if t in mapping]
+        if not vals:
+            return np.nan          # nothing recognised -> drop (counted below)
+        return int(max(vals))      # any hostile dimension -> threat=1
+
+    mapped = raw.map(_map_one)
+    n_unmapped = int(pd.isna(mapped).sum())
     if n_unmapped:
-        unknown = sorted(raw[mapped.isna()].unique())[:10]
-        logger.warning(f"[{lang}] {n_unmapped} row(s) had labels outside the "
-                       f"stated mapping and were dropped: {unknown}")
+        unknown = sorted(raw[pd.isna(mapped)].unique())[:10]
+        logger.warning(f"[{lang}] {n_unmapped} row(s) had NO recognised label token "
+                       f"and were dropped: {unknown}")
     return mapped
 
 
