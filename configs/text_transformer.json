@@ -1,0 +1,16 @@
+{
+  "seed": 42,
+  "cv_folds": 5,
+  "bootstrap": 1000,
+  "data": {"name": "CoDA", "csv_path": "data/raw/coda.csv", "text_col": "text", "label_col": "label", "test_size": 0.2, "min_chars": 10},
+  "model": {
+    "name": "xlm-roberta-base",
+    "max_length": 256,
+    "epochs": 3,
+    "batch_size": 16,
+    "lr": 2e-5,
+    "max_features": 50000,
+    "_note": "GPU transformer baseline on CoDA text. Same split/folds as exp_text so per-fold macro-F1 is comparable in Friedman+Nemenyi. 5-fold x 3 epochs is GPU-heavy; reduce cv_folds/epochs for a faster run (update protocol note if you do)."
+  },
+  "paths": {"tables": "results/tables", "figures": "results/figures", "logs": "results/logs", "processed": "data/processed"}
+}

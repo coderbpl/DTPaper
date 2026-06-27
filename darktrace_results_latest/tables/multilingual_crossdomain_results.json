@@ -1,0 +1,73 @@
+{
+  "experiment": "phase2b_crossdomain_multilingual",
+  "reportable": true,
+  "domain_note": "CROSS-DOMAIN: Hindi hostility + Arabic offensive corpora (social media), used because native dark-web Hindi/Arabic data does not exist at scale. Binary threat/benign label.",
+  "seed": 42,
+  "languages": {
+    "hi": {
+      "n": 5728,
+      "n_threat": 2678,
+      "label_mapping": {
+        "fake": 1,
+        "hate": 1,
+        "offensive": 1,
+        "defamation": 1,
+        "non-hostile": 0,
+        "non_hostile": 0,
+        "nonhostile": 0,
+        "none": 0
+      }
+    },
+    "ar": {
+      "n": 8887,
+      "n_threat": 3172,
+      "label_mapping": {
+        "off": 1,
+        "offensive": 1,
+        "hs": 1,
+        "hate": 1,
+        "vulgar": 1,
+        "violent": 1,
+        "vlg": 1,
+        "vio": 1,
+        "hs1": 1,
+        "hs2": 1,
+        "hs3": 1,
+        "hs4": 1,
+        "hs5": 1,
+        "hs6": 1,
+        "not_off": 0,
+        "not_offensive": 0,
+        "not_hs": 0,
+        "clean": 0,
+        "normal": 0,
+        "not_vlg": 0,
+        "not_vio": 0
+      }
+    }
+  },
+  "per_language": [
+    {
+      "language": "hi",
+      "n_test": 1146,
+      "macro_f1": 0.9579491977873793,
+      "macro_f1_ci95": [
+        0.9455052708893974,
+        0.9694202587224439
+      ],
+      "accuracy": 0.9581151832460733,
+      "model_path": "transformer"
+    },
+    {
+      "language": "ar",
+      "n_test": 1778,
+      "macro_f1": 0.6967374704984035,
+      "macro_f1_ci95": [
+        0.6732851839821299,
+        0.7198243266861386
+      ],
+      "accuracy": 0.733970753655793,
+      "model_path": "transformer"
+    }
+  ]
+}

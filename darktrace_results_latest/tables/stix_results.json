@@ -1,0 +1,13 @@
+{
+  "experiment": "phase5_stix_export",
+  "reportable": true,
+  "stix_lib": true,
+  "taxii_lib": true,
+  "n_findings": 300,
+  "n_objects": 301,
+  "n_indicators": 300,
+  "bundle_valid": true,
+  "bundle_path": "results/stix/darktrace_bundle.json",
+  "pushed_to_taxii": null,
+  "build_seconds": 0.274247407913208
+}

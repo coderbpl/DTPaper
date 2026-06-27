@@ -1,0 +1,211 @@
+{
+  "experiment": "phase7_statistical_validation",
+  "classification_text": {
+    "rows": [
+      {
+        "task": "classification(text/CoDA)",
+        "model": "TFIDF_LogReg",
+        "macro_f1": 0.9034,
+        "macro_f1_ci95_lo": 0.8896,
+        "macro_f1_ci95_hi": 0.9161,
+        "cv_mean": 0.9129,
+        "cv_sd": 0.0082
+      },
+      {
+        "task": "classification(text/CoDA)",
+        "model": "TFIDF_LinearSVM",
+        "macro_f1": 0.9192,
+        "macro_f1_ci95_lo": 0.9058,
+        "macro_f1_ci95_hi": 0.9311,
+        "cv_mean": 0.9275,
+        "cv_sd": 0.0075
+      }
+    ],
+    "mcnemar": {
+      "models": [
+        "TFIDF_LogReg",
+        "TFIDF_LinearSVM"
+      ],
+      "p_value": 0.000419236969540987,
+      "statistic": 12.444444444444445
+    },
+    "note": "McNemar and macro-F1 bootstrap CIs computed by exp_text (real)."
+  },
+  "scoring": {
+    "explainable_macro_f1_at_0.5_ci95": [
+      0.9186877412013253,
+      0.9393749677391668
+    ],
+    "explainable_vs_blackbox": {
+      "ensemble_auc": 0.9752471505880219,
+      "blackbox_auc": 0.9707399905271539,
+      "auc_gap": 0.004507160060868043,
+      "mcnemar_p": 0.0002788841966531667
+    },
+    "note": "McNemar (explainable ensemble vs black-box MLP) and the ensemble macro-F1 bootstrap CI are computed by exp_scoring (real). Paired-bootstrap macro-F1 difference is added by the full battery once predictions are saved."
+  },
+  "multilingual": {
+    "blocks": {
+      "pooled": {
+        "per_language": [
+          {
+            "language": "de",
+            "n": 24,
+            "macro_f1": 0.6528,
+            "accuracy": 0.9167,
+            "acc_ci95_lo": 0.7415,
+            "acc_ci95_hi": 0.9768,
+            "ci_width": 0.2353,
+            "reliable": false
+          },
+          {
+            "language": "en",
+            "n": 1757,
+            "macro_f1": 0.9075,
+            "accuracy": 0.8998,
+            "acc_ci95_lo": 0.8849,
+            "acc_ci95_hi": 0.913,
+            "ci_width": 0.0281,
+            "reliable": true
+          },
+          {
+            "language": "es",
+            "n": 15,
+            "macro_f1": 0.6787,
+            "accuracy": 0.8,
+            "acc_ci95_lo": 0.5481,
+            "acc_ci95_hi": 0.9295,
+            "ci_width": 0.3814,
+            "reliable": false
+          },
+          {
+            "language": "fr",
+            "n": 25,
+            "macro_f1": 0.7439,
+            "accuracy": 0.96,
+            "acc_ci95_lo": 0.8046,
+            "acc_ci95_hi": 0.9929,
+            "ci_width": 0.1883,
+            "reliable": false
+          },
+          {
+            "language": "pt",
+            "n": 10,
+            "macro_f1": 1.0,
+            "accuracy": 1.0,
+            "acc_ci95_lo": 0.7225,
+            "acc_ci95_hi": 1.0,
+            "ci_width": 0.2775,
+            "reliable": false
+          },
+          {
+            "language": "ru",
+            "n": 114,
+            "macro_f1": 0.8074,
+            "accuracy": 0.8509,
+            "acc_ci95_lo": 0.7741,
+            "acc_ci95_hi": 0.9048,
+            "ci_width": 0.1306,
+            "reliable": true
+          }
+        ],
+        "overall_macro_f1": 0.9047842040075956,
+        "overall_macro_f1_ci95": [
+          0.8920602350407206,
+          0.9182739812739641
+        ]
+      },
+      "cross_lingual_train_en": {
+        "per_language": [
+          {
+            "language": "de",
+            "n": 129,
+            "macro_f1": 0.4425,
+            "accuracy": 0.876,
+            "acc_ci95_lo": 0.808,
+            "acc_ci95_hi": 0.9222,
+            "ci_width": 0.1142,
+            "reliable": true
+          },
+          {
+            "language": "en",
+            "n": 1768,
+            "macro_f1": 0.916,
+            "accuracy": 0.9078,
+            "acc_ci95_lo": 0.8934,
+            "acc_ci95_hi": 0.9204,
+            "ci_width": 0.027,
+            "reliable": true
+          },
+          {
+            "language": "es",
+            "n": 61,
+            "macro_f1": 0.5727,
+            "accuracy": 0.8361,
+            "acc_ci95_lo": 0.7239,
+            "acc_ci95_hi": 0.9084,
+            "ci_width": 0.1846,
+            "reliable": true
+          },
+          {
+            "language": "fr",
+            "n": 99,
+            "macro_f1": 0.5157,
+            "accuracy": 0.8081,
+            "acc_ci95_lo": 0.7196,
+            "acc_ci95_hi": 0.8735,
+            "ci_width": 0.154,
+            "reliable": true
+          },
+          {
+            "language": "pt",
+            "n": 54,
+            "macro_f1": 0.6828,
+            "accuracy": 0.9074,
+            "acc_ci95_lo": 0.8009,
+            "acc_ci95_hi": 0.9598,
+            "ci_width": 0.1589,
+            "reliable": true
+          },
+          {
+            "language": "ru",
+            "n": 542,
+            "macro_f1": 0.4357,
+            "accuracy": 0.7343,
+            "acc_ci95_lo": 0.6956,
+            "acc_ci95_hi": 0.7698,
+            "ci_width": 0.0742,
+            "reliable": true
+          }
+        ],
+        "overall_macro_f1": null,
+        "overall_macro_f1_ci95": null
+      }
+    },
+    "note": "Per-language ACCURACY CIs are exact Wilson intervals from (n, accuracy). Cells with n<30 are flagged unreliable; macro-F1 CIs there need a re-run with saved predictions."
+  },
+  "full_battery": {
+    "status": "computed",
+    "loaded": [
+      "scoring_blackbox",
+      "scoring_explainable",
+      "text_TFIDF_LinearSVM",
+      "text_TFIDF_LogReg"
+    ],
+    "scoring_explainable_vs_blackbox": {
+      "metric": "macro_f1",
+      "observed_diff": 0.02190130716434202,
+      "ci95": [
+        0.010779986521888574,
+        0.033552693741038385
+      ],
+      "p_value": 0.0
+    },
+    "holm_bonferroni": {
+      "scoring_expl_vs_bb": {
+        "p": 0.0,
+        "reject": true
+      }
+    }
+  }
+}

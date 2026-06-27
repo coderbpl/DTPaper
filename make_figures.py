@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-OUT = os.path.join(os.path.dirname(__file__), "darktrace_results", "figures")
+OUT = os.path.join(os.path.dirname(__file__), "darktrace_results_latest", "figures")
 os.makedirs(OUT, exist_ok=True)
 plt.rcParams.update({"font.size": 11, "axes.grid": True, "grid.alpha": 0.3,
                      "figure.dpi": 150, "savefig.bbox": "tight"})
@@ -15,7 +15,7 @@ plt.rcParams.update({"font.size": 11, "axes.grid": True, "grid.alpha": 0.3,
 # Fig A: Multilingual transfer gap (pooled vs EN-> transfer), macro-F1
 # ---------------------------------------------------------------
 langs   = ["en", "ru", "fr", "de", "es", "pt"]
-pooled  = [0.9078, 0.9159, 0.7439, 0.6528, 0.6787, 1.0000]
+pooled  = [0.9075, 0.8074, 0.7439, 0.6528, 0.6787, 1.0000]
 transfer= [0.9160, 0.4357, 0.5157, 0.4425, 0.5727, 0.6828]
 x = np.arange(len(langs)); w = 0.38
 fig, ax = plt.subplots(figsize=(7.2, 3.6))

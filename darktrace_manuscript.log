@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.6.9)  27 JUN 2026 06:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2026.6.9)  27 JUN 2026 08:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -730,7 +730,7 @@ Package: authblk 2001/02/27 1.3 (PWD)
 \c@authors=\count318
 \c@affil=\count319
 )
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 46
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 55
 .
 
 (/usr/share/texmf/tex/latex/lm/t1lmr.fd
@@ -744,36 +744,36 @@ File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
 (./darktrace_manuscript.aux)
 \openout1 = `darktrace_manuscript.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 46.
-LaTeX Font Info:    ... okay on input line 46.
-LaTeX Info: Redefining \microtypecontext on input line 46.
-Package microtype Info: Applying patch `item' on input line 46.
-Package microtype Info: Applying patch `toc' on input line 46.
-Package microtype Info: Applying patch `eqnum' on input line 46.
-Package microtype Info: Applying patch `footnote' on input line 46.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Info: Redefining \microtypecontext on input line 55.
+Package microtype Info: Applying patch `item' on input line 55.
+Package microtype Info: Applying patch `toc' on input line 55.
+Package microtype Info: Applying patch `eqnum' on input line 55.
+Package microtype Info: Applying patch `footnote' on input line 55.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 46.
+LaTeX Info: Redefining \showhyphens on input line 55.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -838,7 +838,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 46.
+Package hyperref Info: Link coloring OFF on input line 55.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -851,9 +851,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count327
 )
-LaTeX Info: Redefining \ref on input line 46.
-LaTeX Info: Redefining \pageref on input line 46.
-LaTeX Info: Redefining \nameref on input line 46.
+LaTeX Info: Redefining \ref on input line 55.
+LaTeX Info: Redefining \pageref on input line 55.
+LaTeX Info: Redefining \nameref on input line 55.
 
 (./darktrace_manuscript.out) (./darktrace_manuscript.out)
 \@outlinefile=\write4
@@ -864,37 +864,37 @@ Package caption Info: End \AtBeginDocument code.
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/17.28'.
 (microtype)             Ignoring protrusion settings for this character.
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 4
-7.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 5
+6.
 
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 4
-7.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 5
+6.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-47.
+56.
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-47.
+56.
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 47.
+(Font)              <12> on input line 56.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 47.
+(Font)              <8> on input line 56.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 47.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 47.
+(Font)              <6> on input line 56.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 56.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -903,7 +903,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 47.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 56.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -912,8 +912,18 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 4
-7.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 5
+6.
+
+(/usr/share/texmf/tex/latex/lm/ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 56.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 56.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
+6.
 
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -926,13 +936,11 @@ Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/lmr/m/sc/10'.
 (microtype)             Ignoring protrusion settings for this character.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 67.
+(Font)              <10> on input line 86.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 67.
+(Font)              <7> on input line 86.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 67.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 93.
+(Font)              <10.95> on input line 113.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
@@ -942,55 +950,48 @@ Package microtype Info: Character `029' is missing
  [2]
 
 LaTeX Font Warning: Font shape `T1/lmr/bx/sc' undefined
-(Font)              using `T1/lmr/bx/n' instead on input line 213.
+(Font)              using `T1/lmr/bx/n' instead on input line 233.
 
 [3]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 257.
-
-Overfull \hbox (123.28983pt too wide) in paragraph at lines 267--270
+Overfull \hbox (123.28983pt too wide) in paragraph at lines 287--290
  [][] 
  []
 
 [4]
-Overfull \hbox (12.33441pt too wide) in paragraph at lines 310--315
+Overfull \hbox (12.33441pt too wide) in paragraph at lines 330--335
 \T1/lmr/m/n/10.95 (-20) A flat tax-on-omy of threat cat-e-gories (Mal-ware/Rans
 omware; Ex-ploit/Vulnerability; Data/Credential
  []
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<darktrace_results/figures//perclass_f1_CoDA_TFIDF_LinearSVM.png, id=308, 505.8
-9pt x 289.08pt>
-File: darktrace_results/figures//perclass_f1_CoDA_TFIDF_LinearSVM.png Graphic f
-ile (type png)
-<use darktrace_results/figures//perclass_f1_CoDA_TFIDF_LinearSVM.png>
-Package pdftex.def Info: darktrace_results/figures//perclass_f1_CoDA_TFIDF_Line
-arSVM.png  used on input line 371.
-(pdftex.def)             Requested size: 217.42265pt x 124.24463pt.
-<darktrace_results/figures//perclass_f1_CIC-Darknet2020_HistGradientBoosting.pn
-g, id=310, 505.89pt x 289.08pt>
-File: darktrace_results/figures//perclass_f1_CIC-Darknet2020_HistGradientBoosti
-ng.png Graphic file (type png)
-<use darktrace_results/figures//perclass_f1_CIC-Darknet2020_HistGradientBoostin
-g.png>
-Package pdftex.def Info: darktrace_results/figures//perclass_f1_CIC-Darknet2020
-_HistGradientBoosting.png  used on input line 372.
-(pdftex.def)             Requested size: 217.42265pt x 124.24463pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 [5]
+<darktrace_results_latest/figures//perclass_f1_CoDA_TFIDF_LinearSVM.png, id=319
+, 505.89pt x 289.08pt>
+File: darktrace_results_latest/figures//perclass_f1_CoDA_TFIDF_LinearSVM.png Gr
+aphic file (type png)
+<use darktrace_results_latest/figures//perclass_f1_CoDA_TFIDF_LinearSVM.png>
+Package pdftex.def Info: darktrace_results_latest/figures//perclass_f1_CoDA_TFI
+DF_LinearSVM.png  used on input line 391.
+(pdftex.def)             Requested size: 217.42265pt x 124.24463pt.
+<darktrace_results_latest/figures//perclass_f1_CIC-Darknet2020_HistGradientBoos
+ting.png, id=321, 505.89pt x 289.08pt>
+File: darktrace_results_latest/figures//perclass_f1_CIC-Darknet2020_HistGradien
+tBoosting.png Graphic file (type png)
+<use darktrace_results_latest/figures//perclass_f1_CIC-Darknet2020_HistGradient
+Boosting.png>
+Package pdftex.def Info: darktrace_results_latest/figures//perclass_f1_CIC-Dark
+net2020_HistGradientBoosting.png  used on input line 392.
+(pdftex.def)             Requested size: 217.42265pt x 124.24463pt.
+
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<darktrace_results/figures//fig_transfer_gap.png, id=326, 471.6822pt x 248.127p
-t>
-File: darktrace_results/figures//fig_transfer_gap.png Graphic file (type png)
-<use darktrace_results/figures//fig_transfer_gap.png>
-Package pdftex.def Info: darktrace_results/figures//fig_transfer_gap.png  used 
-on input line 421.
+<darktrace_results_latest/figures//fig_transfer_gap.png, id=326, 471.6822pt x 2
+48.127pt>
+File: darktrace_results_latest/figures//fig_transfer_gap.png Graphic file (type
+ png)
+<use darktrace_results_latest/figures//fig_transfer_gap.png>
+Package pdftex.def Info: darktrace_results_latest/figures//fig_transfer_gap.png
+  used on input line 442.
 (pdftex.def)             Requested size: 335.19873pt x 176.33797pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -998,67 +999,68 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<darktrace_results/figures//fig_scoring_tradeoff.png, id=328, 464.4552pt x 248.
-127pt>
-File: darktrace_results/figures//fig_scoring_tradeoff.png Graphic file (type pn
-g)
-<use darktrace_results/figures//fig_scoring_tradeoff.png>
-Package pdftex.def Info: darktrace_results/figures//fig_scoring_tradeoff.png  u
-sed on input line 451.
+<darktrace_results_latest/figures//fig_scoring_tradeoff.png, id=328, 464.4552pt
+ x 248.127pt>
+File: darktrace_results_latest/figures//fig_scoring_tradeoff.png Graphic file (
+type png)
+<use darktrace_results_latest/figures//fig_scoring_tradeoff.png>
+Package pdftex.def Info: darktrace_results_latest/figures//fig_scoring_tradeoff
+.png  used on input line 472.
 (pdftex.def)             Requested size: 217.42265pt x 116.154pt.
-<darktrace_results/figures//scoring_faithfulness.png, id=329, 361.35pt x 289.08
-pt>
-File: darktrace_results/figures//scoring_faithfulness.png Graphic file (type pn
-g)
-<use darktrace_results/figures//scoring_faithfulness.png>
-Package pdftex.def Info: darktrace_results/figures//scoring_faithfulness.png  u
-sed on input line 452.
+<darktrace_results_latest/figures//scoring_faithfulness.png, id=329, 361.35pt x
+ 289.08pt>
+File: darktrace_results_latest/figures//scoring_faithfulness.png Graphic file (
+type png)
+<use darktrace_results_latest/figures//scoring_faithfulness.png>
+Package pdftex.def Info: darktrace_results_latest/figures//scoring_faithfulness
+.png  used on input line 473.
 (pdftex.def)             Requested size: 217.42265pt x 173.93895pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[6 <./darktrace_results/figures//perclass_f1_CoDA_TFIDF_LinearSVM.png> <./darkt
-race_results/figures//perclass_f1_CIC-Darknet2020_HistGradientBoosting.png>]
+[6 <./darktrace_results_latest/figures//perclass_f1_CoDA_TFIDF_LinearSVM.png> <
+./darktrace_results_latest/figures//perclass_f1_CIC-Darknet2020_HistGradientBoo
+sting.png>]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<darktrace_results/figures//fig_ablation_actionability.png, id=345, 525.6438pt 
-x 263.5446pt>
-File: darktrace_results/figures//fig_ablation_actionability.png Graphic file (t
-ype png)
-<use darktrace_results/figures//fig_ablation_actionability.png>
-Package pdftex.def Info: darktrace_results/figures//fig_ablation_actionability.
-png  used on input line 503.
+<darktrace_results_latest/figures//fig_ablation_actionability.png, id=345, 525.
+6438pt x 263.5446pt>
+File: darktrace_results_latest/figures//fig_ablation_actionability.png Graphic 
+file (type png)
+<use darktrace_results_latest/figures//fig_ablation_actionability.png>
+Package pdftex.def Info: darktrace_results_latest/figures//fig_ablation_actiona
+bility.png  used on input line 524.
 (pdftex.def)             Requested size: 335.19873pt x 168.06476pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Overfull \hbox (15.20267pt too wide) in paragraph at lines 529--540
+Overfull \hbox (31.74083pt too wide) in paragraph at lines 554--565
  [][] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+[7 <./darktrace_results_latest/figures//fig_transfer_gap.png>]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Overfull \hbox (15.39226pt too wide) in paragraph at lines 577--583
+Overfull \hbox (15.39226pt too wide) in paragraph at lines 604--614
 []\T1/lmr/m/n/10.95 (-20) The sta-tis-ti-cal layer is im-ple-mented in \T1/lmtt
 /m/n/10.95 src/metrics_stats.py \T1/lmr/m/n/10.95 (-20) and driven by \T1/lmtt/
 m/n/10.95 src/exp_stats.py
  []
 
-[7 <./darktrace_results/figures//fig_transfer_gap.png>]
-(./darktrace_manuscript.bbl [8 <./darktrace_results/figures//fig_scoring_tradeo
-ff.png> <./darktrace_results/figures//scoring_faithfulness.png>] [9] [10 <./dar
-ktrace_results/figures//fig_ablation_actionability.png>] [11]) [12]
-(./darktrace_manuscript.aux)
+[8 <./darktrace_results_latest/figures//fig_scoring_tradeoff.png> <./darktrace_
+results_latest/figures//scoring_faithfulness.png>] (./darktrace_manuscript.bbl
+[9] [10 <./darktrace_results_latest/figures//fig_ablation_actionability.png>]
+[11]) [12] (./darktrace_manuscript.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
@@ -1066,33 +1068,35 @@ Package rerunfilecheck Info: File `darktrace_manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: 2117DE3067464782EF3B3AFCF6A8FC2C;4303.
  ) 
 Here is how much of TeX's memory you used:
- 26289 strings out of 480247
- 492961 string characters out of 5896152
- 798463 words of memory out of 5000000
- 43377 multiletter control sequences out of 15000+600000
- 577925 words of font info for 232 fonts, out of 8000000 for 9000
+ 26336 strings out of 480247
+ 494246 string characters out of 5896152
+ 798705 words of memory out of 5000000
+ 43410 multiletter control sequences out of 15000+600000
+ 579011 words of font info for 238 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  84i,13n,80p,1017b,865s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/en
 c/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/s
-hare/texmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm
-/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texm
-f/fonts/type1/public/lm/lmbx7.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx9
-.pfb></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/font
-s/type1/public/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb>
-</usr/share/texmf/fonts/type1/public/lm/lmmi9.pfb></usr/share/texmf/fonts/type1
-/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/sh
-are/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/
-lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/share/texmf/
-fonts/type1/public/lm/lmr9.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.p
-fb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/t
-ype1/public/lm/lmsy6.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></us
-r/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/pub
-lic/lm/lmsy9.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb>
-Output written on darktrace_manuscript.pdf (12 pages, 620585 bytes).
+hare/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm
+-ts1.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/f
+onts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx7.p
+fb></usr/share/texmf/fonts/type1/public/lm/lmbx9.pfb></usr/share/texmf/fonts/ty
+pe1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></
+usr/share/texmf/fonts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/p
+ublic/lm/lmmi9.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/shar
+e/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm
+/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmr6.pfb></usr/share/texmf/f
+onts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb>
+</usr/share/texmf/fonts/type1/public/lm/lmr9.pfb></usr/share/texmf/fonts/type1/
+public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/s
+hare/texmf/fonts/type1/public/lm/lmsy6.pfb></usr/share/texmf/fonts/type1/public
+/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/tex
+mf/fonts/type1/public/lm/lmsy9.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt
+10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt9.pfb>
+Output written on darktrace_manuscript.pdf (12 pages, 652750 bytes).
 PDF statistics:
- 514 PDF objects out of 1000 (max. 8388607)
- 438 compressed objects within 5 object streams
+ 529 PDF objects out of 1000 (max. 8388607)
+ 448 compressed objects within 5 object streams
  110 named destinations out of 1000 (max. 500000)
- 58603 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 62699 words of extra memory for PDF output out of 74296 (max. 10000000)
 

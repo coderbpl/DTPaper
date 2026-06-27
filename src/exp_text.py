@@ -20,6 +20,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
+from sklearn.naive_bayes import ComplementNB
 from sklearn.model_selection import StratifiedKFold, train_test_split
 from sklearn.pipeline import Pipeline
 
@@ -255,6 +256,14 @@ def build_models(cfg, seed):
                                       ngram_range=(1, 2), sublinear_tf=True)),
             ("clf", LinearSVC(class_weight="balanced", random_state=seed)),
         ]),
+        # Third classical baseline: gives the Friedman+Nemenyi omnibus test
+        # (Section 8.13) >=3 models so the critical-difference diagram is real
+        # even on a CPU-only run. ComplementNB is well suited to imbalanced text.
+        "TFIDF_ComplementNB": Pipeline([
+            ("tfidf", TfidfVectorizer(max_features=cfg["model"]["max_features"],
+                                      ngram_range=(1, 2), sublinear_tf=True)),
+            ("clf", ComplementNB()),
+        ]),
     }
 
 
@@ -324,10 +333,20 @@ def run(cfg, logger):
         logger.info(f"  TEST macro-F1={m['macro_f1']:.4f} CI95=[{lo:.4f},{hi:.4f}]")
 
     names = list(results["models"].keys())
-    if len(names) == 2:
-        p, stat = mcnemar_test(yte, test_preds[names[0]], test_preds[names[1]])
-        results["mcnemar"] = {"models": names, "p_value": p, "statistic": stat}
-        logger.info(f"McNemar {names[0]} vs {names[1]}: p={p:.3e}")
+    # Pairwise McNemar across all classifiers. Keep `mcnemar` (the headline
+    # LogReg-vs-LinearSVM pair) for backward compatibility, and add
+    # `mcnemar_pairwise` for the full set when >2 models are present.
+    import itertools as _it
+    pairwise = {}
+    for a, b in _it.combinations(names, 2):
+        p, stat = mcnemar_test(yte, test_preds[a], test_preds[b])
+        pairwise[f"{a}__vs__{b}"] = {"p_value": p, "statistic": stat}
+        logger.info(f"McNemar {a} vs {b}: p={p:.3e}")
+    if pairwise:
+        results["mcnemar_pairwise"] = pairwise
+        first = next(iter(pairwise))
+        a, b = first.split("__vs__")
+        results["mcnemar"] = {"models": [a, b], **pairwise[first]}
     return results
 
 

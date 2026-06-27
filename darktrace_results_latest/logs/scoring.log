@@ -1,0 +1,35 @@
+07:31:13 [INFO] Loading real text corpus from data/raw/coda.csv
+07:31:14 [WARNING] Parsed CoDA __key__ format (100.0% matched): 10 categories (e.g. ['Arms', 'Crypto', 'Drugs', 'Electronic', 'Financial', 'Gambling', 'Hacking', 'Others', 'Porn', 'Violence']); languages (e.g. ['ar', 'arz', 'bg', 'bn', 'ca', 'ceb', 'cs', 'cy', 'de', 'el']). Labels = category.
+07:31:14 [INFO] Using text column 'txt' and label column '__derived_label__'.
+07:31:14 [INFO] Text validation: 10000 -> 9983 rows after cleaning (dropped empties, short docs < 10 chars, duplicates).
+07:31:14 [INFO] CoDA classes (n=9983, classes=10):
+07:31:14 [INFO]     Others                       2918  (29.23%)
+07:31:14 [INFO]     Porn                         1205  (12.07%)
+07:31:14 [INFO]     Drugs                        1166  (11.68%)
+07:31:14 [INFO]     Financial                    1003  (10.05%)
+07:31:14 [INFO]     Gambling                      787  ( 7.88%)
+07:31:14 [INFO]     Crypto                        760  ( 7.61%)
+07:31:14 [INFO]     Hacking                       649  ( 6.50%)
+07:31:14 [INFO]     Arms                          599  ( 6.00%)
+07:31:14 [INFO]     Violence                      470  ( 4.71%)
+07:31:14 [INFO]     Electronic                    426  ( 4.27%)
+07:31:14 [INFO]     imbalance ratio (max/min) = 6.8
+07:31:14 [WARNING] Risk label: ORDINAL SEVERITY (0-3) from a STATED category map (distribution={0: 2918, 1: 2418, 2: 2929, 3: 1718}). NOTE: derived from categories, not analyst ratings; state this in the manuscript.
+07:31:39 [WARNING] Collapsed 4-level risk [0, 1, 2, 3] to binary at threshold >= 2 for the scorer (4647/9983 positive).
+07:31:39 [INFO] === Explainable stacking ensemble ===
+07:37:26 [INFO]   ensemble AUC=0.9752471505880219 AP=0.9757075020759253 NDCG@10=0.9969040247678018 Brier=0.053681146662903835
+07:42:28 [INFO] Attributions: SHAP KernelExplainer.
+07:42:29 [INFO] Faithfulness: top-10 drop=0.0523 vs random-10 drop=0.0017 (gap=+0.0506)
+07:44:20 [INFO] Stability (per-instance, perturbed): mean top-10 Jaccard=0.2990 over 30 instances x 5 perturbations
+07:45:22 [INFO] SHAP-LIME agreement (top-20): Spearman(union)=-0.4030823936377985, Jaccard=0.022540759382864643
+07:45:22 [INFO] Computing Integrated Gradients on 30 instances...
+07:50:17 [INFO] Agreement shap_vs_lime: Spearman(union)=-0.4030823936377985, Jaccard=0.022540759382864643
+07:50:17 [INFO] Agreement shap_vs_ig: Spearman(union)=-0.06256632624122448, Jaccard=0.09199472302920579
+07:50:17 [INFO] Agreement lime_vs_ig: Spearman(union)=0.014931843157054005, Jaccard=0.008636977058029688
+07:50:17 [INFO] Mean pairwise Jaccard across methods: 0.04105748649003337
+07:50:17 [INFO] === Black-box MLP baseline ===
+07:50:24 [INFO]   MLP AUC=0.9707399905271539 AP=0.9715318987241431 NDCG@10=1.0 Brier=0.07541614785654882
+07:50:24 [INFO] RQ3-a: ensemble AUC 0.9752 vs black-box 0.9707 (gap +0.0045, McNemar p=2.789e-04)
+07:50:24 [INFO] Wrote Table 10 fragment -> results/tables/table10_scoring.csv
+07:50:24 [INFO] Real-data run complete — Table 10 scoring fragment written.
+07:50:24 [INFO] Done in 1150.5s.

@@ -1,0 +1,6 @@
+Configuration,has_label,has_severity,has_faithful_expl,has_sealed_evidence,verifiable_provenance,standards_export,Actionability
+full,1.0,1.0,0.73,1.0,1.0,1.0,0.955
+no_scoring,1.0,0.0,0.0,1.0,1.0,1.0,0.667
+no_explanation,1.0,1.0,0.0,1.0,1.0,1.0,0.833
+no_sealing,1.0,1.0,0.73,0.0,0.0,1.0,0.622
+no_export,1.0,1.0,0.73,1.0,0.0,0.0,0.622

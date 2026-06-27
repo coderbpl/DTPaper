@@ -17,6 +17,7 @@ import argparse, subprocess, sys, time, os
 PHASES = [
     ("src.exp_traffic",                 "configs/traffic.json",                True),
     ("src.exp_text",                    "configs/text.json",                   True),
+    ("src.exp_text_transformer",        "configs/text_transformer.json",       False),
     ("src.exp_multilingual",            "configs/multilingual.json",           True),
     ("src.exp_multilingual_crossdomain","configs/multilingual_crossdomain.json", False),
     ("src.exp_scoring",                 "configs/scoring.json",                True),

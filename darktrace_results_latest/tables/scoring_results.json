@@ -1,0 +1,164 @@
+{
+  "experiment": "phase3_explainable_scoring",
+  "reportable": true,
+  "source": "text",
+  "seed": 42,
+  "n_train": 7986,
+  "n_test": 1997,
+  "n_features": 2000,
+  "xai": {
+    "shap": true,
+    "lime": true
+  },
+  "risk": {
+    "risk_mode": "severity",
+    "risk_meta": {
+      "severity_map": {
+        "arms": 3,
+        "weapons": 3,
+        "violence": 3,
+        "hacking": 3,
+        "drugs": 2,
+        "financial": 2,
+        "fraud": 2,
+        "crypto": 2,
+        "counterfeit": 2,
+        "gambling": 1,
+        "porn": 1,
+        "electronic": 1,
+        "others": 0
+      },
+      "distribution": {
+        "0": 2918,
+        "1": 2418,
+        "2": 2929,
+        "3": 1718
+      }
+    }
+  },
+  "binary_threshold": 2,
+  "class_report": {
+    "n": 9983,
+    "n_classes": 10,
+    "distribution": {
+      "Others": {
+        "count": 2918,
+        "pct": 29.23
+      },
+      "Porn": {
+        "count": 1205,
+        "pct": 12.071
+      },
+      "Drugs": {
+        "count": 1166,
+        "pct": 11.68
+      },
+      "Financial": {
+        "count": 1003,
+        "pct": 10.047
+      },
+      "Gambling": {
+        "count": 787,
+        "pct": 7.883
+      },
+      "Crypto": {
+        "count": 760,
+        "pct": 7.613
+      },
+      "Hacking": {
+        "count": 649,
+        "pct": 6.501
+      },
+      "Arms": {
+        "count": 599,
+        "pct": 6.0
+      },
+      "Violence": {
+        "count": 470,
+        "pct": 4.708
+      },
+      "Electronic": {
+        "count": 426,
+        "pct": 4.267
+      }
+    },
+    "imbalance_ratio": 6.849765258215962
+  },
+  "models": {
+    "explainable_ensemble": {
+      "ranking": {
+        "auc": 0.9752471505880219,
+        "ap": 0.9757075020759253,
+        "ndcg@10": 0.9969040247678018,
+        "brier": 0.053681146662903835
+      },
+      "macro_f1_at_0.5_ci95": [
+        0.9186877412013253,
+        0.9393749677391668
+      ],
+      "attribution_method": "shap_kernel",
+      "faithfulness": {
+        "comprehensiveness_topk": 0.0523076910678265,
+        "comprehensiveness_random": 0.0016728261874009234,
+        "faithfulness_gap": 0.050634864880425574,
+        "k": 10
+      },
+      "stability": {
+        "stability_jaccard": 0.29903667998095246,
+        "k": 10,
+        "method": "per_instance_perturbation",
+        "n_eval": 30,
+        "n_perturb": 5,
+        "noise": 0.02
+      },
+      "shap_lime_agreement": {
+        "lime_spearman": -0.4030823936377985,
+        "lime_jaccard": 0.022540759382864643,
+        "available": true,
+        "n": 30,
+        "k": 20,
+        "method": "union_topk"
+      },
+      "three_method_agreement": {
+        "available": [
+          "shap",
+          "lime",
+          "ig"
+        ],
+        "k": 20,
+        "pairs": {
+          "shap_vs_lime": {
+            "spearman_union": -0.4030823936377985,
+            "jaccard": 0.022540759382864643,
+            "n": 30
+          },
+          "shap_vs_ig": {
+            "spearman_union": -0.06256632624122448,
+            "jaccard": 0.09199472302920579,
+            "n": 30
+          },
+          "lime_vs_ig": {
+            "spearman_union": 0.014931843157054005,
+            "jaccard": 0.008636977058029688,
+            "n": 30
+          }
+        },
+        "mean_pairwise_jaccard": 0.04105748649003337
+      }
+    },
+    "blackbox_mlp": {
+      "ranking": {
+        "auc": 0.9707399905271539,
+        "ap": 0.9715318987241431,
+        "ndcg@10": 1.0,
+        "brier": 0.07541614785654882
+      }
+    }
+  },
+  "explainable_vs_blackbox": {
+    "ensemble_auc": 0.9752471505880219,
+    "blackbox_auc": 0.9707399905271539,
+    "auc_gap": 0.004507160060868043,
+    "mcnemar_p": 0.0002788841966531667
+  }
+}

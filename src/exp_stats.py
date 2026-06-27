@@ -186,7 +186,14 @@ def full_from_predictions(out):
         mat = np.array([[scores_by_model[m][i] for m in names]
                         for i in range(n_folds)])
         if mat.shape[1] >= 3:
-            res["friedman_nemenyi"] = friedman_nemenyi(mat, names)
+            fn = friedman_nemenyi(mat, names)
+            res["friedman_nemenyi"] = fn
+            try:
+                figdir = os.path.join(os.path.dirname(TABLES), "figures")
+                _cd_diagram(fn, os.path.join(figdir, "fig_cd_diagram.png"))
+                res["cd_diagram"] = os.path.join(figdir, "fig_cd_diagram.png")
+            except Exception as e:
+                res["cd_diagram_error"] = str(e)
 
     # Holm-Bonferroni across collected p-values
     if pvals:
@@ -195,6 +202,42 @@ def full_from_predictions(out):
             for k, (v, rej) in holm_bonferroni(pvals).items()
         }
     out["full_battery"] = {"status": "computed", **res}
+
+
+def _cd_diagram(fn, out_path):
+    """Draw a Demsar critical-difference diagram from a friedman_nemenyi result."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    ranks = fn["mean_ranks"]; cd = fn.get("nemenyi_cd")
+    names = list(ranks.keys()); rvals = [ranks[n] for n in names]
+    order = np.argsort(rvals)
+    names = [names[i] for i in order]; rvals = [rvals[i] for i in order]
+    k = len(names); lo, hi = 1, k
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    fig, ax = plt.subplots(figsize=(7.2, 1.6 + 0.3 * k))
+    ax.set_xlim(lo - 0.3, hi + 0.3); ax.set_ylim(0, k + 1)
+    ax.invert_xaxis()  # best (lowest rank) on the right per convention
+    ax.hlines(k + 0.5, lo, hi, color="black")
+    for x in range(lo, hi + 1):
+        ax.vlines(x, k + 0.4, k + 0.6, color="black")
+        ax.text(x, k + 0.75, str(x), ha="center", va="bottom", fontsize=9)
+    for i, (nm, rv) in enumerate(zip(names, rvals)):
+        y = k - i
+        ax.plot([rv, rv], [y, k + 0.5], color="C0", lw=1)
+        ax.plot([rv, lo - 0.25 if rv < (lo + hi) / 2 else hi + 0.25], [y, y],
+                color="C0", lw=1)
+        ax.text(lo - 0.27 if rv < (lo + hi) / 2 else hi + 0.27, y,
+                f"{nm} ({rv:.2f})", va="center",
+                ha="right" if rv < (lo + hi) / 2 else "left", fontsize=9)
+    title = "Critical-difference diagram (Friedman+Nemenyi)"
+    if cd:
+        title += f"  CD={cd:.2f}, p={fn.get('friedman_p'):.3g}"
+        ax.plot([hi, hi - cd], [0.6, 0.6], color="red", lw=3)
+        ax.text((hi + hi - cd) / 2, 0.75, "CD", ha="center", color="red", fontsize=9)
+    ax.set_title(title, fontsize=10)
+    ax.axis("off")
+    fig.savefig(out_path, dpi=150, bbox_inches="tight"); plt.close(fig)
 
 
 def write_csv(out):

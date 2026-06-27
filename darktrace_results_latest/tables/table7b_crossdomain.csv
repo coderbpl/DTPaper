@@ -1,0 +1,3 @@
+Language,N_test,Macro_F1,Accuracy,Model,Domain
+hi,1146,0.9579,0.9581,transformer,cross-domain (social media)
+ar,1778,0.6967,0.734,transformer,cross-domain (social media)

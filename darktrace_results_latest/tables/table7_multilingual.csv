@@ -1,0 +1,13 @@
+Evaluation,Language,N,Macro_F1,Accuracy
+Pooled,de,24,0.6528,0.9167
+Pooled,en,1757,0.9075,0.8998
+Pooled,es,15,0.6787,0.8
+Pooled,fr,25,0.7439,0.96
+Pooled,pt,10,1.0,1.0
+Pooled,ru,114,0.8074,0.8509
+Transfer(EN->),de,129,0.4425,0.876
+Transfer(EN->),en,1768,0.916,0.9078
+Transfer(EN->),es,61,0.5727,0.8361
+Transfer(EN->),fr,99,0.5157,0.8081
+Transfer(EN->),pt,54,0.6828,0.9074
+Transfer(EN->),ru,542,0.4357,0.7343

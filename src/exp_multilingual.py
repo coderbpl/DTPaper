@@ -43,7 +43,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.svm import LinearSVC
 from sklearn.model_selection import train_test_split
 
-from .metrics_stats import bootstrap_ci
+from .metrics_stats import bootstrap_ci, save_predictions
 from .utils import load_config, ensure_dirs, get_logger, save_json, set_seed
 
 # optional heavy deps (present on Kaggle GPU, absent in a basic sandbox)
@@ -201,6 +201,25 @@ def run(cfg, logger):
     logger.info("Per-language (pooled model):")
     per_lang = _per_language_scores(te, y_true, y_pred, logger)
     results["evaluations"]["pooled"] = {"overall": overall, "per_language": per_lang}
+
+    # Persist per-language predictions (pooled regime) so exp_stats can compute
+    # per-language macro-F1 bootstrap CIs (not just exact Wilson accuracy CIs).
+    # Files: results/preds/multilingual_<lang>.npz, picked up by exp_stats.
+    try:
+        preds_dir = os.path.join(os.path.dirname(cfg["paths"]["tables"]), "preds")
+        langs_arr = te["lang"].values
+        for l in sorted(set(langs_arr)):
+            m = langs_arr == l
+            if int(m.sum()) < 5:
+                continue
+            save_predictions(
+                os.path.join(preds_dir, f"multilingual_{l}.npz"),
+                y_true[m], np.asarray(y_pred)[m],
+                meta={"task": "multilingual_pooled", "language": l,
+                      "n": int(m.sum())})
+        logger.info(f"Saved per-language predictions -> {preds_dir}")
+    except Exception as _e:
+        logger.warning(f"could not save per-language predictions: {_e}")
 
     # ---- (B) Cross-lingual transfer: train EN, test others ----
     if "en" in df["lang"].unique() and cfg.get("cross_lingual", True):

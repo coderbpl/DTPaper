@@ -1,0 +1,76 @@
+%=====================================================================
+%  DarkTrace -- Submission Cover Letter
+%  Compiles standalone:  pdflatex darktrace_cover_letter.tex
+%  Fill the bracketed placeholders ([Journal], [Editor], etc.) before sending.
+%=====================================================================
+\documentclass[11pt,a4paper]{letter}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\signature{Asha Vidyadharan \\ \texttt{codeasasha@gmail.com}}
+\address{Asha Vidyadharan \\ {}[Department], [Institution] \\ {}[City], [Country]}
+
+\begin{document}
+\begin{letter}{The Editor-in-Chief \\ \emph{[Target Journal Name]}}
+
+\opening{Dear Editor,}
+
+We are pleased to submit our manuscript, \textbf{``DarkTrace: An Explainable and
+Forensically Verifiable Multilingual Dark Web Threat Intelligence Framework with Severity
+Scoring and Evidence Integrity Validation,''} for consideration as a research article in
+\emph{[Target Journal Name]}.
+
+Cyber threat intelligence increasingly originates from the dark web, yet existing
+automated pipelines share three limitations that, critically, co-occur in real
+investigations: they are predominantly English-centric, they expose opaque ``black-box''
+classifications that analysts cannot defend operationally or legally, and they do not
+preserve the evidentiary integrity required for their outputs to be admissible as digital
+evidence. To our knowledge, no prior system addresses these jointly.
+
+Our central contribution is the \emph{integration}. DarkTrace unifies, in one
+investigator-ready pipeline: (i)~multilingual threat classification spanning English and
+non-English content; (ii)~a hybrid, explainable, calibrated severity-scoring model with
+SHAP/LIME/attention attributions; (iii)~STIX~2.1-aligned actor/entity extraction; and
+(iv)~an end-to-end forensic evidence-integrity layer (SHA-256 hashing, trusted
+timestamping, append-only chain-of-custody) that makes forensic soundness a cross-cutting
+property of the whole pipeline rather than an after-the-fact step.
+
+We believe the work is well suited to \emph{[Target Journal Name]} because it advances
+both the methodology and the practice of trustworthy, legally defensible AI-assisted
+threat intelligence. Key empirical findings, obtained on sanitized, archived, and public
+corpora and reported with confidence intervals and significance tests throughout, include:
+
+\begin{itemize}
+  \item dark-web text classification at $0.919$ macro-F1, with the model differences
+  statistically validated (McNemar $p=4.2\times10^{-4}$);
+  \item multilingual detection across six languages plus Hindi/Arabic cross-domain, with
+  cross-lingual transfer characterized and small-sample languages bounded by exact Wilson
+  intervals;
+  \item an explainable severity scorer that \emph{statistically outperforms} a black-box
+  baseline on thresholded macro-F1 ($+0.022$, $95\%$ CI $[0.011,0.034]$, $p<0.001$,
+  Holm-corrected) while adding interpretability and improved calibration;
+  \item $100\%$ tamper detection in an adversarial evidence-integrity test at
+  $\sim$9.9k items/s, with valid STIX~2.1 export; and
+  \item an integration ablation showing that only the full pipeline maximizes the
+  actionability of the emitted intelligence.
+\end{itemize}
+
+We confirm that this manuscript is original, has not been published previously, and is
+not under consideration elsewhere. The work raises no undisclosed ethical concerns: all
+data are sanitized, archived, public, or synthetic; no illegal collection was performed;
+personal and victim data are minimized and never redistributed; and our ethics and legal
+protocol is described in the manuscript. All authors have approved the submission and
+declare no competing interests. Code, derived data, and result artifacts are released to
+support reproducibility.
+
+We would be glad to suggest qualified reviewers and to address any questions. Thank you
+for your time and consideration.
+
+\closing{Sincerely,}
+
+\end{letter}
+\end{document}

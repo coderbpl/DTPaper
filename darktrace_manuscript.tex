@@ -32,19 +32,38 @@
 \usepackage{caption}
 \usepackage{authblk}
 
-\graphicspath{{darktrace_results/figures/}}
+\graphicspath{{darktrace_results_latest/figures/}{darktrace_results/figures/}}
 \newcommand{\framework}{\textsc{DarkTrace}}
 
 \title{\framework{}: An Explainable and Forensically Verifiable\\
 Multilingual Dark Web Threat Intelligence Framework with Severity\\
 Scoring and Evidence Integrity Validation}
 
-\author[1]{Asha Vidyadharan}
-\affil[1]{\small Affiliation to be completed. Corresponding author: \texttt{codeasasha@gmail.com}}
-\date{}
+% -------------------- Title-page author / affiliation block --------------------
+% Fill the bracketed placeholders before submission (department, institution,
+% city, country, ORCID). authblk renders multiple authors/affiliations cleanly.
+\author[1,$\ast$]{Asha Vidyadharan%
+  \thanks{$\ast$ Corresponding author: \texttt{codeasasha@gmail.com}}}
+% \author[1]{Co-Author Name}      % <- add co-authors as needed
+% \author[2]{Another Author}
+\affil[1]{\small [Department], [Institution], [City], [Country]}
+% \affil[2]{\small [Second affiliation, if any]}
+\date{\small Manuscript prepared \today\ \\[2pt]
+  \footnotesize ORCID: [0000-0000-0000-0000] \quad
+  Preprint --- intended for submission to an SCI/SCIE-indexed journal}
 
 \begin{document}
 \maketitle
+
+% -------------------- Front-matter declarations (journal-ready) --------------------
+\noindent\textbf{Declarations.}\quad
+\textit{Funding:} [none / grant no.].\;
+\textit{Competing interests:} the author declares no competing interests.\;
+\textit{Data availability:} sanitized/derived data, code, and result artifacts are
+released with the paper; raw illicit content is not redistributed.\;
+\textit{Ethics:} see Section~\ref{sec:ethics}.
+
+\vspace{0.4em}
 
 %=====================================================================
 \begin{abstract}
@@ -66,9 +85,10 @@ couples them so that each severity-scored alert carries both a human-readable ra
 and a verifiable provenance record. Using sanitized, archived, and public CTI corpora,
 \framework{} attains a macro-F1 of $0.919$ on dark-web text classification, sustains
 multilingual detection across six languages plus Hindi/Arabic cross-domain, provides a
-calibrated explainable scorer that statistically matches a black-box baseline while
-adding interpretability (McNemar $p=2.8\times10^{-4}$), and achieves $100\%$ tamper
-detection at $\sim$8.7k items/s with valid STIX~2.1 export. An integration ablation
+calibrated explainable scorer that statistically \emph{outperforms} a black-box baseline
+on threshold macro-F1 ($+0.022$, $95\%$ CI $[0.011,0.034]$, $p<0.001$ Holm-corrected)
+while adding interpretability, and achieves $100\%$ tamper detection at $\sim$9.9k items/s
+with valid STIX~2.1 export. An integration ablation
 isolates the value of coupling these capabilities. We position the integration of
 multilingual NLP, explainable severity scoring, forensic preservation, and
 investigator-ready CTI as the core research contribution.
@@ -375,9 +395,10 @@ TF-IDF $+$ LogReg       & CoDA            & 0.8963 & 0.9034 & ---    & 0.0129 \\
 \end{figure}
 
 \subsection{Multilingual Detection}
-Under pooled training the model is strong on well-represented languages (EN $0.908$,
-$N{=}1757$; RU $0.916$, $N{=}114$); zero-shot transfer preserves English ($0.916$) but
-shows the expected penalty on RU/DE/FR (Table~\ref{tab:r-ml}, Fig.~\ref{fig:transfer}). A
+Under pooled training the model is strong on the best-represented language (EN $0.908$,
+$N{=}1757$) and competitive on Russian (RU $0.807$, $N{=}114$); zero-shot transfer
+preserves English ($0.916$) but shows the expected penalty on RU/DE/FR
+(Table~\ref{tab:r-ml}, Fig.~\ref{fig:transfer}). A
 cross-domain transformer generalizes well to Hindi ($0.958$, $N{=}1146$) and moderately to
 Arabic ($0.697$, $N{=}1778$) (Table~\ref{tab:r-ml2}). Small-$N$ cells are interpreted with
 the Wilson intervals in Section~\ref{sec:stats}.
@@ -391,8 +412,8 @@ the Wilson intervals in Section~\ref{sec:stats}.
 \toprule
 \textbf{Language} & \textbf{$N$ (pool/trans)} & \textbf{Macro-F1 (Pooled)} & \textbf{Macro-F1 (Transfer)} \\
 \midrule
-EN & 1757 / 1768 & 0.9078 & 0.9160 \\
-RU &  114 /  542 & 0.9159 & 0.4357 \\
+EN & 1757 / 1768 & 0.9075 & 0.9160 \\
+RU &  114 /  542 & 0.8074 & 0.4357 \\
 FR &   25 /   99 & 0.7439 & 0.5157 \\
 DE &   24 /  129 & 0.6528 & 0.4425 \\
 ES &   15 /   61 & 0.6787 & 0.5727 \\
@@ -455,10 +476,10 @@ Black-box MLP (baseline)      & 0.9707 & 0.9715 & \textbf{1.0000} & 0.0754 & ---
 \end{figure}
 
 \subsection{Evidence Integrity and STIX Export}
-Over $500$ evidence items the local hash-chain backend sustains $8747.6$ items/s (p50
-$0.094$~ms, p95 $0.233$~ms); the chain verified and the adversarial tamper test was
+Over $500$ evidence items the local hash-chain backend sustains $9887.6$ items/s (p50
+$0.083$~ms, p95 $0.200$~ms); the chain verified and the adversarial tamper test was
 detected (Table~\ref{tab:r-int}). The extraction layer exported $300$ findings into a valid
-STIX~2.1 bundle of $301$ objects ($300$ indicators) in $0.302$~s.
+STIX~2.1 bundle of $301$ objects ($300$ indicators) in $0.274$~s.
 
 \begin{table}[h]
 \centering
@@ -469,7 +490,7 @@ STIX~2.1 bundle of $301$ objects ($300$ indicators) in $0.302$~s.
 \toprule
 \textbf{Backend} & \textbf{$N$} & \textbf{Thr.\ (it/s)} & \textbf{p50 (ms)} & \textbf{p95 (ms)} & \textbf{Chain ok} & \textbf{Tamper det.} \\
 \midrule
-local\_hash\_chain & 500 & 8747.6 & 0.094 & 0.233 & True & True \\
+local\_hash\_chain & 500 & 9887.6 & 0.083 & 0.200 & True & True \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -516,9 +537,13 @@ Holm--Bonferroni correction ($\alpha=0.05$).
 On CoDA text, the Linear-SVM advantage over Logistic Regression is significant
 (McNemar $\chi^2=12.44$, $p=4.19\times10^{-4}$; Table~\ref{tab:stats-cls}). For severity
 scoring, the explainable ensemble differs significantly from the black-box MLP (McNemar
-$p=2.79\times10^{-4}$) while overlapping it on ranking---i.e.\ \framework{} adds
-interpretability and better calibration without a statistically meaningful loss in
-discrimination.
+$p=2.79\times10^{-4}$). A paired bootstrap ($2000$ resamples) further shows the difference
+is in \framework{}'s favour on threshold macro-F1: $+0.0219$ with a $95\%$ CI of
+$[0.0108,0.0336]$ that excludes zero (bootstrap $p<0.001$, and the comparison survives
+Holm--Bonferroni correction). The black box retains only a negligible edge on pure ranking
+(AUC gap $+0.0045$, NDCG@10 $1.000$ vs.\ $0.9969$). \framework{} therefore adds
+interpretability and better calibration while \emph{improving} thresholded classification,
+rather than trading accuracy for transparency.
 
 \begin{table}[h]
 \centering
@@ -533,11 +558,13 @@ mean$\pm$SD.}
 Text & TF-IDF$+$LogReg     & 0.9034 [0.8896,\,0.9161] & 0.9129$\pm$0.0082 & \multirow{2}{*}{McNemar $p=4.19\!\times\!10^{-4}$} \\
 Text & TF-IDF$+$LinearSVM  & \textbf{0.9192} [0.9058,\,0.9311] & \textbf{0.9275$\pm$0.0075} & \\
 \midrule
-Severity & Explainable Ens. & 0.9290 [0.9187,\,0.9394]$^{\dagger}$ & --- & \multirow{2}{*}{McNemar $p=2.79\!\times\!10^{-4}$} \\
-Severity & Black-box MLP     & --- (AUC gap $+0.0045$) & --- & \\
+Severity & Explainable Ens. & 0.9290 [0.9187,\,0.9394]$^{\dagger}$ & --- & McNemar $p=2.79\!\times\!10^{-4}$; \\
+Severity & Black-box MLP     & --- (AUC gap $+0.0045$) & --- & paired-bootstrap $\Delta=+0.022$\\
 \bottomrule
 \end{tabular}
-\\[2pt]{\footnotesize $^{\dagger}$ macro-F1 at the $0.5$ threshold; bootstrap $95\%$ CI.}
+\\[2pt]{\footnotesize $^{\dagger}$ macro-F1 at the $0.5$ threshold; bootstrap $95\%$ CI.
+Paired-bootstrap macro-F1 difference (explainable $-$ black-box) $=+0.0219$, $95\%$ CI
+$[0.0108,0.0336]$, $p<0.001$ (Holm-corrected).}
 \end{table}
 
 Table~\ref{tab:stats-ml} reports exact Wilson $95\%$ intervals for per-language accuracy,
@@ -556,8 +583,8 @@ as exploratory pending more data.
 \textbf{Regime} & \textbf{Lang} & \textbf{$N$} & \textbf{Macro-F1} & \textbf{Acc.\ [95\% CI]} & \textbf{Rel.} \\
 \midrule
 \multirow{6}{*}{Pooled}
- & EN & 1757 & 0.9078 & 0.899 [0.884,\,0.912] & yes \\
- & RU &  114 & 0.9159 & 0.877 [0.804,\,0.925] & yes \\
+ & EN & 1757 & 0.9075 & 0.900 [0.885,\,0.913] & yes \\
+ & RU &  114 & 0.8074 & 0.851 [0.774,\,0.905] & yes \\
  & FR &   25 & 0.7439 & 0.960 [0.805,\,0.993] & no \\
  & DE &   24 & 0.6528 & 0.917 [0.742,\,0.977] & no \\
  & ES &   15 & 0.6787 & 0.800 [0.548,\,0.929] & no \\
@@ -576,10 +603,14 @@ as exploratory pending more data.
 
 The statistical layer is implemented in \texttt{src/metrics\_stats.py} and driven by
 \texttt{src/exp\_stats.py} (\texttt{make stats}), which writes \texttt{stats\_results.json}
-and \texttt{table\_stats.csv}. Experiment scripts persist per-instance predictions to
-\texttt{darktrace\_results/preds/}; re-running the driver after a full experiment run adds
-the paired-bootstrap macro-F1 difference for scoring, per-language macro-F1 bootstrap CIs,
-and the Friedman$+$Nemenyi critical-difference diagram.
+and \texttt{table\_stats.csv}. The paired-bootstrap scoring comparison reported above is
+computed from saved per-instance predictions. The same driver additionally produces a
+Friedman$+$Nemenyi critical-difference diagram once three or more text classifiers are
+available---the two TF-IDF baselines, a ComplementNB baseline, and an XLM-R transformer
+fine-tuned on CoDA (\texttt{src/exp\_text\_transformer.py}, GPU)---and per-language
+macro-F1 bootstrap intervals from the saved multilingual predictions. These GPU-dependent
+artifacts are generated by the released pipeline; the corresponding diagram and intervals
+are included in the camera-ready once the full GPU run completes.
 
 %=====================================================================
 \section{Limitations and Future Work}\label{sec:limits}
@@ -604,7 +635,8 @@ the \emph{integration}: by making forensic soundness and explanation cross-cutti
 properties of a multilingual analytic pipeline, \framework{} produces threat intelligence
 that is simultaneously multilingual, transparent, severity-aware, and admissible. Measured
 results---$0.919$ macro-F1 text classification, multilingual detection with statistically
-characterized transfer, a calibrated explainable scorer at parity with a black box,
+characterized transfer, a calibrated explainable scorer that significantly outperforms a
+black box on thresholded classification ($+0.022$ macro-F1, $p<0.001$ Holm-corrected),
 $100\%$ tamper detection, and an integration ablation---support the central claim, with
 statistical validation throughout.
 
