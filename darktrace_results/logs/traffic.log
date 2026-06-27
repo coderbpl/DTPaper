@@ -1,0 +1,36 @@
+13:16:34 [INFO] Loading real CIC-Darknet2020 from data/raw/CIC-Darknet2020.csv
+13:16:34 [WARNING] Strict CSV parse failed (ParserError: Error tokenizing data. C error: Expected 85 fields in line 328, saw 125
+). Retrying with on_bad_lines='skip'.
+13:16:43 [WARNING] Skipped 1 malformed row(s) out of 141531 (0.00%). If this fraction is large, inspect the CSV.
+13:16:43 [INFO] Using configured label column: 'Label.1'
+13:16:43 [INFO] Dropping 6 identifier/leakage column(s): ['Flow ID', 'Src IP', 'Src Port', 'Dst IP', 'Dst Port', 'Timestamp']
+13:16:43 [INFO] Dropping non-target label column(s) from features: ['Label']
+13:16:43 [WARNING] Normalized 3 case-variant label(s) into canonical forms, merging 11 -> 8 classes. Merged groups: {'Audio-Streaming': ['Audio-Streaming', 'AUDIO-STREAMING'], 'File-Transfer': ['File-Transfer', 'File-transfer'], 'Video-Streaming': ['Video-Streaming', 'Video-streaming']}
+13:16:43 [INFO] CIC-Darknet2020 classes (n=141530, classes=8):
+13:16:43 [INFO]     P2P                         48520  (34.28%)
+13:16:43 [INFO]     Browsing                    32808  (23.18%)
+13:16:43 [INFO]     Audio-Streaming             18064  (12.76%)
+13:16:43 [INFO]     Chat                        11478  ( 8.11%)
+13:16:43 [INFO]     File-Transfer               11182  ( 7.90%)
+13:16:43 [INFO]     Video-Streaming              9767  ( 6.90%)
+13:16:43 [INFO]     Email                        6145  ( 4.34%)
+13:16:43 [INFO]     VOIP                         3566  ( 2.52%)
+13:16:43 [INFO]     imbalance ratio (max/min) = 13.6
+13:16:43 [INFO] === RandomForest ===
+13:17:57 [INFO]   fold 0: macro-F1=0.7810 acc=0.8714
+13:19:12 [INFO]   fold 1: macro-F1=0.7740 acc=0.8690
+13:20:31 [INFO]   fold 2: macro-F1=0.7657 acc=0.8627
+13:21:50 [INFO]   fold 3: macro-F1=0.7698 acc=0.8654
+13:23:10 [INFO]   fold 4: macro-F1=0.7744 acc=0.8711
+13:25:00 [INFO]   TEST macro-F1=0.7766 CI95=[0.7697,0.7832] acc=0.8718
+13:25:00 [INFO] === HistGradientBoosting ===
+13:25:51 [INFO]   fold 0: macro-F1=0.7971 acc=0.8769
+13:26:41 [INFO]   fold 1: macro-F1=0.7875 acc=0.8708
+13:27:32 [INFO]   fold 2: macro-F1=0.7830 acc=0.8662
+13:28:22 [INFO]   fold 3: macro-F1=0.7850 acc=0.8686
+13:29:13 [INFO]   fold 4: macro-F1=0.7976 acc=0.8779
+13:30:26 [INFO]   TEST macro-F1=0.7942 CI95=[0.7878,0.8005] acc=0.8746
+13:30:26 [INFO] McNemar RandomForest vs HistGradientBoosting: p=1.137e-01
+13:30:26 [INFO] Wrote Table 6 fragment -> results/tables/table6_traffic.csv
+13:30:26 [INFO] Real-data run complete — Table 6 traffic fragment written.
+13:30:26 [INFO] Done in 832.8s.

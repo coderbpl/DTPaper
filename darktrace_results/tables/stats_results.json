@@ -1,0 +1,217 @@
+{
+  "experiment": "phase7_statistical_validation",
+  "mode": "consolidate(numpy/stdlib)",
+  "classification_text": {
+    "rows": [
+      {
+        "task": "classification(text/CoDA)",
+        "model": "TFIDF_LogReg",
+        "macro_f1": 0.9034,
+        "ci95": [
+          0.8896,
+          0.9161
+        ],
+        "cv_mean": 0.9129,
+        "cv_sd": 0.0082
+      },
+      {
+        "task": "classification(text/CoDA)",
+        "model": "TFIDF_LinearSVM",
+        "macro_f1": 0.9192,
+        "ci95": [
+          0.9058,
+          0.9311
+        ],
+        "cv_mean": 0.9275,
+        "cv_sd": 0.0075
+      }
+    ],
+    "mcnemar": {
+      "models": [
+        "TFIDF_LogReg",
+        "TFIDF_LinearSVM"
+      ],
+      "p_value": 0.000419236969540987,
+      "statistic": 12.444444444444445
+    }
+  },
+  "scoring": {
+    "explainable_macro_f1_at_0.5_ci95": [
+      0.9186877412013253,
+      0.9393749677391668
+    ],
+    "explainable_vs_blackbox": {
+      "ensemble_auc": 0.9752471505880219,
+      "blackbox_auc": 0.9707399905271539,
+      "auc_gap": 0.004507160060868043,
+      "mcnemar_p": 0.0002788841966531667
+    }
+  },
+  "multilingual": {
+    "blocks": {
+      "pooled": {
+        "per_language": [
+          {
+            "language": "de",
+            "n": 24,
+            "macro_f1": 0.6528,
+            "accuracy": 0.9167,
+            "acc_ci95": [
+              0.7415,
+              0.9768
+            ],
+            "ci_width": 0.2353,
+            "reliable": false
+          },
+          {
+            "language": "en",
+            "n": 1757,
+            "macro_f1": 0.9078,
+            "accuracy": 0.8993,
+            "acc_ci95": [
+              0.8843,
+              0.9125
+            ],
+            "ci_width": 0.0282,
+            "reliable": true
+          },
+          {
+            "language": "es",
+            "n": 15,
+            "macro_f1": 0.6787,
+            "accuracy": 0.8,
+            "acc_ci95": [
+              0.5481,
+              0.9295
+            ],
+            "ci_width": 0.3814,
+            "reliable": false
+          },
+          {
+            "language": "fr",
+            "n": 25,
+            "macro_f1": 0.7439,
+            "accuracy": 0.96,
+            "acc_ci95": [
+              0.8046,
+              0.9929
+            ],
+            "ci_width": 0.1883,
+            "reliable": false
+          },
+          {
+            "language": "pt",
+            "n": 10,
+            "macro_f1": 1.0,
+            "accuracy": 1.0,
+            "acc_ci95": [
+              0.7225,
+              1.0
+            ],
+            "ci_width": 0.2775,
+            "reliable": false
+          },
+          {
+            "language": "ru",
+            "n": 114,
+            "macro_f1": 0.9159,
+            "accuracy": 0.8772,
+            "acc_ci95": [
+              0.8044,
+              0.9254
+            ],
+            "ci_width": 0.121,
+            "reliable": true
+          }
+        ],
+        "overall_macro_f1": 0.9063379524087984,
+        "overall_macro_f1_ci95": [
+          0.892748286430911,
+          0.9192642315329926
+        ]
+      },
+      "cross_lingual_train_en": {
+        "per_language": [
+          {
+            "language": "de",
+            "n": 129,
+            "macro_f1": 0.4425,
+            "accuracy": 0.876,
+            "acc_ci95": [
+              0.808,
+              0.9222
+            ],
+            "ci_width": 0.1142,
+            "reliable": true
+          },
+          {
+            "language": "en",
+            "n": 1768,
+            "macro_f1": 0.916,
+            "accuracy": 0.9078,
+            "acc_ci95": [
+              0.8934,
+              0.9204
+            ],
+            "ci_width": 0.027,
+            "reliable": true
+          },
+          {
+            "language": "es",
+            "n": 61,
+            "macro_f1": 0.5727,
+            "accuracy": 0.8361,
+            "acc_ci95": [
+              0.7239,
+              0.9084
+            ],
+            "ci_width": 0.1846,
+            "reliable": true
+          },
+          {
+            "language": "fr",
+            "n": 99,
+            "macro_f1": 0.5157,
+            "accuracy": 0.8081,
+            "acc_ci95": [
+              0.7196,
+              0.8735
+            ],
+            "ci_width": 0.154,
+            "reliable": true
+          },
+          {
+            "language": "pt",
+            "n": 54,
+            "macro_f1": 0.6828,
+            "accuracy": 0.9074,
+            "acc_ci95": [
+              0.8009,
+              0.9598
+            ],
+            "ci_width": 0.1589,
+            "reliable": true
+          },
+          {
+            "language": "ru",
+            "n": 542,
+            "macro_f1": 0.4357,
+            "accuracy": 0.7343,
+            "acc_ci95": [
+              0.6956,
+              0.7698
+            ],
+            "ci_width": 0.0742,
+            "reliable": true
+          }
+        ],
+        "overall_macro_f1": null,
+        "overall_macro_f1_ci95": null
+      }
+    }
+  },
+  "full_battery": {
+    "status": "pending_predictions",
+    "reason": "re-run patched exp_text/exp_scoring/exp_multilingual to emit darktrace_results/preds/*.npz, then `python -m src.exp_stats` adds paired-bootstrap macro-F1 diff, per-language macro-F1 CIs, and Friedman+Nemenyi."
+  }
+}

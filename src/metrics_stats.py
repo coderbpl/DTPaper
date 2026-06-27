@@ -8,6 +8,7 @@ and support the significance testing described in manuscript Section 8.13.
 All functions are deterministic given a seed and have no GPU dependency.
 """
 from __future__ import annotations
+import os
 import numpy as np
 from scipy import stats
 from sklearn.metrics import (
@@ -153,6 +154,132 @@ def holm_bonferroni(pvalues: dict, alpha=0.05):
         reject = (p < thresh) and prev_reject
         out[name] = (p, reject)
         prev_reject = reject
+    return out
+
+
+# ----------------------------------------------------------------------
+# Added: confidence intervals, omnibus tests, paired bootstrap, I/O
+# (manuscript Section 8.13 — statistical validation)
+# ----------------------------------------------------------------------
+def wilson_ci(k, n, alpha=0.05):
+    """Wilson score interval for a binomial proportion (e.g. accuracy).
+
+    Exact from counts only: needs the number of correct predictions ``k`` and
+    the sample size ``n`` — no per-instance data required. Preferred over the
+    normal approximation for small n and proportions near 0/1.
+    Returns (point, lo, hi).
+    """
+    if n == 0:
+        return (float("nan"), float("nan"), float("nan"))
+    z = stats.norm.ppf(1 - alpha / 2)
+    p = k / n
+    denom = 1 + z * z / n
+    center = (p + z * z / (2 * n)) / denom
+    half = (z * np.sqrt(p * (1 - p) / n + z * z / (4 * n * n))) / denom
+    return (float(p), float(max(0.0, center - half)), float(min(1.0, center + half)))
+
+
+def wilson_ci_from_acc(acc, n, alpha=0.05):
+    """Wilson interval when only the accuracy and n are stored (rounds k=acc*n)."""
+    k = int(round(acc * n))
+    return wilson_ci(k, n, alpha)
+
+
+# Nemenyi critical values q_alpha for the two-tailed test at alpha=0.05,
+# indexed by number of models k (Demsar 2006, Table 5).
+_NEMENYI_Q05 = {2: 1.960, 3: 2.343, 4: 2.569, 5: 2.728, 6: 2.850,
+                7: 2.949, 8: 3.031, 9: 3.102, 10: 3.164, 11: 3.219, 12: 3.268}
+
+
+def friedman_nemenyi(score_matrix, names=None, alpha=0.05):
+    """Friedman omnibus test + Nemenyi post-hoc critical difference.
+
+    ``score_matrix`` is shape (N_datasets_or_folds, k_models); higher is better.
+    Returns dict with Friedman statistic/p, mean ranks, and the Nemenyi CD.
+    Two models differ significantly if |rank_i - rank_j| > CD.
+    (manuscript Section 8.13; Demsar 2006, ref [25].)
+    """
+    M = np.asarray(score_matrix, float)
+    N, k = M.shape
+    if names is None:
+        names = [f"m{i}" for i in range(k)]
+    # rank within each row (1 = worst, k = best) on -scores so ties handled
+    ranks = np.zeros_like(M)
+    for i in range(N):
+        ranks[i] = stats.rankdata(M[i])           # higher score -> higher rank
+    mean_ranks = ranks.mean(axis=0)
+    try:
+        chi2, p = stats.friedmanchisquare(*[M[:, j] for j in range(k)])
+    except Exception:
+        chi2, p = float("nan"), float("nan")
+    q = _NEMENYI_Q05.get(k)
+    cd = float(q * np.sqrt(k * (k + 1) / (6.0 * N))) if q else None
+    return {
+        "n_blocks": int(N), "k_models": int(k),
+        "friedman_chi2": float(chi2), "friedman_p": float(p),
+        "mean_ranks": {names[j]: float(mean_ranks[j]) for j in range(k)},
+        "nemenyi_cd": cd, "alpha": alpha,
+    }
+
+
+def _metric_value(y_true, y_pred, metric):
+    if metric == "macro_f1":
+        return f1_score(y_true, y_pred, average="macro", zero_division=0)
+    if metric == "accuracy":
+        return accuracy_score(y_true, y_pred)
+    raise ValueError(f"unknown metric {metric}")
+
+
+def paired_bootstrap_diff(y_true, pred_a, pred_b, metric="macro_f1",
+                          n_boot=1000, seed=0, alpha=0.05):
+    """Paired bootstrap for the difference metric(A) - metric(B) on shared data.
+
+    Resamples instance indices once per replicate and applies them to BOTH
+    models (paired), so it works for any metric incl. macro-F1 where McNemar
+    does not apply. Returns dict with observed diff, CI, and a two-sided
+    bootstrap p-value (H0: diff = 0).
+    """
+    y_true = np.asarray(y_true); pa = np.asarray(pred_a); pb = np.asarray(pred_b)
+    rng = np.random.RandomState(seed)
+    idx = np.arange(len(y_true))
+    obs = _metric_value(y_true, pa, metric) - _metric_value(y_true, pb, metric)
+    diffs = np.empty(n_boot)
+    for b in range(n_boot):
+        s = rng.choice(idx, size=len(idx), replace=True)
+        diffs[b] = _metric_value(y_true[s], pa[s], metric) - _metric_value(y_true[s], pb[s], metric)
+    lo = float(np.percentile(diffs, 100 * alpha / 2))
+    hi = float(np.percentile(diffs, 100 * (1 - alpha / 2)))
+    # two-sided bootstrap p-value via the proportion crossing zero
+    p = 2.0 * min(float(np.mean(diffs <= 0)), float(np.mean(diffs >= 0)))
+    return {"metric": metric, "observed_diff": float(obs),
+            "ci95": [lo, hi], "p_value": float(min(1.0, p))}
+
+
+def save_predictions(path, y_true, y_pred, y_proba=None, meta=None):
+    """Persist per-instance predictions so significance tests are reproducible.
+
+    Writes a compressed .npz; downstream stats (McNemar, paired bootstrap,
+    Friedman) consume these without re-training. ``meta`` is stored as JSON.
+    """
+    import json as _json
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    arrs = {"y_true": np.asarray(y_true), "y_pred": np.asarray(y_pred)}
+    if y_proba is not None:
+        arrs["y_proba"] = np.asarray(y_proba)
+    arrs["meta"] = np.frombuffer(_json.dumps(meta or {}).encode("utf-8"),
+                                 dtype=np.uint8)
+    np.savez_compressed(path, **arrs)
+
+
+def load_predictions(path):
+    """Load predictions saved by save_predictions. Returns dict."""
+    import json as _json
+    d = np.load(path, allow_pickle=False)
+    out = {"y_true": d["y_true"], "y_pred": d["y_pred"]}
+    if "y_proba" in d.files:
+        out["y_proba"] = d["y_proba"]
+    if "meta" in d.files:
+        out["meta"] = _json.loads(bytes(d["meta"]).decode("utf-8"))
     return out
 
 

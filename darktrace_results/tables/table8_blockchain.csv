@@ -1,0 +1,2 @@
+Backend,N_evidence,Throughput_items_per_s,Latency_p50_ms,Latency_p95_ms,Chain_verified,Tamper_detected
+local_hash_chain,500,8747.6,0.094,0.233,True,True

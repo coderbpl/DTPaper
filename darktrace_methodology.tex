@@ -1,0 +1,365 @@
+%=====================================================================
+%  DarkTrace -- Experimental Methodology
+%
+%  Compiles standalone:  pdflatex -> bibtex -> pdflatex x2
+%  Or drop the body into the main paper by copying everything between
+%  \section{Experimental Methodology} and the bibliography, then delete
+%  this file's preamble and \begin/\end{document}.
+%=====================================================================
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\usepackage{caption}
+
+\newcommand{\framework}{\textsc{DarkTrace}}
+
+\title{\framework{}: Experimental Methodology\\
+\large Explainable and Forensically Verifiable Multilingual Dark Web\\
+Threat Intelligence Framework}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+%=====================================================================
+\section{Experimental Methodology}\label{sec:method}
+
+\subsection{Design Philosophy and Overview}
+The evaluation is organized around six research targets: (T1)~threat-text
+classification, (T2)~multilingual detection, (T3)~severity-scoring accuracy,
+(T4)~explainability quality, (T5)~evidence integrity (SHA-256 hashing and
+chain-of-custody), and (T6)~comparison against baselines. Each target is treated as a
+separate, pre-registered experiment with its own hypotheses, metrics, and statistical
+tests, so that the integrated framework is justified component-by-component as well as
+end-to-end. All data are drawn from \emph{sanitized, archived, public, or synthetic}
+sources; no live, illegal, or unauthorized collection is performed
+(Section~\ref{sec:method-ethics}). The pipeline, splits, seeds, and configurations are
+released for reproducibility (Section~\ref{sec:method-repro}).
+
+\paragraph{Hypotheses.}
+\begin{description}[leftmargin=2.6em,style=nextline,itemsep=1pt]
+  \item[H1] A fine-tuned multilingual transformer significantly outperforms classical
+  ML and monolingual deep baselines on threat classification (T1, T6).
+  \item[H2] Multilingual joint training narrows the cross-lingual gap; zero-shot
+  transfer incurs a bounded, measurable penalty relative to monolingual upper bounds
+  (T2).
+  \item[H3] Hybrid severity scoring (classifier posterior $+$ interpretable features) is
+  better calibrated and better ranked than classifier-confidence and static
+  rule baselines (T3).
+  \item[H4] SHAP and attention yield higher explanation fidelity than LIME on this text
+  domain, and the three are complementary for analysts (T4).
+  \item[H5] The integrity layer achieves $100\%$ tamper detection with $0\%$ false
+  accepts at low throughput overhead (T5).
+\end{description}
+
+%---------------------------------------------------------------------
+\subsection{Ethical Dataset Sources}\label{sec:method-ethics}
+We use only datasets that are publicly released for research, archived, sanitized, or
+synthetically generated. Table~\ref{tab:data} summarizes the layered strategy. Raw
+illicit content is never re-published; only derived features, labels, and hashes are
+released where licensing permits. Personally identifying information (PII) and victim
+data are removed or pseudonymized before any processing.
+
+\begin{table}[t]
+\centering
+\caption{Layered, ethical dataset strategy. ``Role'' indicates the target(s) each source
+serves. Verify each source's licence and re-use terms before publication.}
+\label{tab:data}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}p{3.4cm}p{5.7cm}p{2.6cm}@{}}
+\toprule
+\textbf{Layer / Source} & \textbf{Description} & \textbf{Role} \\
+\midrule
+Archived darknet corpora (e.g.\ sanitized Agora/forum archives)~\cite{sangher2023towards}
+  & Publicly archived, de-identified marketplace listings and forum posts used in prior
+    peer-reviewed work & T1, T3, T6 \\
+CTI NER corpora (APTNER, DNRTI, CyNER, CyberNER)~\cite{wang2022aptner,evangelatos2021ner,echchammakhy2025cyberner,feng2025promptbart}
+  & STIX-aligned, public annotated CTI text & actor/entity, T1 \\
+Open-source CTI alert datasets (e.g.\ CySecAlert)~\cite{riebe2021cysecalert}
+  & Public OSINT security-event text with relevance labels & T1, T6 \\
+Public vulnerability text (NVD/CVE descriptions)
+  & Standardized severity-bearing descriptions for severity supervision & T3 \\
+Multilingual augmentation (machine-translated subsets $+$ native low-resource crime
+  text)~\cite{alharbi2025bert,nazir2025multilingual}
+  & EN, HI, AR, RU, FR/DE evaluation sets & T2 \\
+Synthetic threat text (template- and LLM-generated, human-reviewed)
+  & Controlled, fully shareable data for low-resource languages and rare classes & T2, T3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Synthetic data protocol.} To address low-resource languages and rare/harmful
+classes without collecting illegal material, we generate synthetic threat-style text
+from templates and instruction-tuned models, conditioned on \emph{abstracted} threat
+patterns (never operational attack instructions). Every synthetic item is
+human-reviewed, labeled, and flagged as synthetic so its effect can be ablated. Synthetic
+data is used to \emph{augment}, never to replace, the real evaluation sets, and all
+headline results are reported on real (non-synthetic) test data.
+
+%---------------------------------------------------------------------
+\subsection{Threat Class Labels}\label{sec:method-labels}
+We adopt a flat, mutually informative taxonomy of threat categories plus a non-threat
+class (Table~\ref{tab:labels}), chosen to be coverage-complete for dark-web CTI while
+remaining annotatable with high agreement. Severity is modeled \emph{orthogonally} as an
+ordinal band (Section~\ref{sec:method-severity}), so a single category (e.g.\ ``data
+leak'') can span severities.
+
+\begin{table}[t]
+\centering
+\caption{Threat-category labels (classification) and severity bands (scoring).}
+\label{tab:labels}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}p{3.4cm}p{8.6cm}@{}}
+\toprule
+\textbf{Threat category} & \textbf{Definition (annotation guideline summary)} \\
+\midrule
+Malware / Ransomware      & Offering, sharing, or discussing malicious code, builders, or ransomware operations \\
+Exploit / Vulnerability   & Sale or disclosure of exploits, 0-days, PoCs, CVE-linked weaknesses \\
+Data / Credential Leak    & Trading or dumping stolen credentials, databases, PII \\
+Fraud / Carding           & Payment-card fraud, money laundering, scam services \\
+Hacking / Attack Services & Attack-as-a-service, botnets, DDoS-for-hire, access brokering \\
+Other Illicit Trade       & Non-cyber illicit goods/services (retained as a coarse class; may be excluded) \\
+Benign / Non-threat       & Off-topic, social, or non-malicious content (negative class) \\
+\midrule
+\textbf{Severity band} & \textbf{Criterion} \\
+\midrule
+Critical / High / Medium / Low & Ordinal scale from analyst rubric over impact, exploitability, target sensitivity, and recency/urgency \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Annotation.} Two or more trained annotators label each item for category and
+severity following a written codebook; we report inter-annotator agreement (Cohen's
+$\kappa$ / Krippendorff's $\alpha$) and adjudicate disagreements. Class imbalance is
+expected and handled at training and evaluation time (macro-averaging,
+class-balanced loss).
+
+%---------------------------------------------------------------------
+\subsection{Preprocessing}\label{sec:method-prep}
+Preprocessing is identical across models to ensure fair comparison and is logged as
+hashed, derived artifacts (T5). Steps:
+\begin{enumerate}[leftmargin=1.5em,itemsep=1pt]
+  \item \textbf{Normalization:} Unicode/encoding normalization, HTML/boilerplate
+  stripping, whitespace and case handling (case preserved for transformers).
+  \item \textbf{Noise handling:} removal of markup, navigation, and signature blocks;
+  optional defanging of live IOCs (e.g.\ \texttt{hxxp}) without losing the token signal.
+  \item \textbf{Deduplication:} exact and near-duplicate removal via MinHash/SimHash to
+  prevent train/test leakage from reposted content.
+  \item \textbf{Language identification:} per-document language tagging; routing to the
+  native-multilingual path and, in parallel, a translate-then-classify path.
+  \item \textbf{Translation (parallel path):} machine translation of non-English text to
+  English, retained as a separate derived artifact so its effect is ablatable.
+  \item \textbf{Tokenization/representation:} TF-IDF / $n$-grams for classical models;
+  subword tokenization for transformers~\cite{devlin2019bert,conneau2020xlmr}.
+  \item \textbf{Feature extraction (severity):} interpretable threat features
+  (CVE/exploit mentions, credential counts, target-sensitivity cues, urgency terms,
+  actor-reputation signals) computed for the hybrid scorer.
+\end{enumerate}
+
+%---------------------------------------------------------------------
+\subsection{Models}\label{sec:method-models}
+\paragraph{Baseline ML.} TF-IDF features with Logistic Regression, Linear SVM, Random
+Forest, and XGBoost---fast, interpretable lower bounds and the T6 reference point.
+\paragraph{Deep (non-transformer).} CNN, BiLSTM, and BiLSTM-CRF (the CRF variant for
+sequence/NER tasks)~\cite{kim2020automatic}.
+\paragraph{Monolingual transformers.} BERT/RoBERTa per language as per-language upper
+bounds~\cite{devlin2019bert,sangher2023towards}.
+\paragraph{Multilingual transformers.} mBERT and XLM-R (core
+classifier)~\cite{conneau2020xlmr,vaswani2017attention}, evaluated under joint
+multilingual, zero-shot, and few-shot transfer regimes~\cite{thangaraj2024crosslingual}.
+\paragraph{Generative/LLM baselines.} An instruction-tuned LLM evaluated zero-/few-shot
+for classification and extraction~\cite{shah2025madcti,sorokoletova2024scalable}.
+\paragraph{Severity head (proposed).} A calibrated hybrid mapping
+$\{$posterior, interpretable features$\}\rightarrow s\in[0,1]$ and an ordinal band,
+compared against (i)~raw classifier confidence and (ii)~a static rule/CVSS-style
+baseline~\cite{zeng2022licality,saklani2025severity}.
+
+%---------------------------------------------------------------------
+\subsection{Train/Test Splits and Protocol}\label{sec:method-splits}
+\begin{itemize}[leftmargin=1.5em,itemsep=1pt]
+  \item \textbf{Primary split:} stratified 70/15/15 train/validation/test, preserving
+  class proportions, with fixed seeds.
+  \item \textbf{Cross-validation:} stratified $5$-fold CV for classical and deep models;
+  for transformers, $3$ seeds $\times$ the held-out test set, reporting mean $\pm$ std.
+  \item \textbf{Cross-lingual protocol (T2):} (a)~\emph{monolingual} (train/test same
+  language) as upper bound; (b)~\emph{zero-shot} (train EN, test HI/AR/RU/FR/DE);
+  (c)~\emph{few-shot} ($k$ target-language examples added). We report the transfer gap
+  $\Delta\text{F1}$.
+  \item \textbf{Leakage control:} deduplication before splitting; near-duplicates and
+  reposts forced into the same split; language-disjoint and (where timestamps exist)
+  \emph{temporal} splits (train on older, test on newer) to test robustness to drift.
+  \item \textbf{Synthetic isolation:} synthetic data may enter training only; all
+  headline test sets are real.
+\end{itemize}
+
+%---------------------------------------------------------------------
+\subsection{Severity Scoring Evaluation}\label{sec:method-severity}
+Severity is evaluated as both \emph{ranking} and \emph{calibration}: ranking via
+NDCG@$k$ and Spearman/Kendall correlation against the analyst-assigned ordering;
+calibration via Expected Calibration Error (ECE), Brier score, and reliability diagrams,
+with temperature scaling applied post-hoc. Ordinal-band performance uses
+macro-F1 and Quadratic Weighted Kappa (which penalizes distant misclassifications more).
+
+%---------------------------------------------------------------------
+\subsection{Explainability Evaluation}\label{sec:method-xai}
+We compare SHAP~\cite{lundberg2017shap}, LIME~\cite{ribeiro2016lime}, and transformer
+attention, following comparative-XAI practice in
+security~\cite{hermosilla2025xai,gaspar2024xai,kalakoti2025evaluating,salih2023perspective}:
+\begin{itemize}[leftmargin=1.5em,itemsep=1pt]
+  \item \textbf{Fidelity:} deletion/insertion and AOPC (area over the perturbation
+  curve)---removing high-attribution tokens should drop confidence fastest for the most
+  faithful method.
+  \item \textbf{Stability/robustness:} attribution agreement under small input
+  perturbations and across seeds.
+  \item \textbf{Complexity/sparsity:} number of features needed to explain a decision.
+  \item \textbf{Cross-method agreement:} SHAP--LIME--attention rank correlation.
+  \item \textbf{Cross-lingual fidelity:} whether explanation quality degrades under
+  translation/transfer (links T2 and T4).
+\end{itemize}
+
+%---------------------------------------------------------------------
+\subsection{Evidence Integrity Evaluation}\label{sec:method-integrity}
+The integrity layer is validated with an adversarial \emph{tamper test}. A controlled
+set of post-hoc modifications---single/multi bit-flips, token substitution, artifact
+deletion, custody-record reordering, and ledger edits---is injected, and verification
+recomputes $\text{SHA-256}$ digests and re-validates the hash-chained custody
+log~\cite{lone2019forensicchain,ali2022procedure,loffi2025management}. Metrics:
+tamper-detection rate (target $100\%$), false-accept rate (target $0\%$), verification
+latency, custody-log completeness, and the throughput overhead the layer imposes on the
+analytic pipeline.
+
+%---------------------------------------------------------------------
+\subsection{Evaluation Metrics Summary}\label{sec:method-metrics}
+\begin{table}[t]
+\centering
+\caption{Metrics by research target.}
+\label{tab:method-metrics}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}p{3.0cm}p{9.0cm}@{}}
+\toprule
+\textbf{Target} & \textbf{Metrics} \\
+\midrule
+T1 Classification & Accuracy, macro-/weighted-F1, per-class precision/recall/F1, MCC \\
+T2 Multilingual   & Per-language F1, macro-F1 across languages, transfer gap $\Delta$F1, language-wise confusion \\
+T3 Severity       & NDCG@$k$, Spearman/Kendall $\rho$, ECE, Brier, Quadratic Weighted $\kappa$ \\
+T4 Explainability & Fidelity (AOPC), stability, complexity, cross-method agreement \\
+T5 Integrity      & Tamper-detection rate, false-accept rate, verification latency, log completeness, overhead \% \\
+T6 Baselines      & All of the above, head-to-head, with statistical tests (Sec.~\ref{sec:method-stats}) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%---------------------------------------------------------------------
+\subsection{Ablation Study}\label{sec:method-ablation}
+We remove or alter one capability at a time and measure the effect on the most-affected
+axis (Table~\ref{tab:method-ablation}), establishing that \emph{integration} is the
+contribution rather than any single module.
+
+\begin{table}[t]
+\centering
+\caption{Ablation configurations (result cells filled from experiments).}
+\label{tab:method-ablation}
+\small
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}p{6.0cm}p{4.2cm}c@{}}
+\toprule
+\textbf{Configuration} & \textbf{Primary axis} & \textbf{$\Delta$ vs.\ full} \\
+\midrule
+Full \framework{}                              & ---                       & --- \\
+$-$ multilingual (English-only)                & T2 cross-lingual F1       & \emph{$-$} \\
+\;native vs.\ translate-then-classify          & T2 cross-lingual F1       & \emph{$-$} \\
+$-$ hybrid features (posterior only)           & T3 calibration (ECE)      & \emph{$-$} \\
+$-$ calibration (no temperature scaling)       & T3 ECE/Brier              & \emph{$-$} \\
+SHAP only / LIME only / attention only         & T4 fidelity               & \emph{$-$} \\
+$-$ synthetic augmentation                     & T1/T2 low-resource F1     & \emph{$-$} \\
+$-$ integrity layer                            & T5 tamper detection       & \emph{$-$} \\
+$-$ STIX extraction / link analysis            & actor recall / usability  & \emph{$-$} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%---------------------------------------------------------------------
+\subsection{Tables and Graphs to Include}\label{sec:method-figs}
+\textbf{Tables:} (1)~dataset summary with per-language/per-class counts; (2)~main
+classification results (Acc/F1/MCC) across all models; (3)~per-language and transfer-gap
+table; (4)~severity ranking + calibration table; (5)~explanation-quality table
+(fidelity/stability/agreement); (6)~integrity tamper-test table; (7)~ablation table;
+(8)~statistical-test summary (p-values, effect sizes).
+\textbf{Figures:} (a)~architecture/data-flow diagram; (b)~per-class confusion matrices
+(overall and per language); (c)~reliability diagram for severity calibration;
+(d)~AOPC/deletion curves comparing SHAP/LIME/attention; (e)~example SHAP/attention
+token-attribution heatmaps (EN and one non-EN language); (f)~critical-difference (CD)
+diagram from the Friedman--Nemenyi test; (g)~actor link-analysis graph;
+(h)~integrity-overhead vs.\ throughput plot.
+
+%---------------------------------------------------------------------
+\subsection{Statistical Validation}\label{sec:method-stats}
+All comparisons report central tendency with dispersion and significance:
+\begin{itemize}[leftmargin=1.5em,itemsep=1pt]
+  \item \textbf{Pairwise classifier comparison:} McNemar's test on the shared test
+  set~\cite{mcnemar1947note}; the $5\times2$~cv paired $t$-test for
+  resampled comparisons~\cite{dietterich1998approximate}.
+  \item \textbf{Multiple models over multiple datasets/languages:} Friedman test with
+  Nemenyi post-hoc and a critical-difference diagram~\cite{demsar2006statistical}.
+  \item \textbf{Confidence intervals:} bootstrap (e.g.\ $1000$ resamples) 95\% CIs for
+  F1, NDCG, and ECE.
+  \item \textbf{Effect sizes and correction:} report effect sizes (e.g.\ Cliff's
+  $\delta$) and apply Holm/Bonferroni correction for multiple comparisons.
+  \item \textbf{Calibration significance:} compare ECE/Brier with bootstrap CIs across
+  scoring variants.
+  \item Significance threshold $\alpha = 0.05$ unless corrected.
+\end{itemize}
+
+%---------------------------------------------------------------------
+\subsection{Reproducibility Checklist}\label{sec:method-repro}
+\begin{itemize}[leftmargin=1.5em,itemsep=1pt]
+  \item[$\square$] Public release of code, configs, and trained-model hashes.
+  \item[$\square$] Dataset datasheet; construction scripts and exact split files;
+  SHA-256 of each released artifact.
+  \item[$\square$] Fixed random seeds; reported hardware, library versions, and
+  environment file.
+  \item[$\square$] Hyperparameter search space and selected values; training/inference
+  cost (time, energy).
+  \item[$\square$] Exact preprocessing, tokenization, and translation settings.
+  \item[$\square$] Per-run metrics (not just best run); mean~$\pm$~std over seeds/folds.
+  \item[$\square$] Statistical-test scripts and raw outputs.
+  \item[$\square$] Ethics statement, data-management plan, and licence compliance for
+  every source.
+  \item[$\square$] Synthetic-data generation prompts/templates and human-review records.
+\end{itemize}
+
+%---------------------------------------------------------------------
+\subsection{Limitations}\label{sec:method-limits}
+(1)~Archived/sanitized and synthetic data may underrepresent the most recent, ephemeral
+threats; live coverage is constrained by ethics and law. (2)~Severity labels are partly
+subjective; inter-annotator agreement bounds calibration claims. (3)~Machine translation
+can distort low-resource semantics and the explanations derived from translated text---an
+effect we measure but cannot fully remove. (4)~Synthetic augmentation risks distributional
+mismatch; we mitigate by testing only on real data and ablating synthetic contributions.
+(5)~The permissioned-ledger integrity model resists post-hoc tampering but assumes
+trusted timestamping and does not prevent collection-time fabrication. (6)~Adaptive
+adversaries (obfuscation, code-switching, slang drift) may evade detection, motivating the
+temporal-split robustness analysis.
+
+%=====================================================================
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

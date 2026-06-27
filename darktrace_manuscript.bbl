@@ -1,0 +1,275 @@
+\begin{thebibliography}{10}
+
+\bibitem{alharbi2025bert}
+Njood~K. Al-harbi et~al.
+\newblock Assessing {BERT}-based models for arabic and low-resource languages
+  in crime text classification.
+\newblock {\em PeerJ Computer Science}, 2025.
+
+\bibitem{ali2022procedure}
+Mohammad Ali et~al.
+\newblock A procedure for tracing chain of custody in digital image forensics:
+  A paradigm based on grey hash and blockchain.
+\newblock {\em Symmetry}, 14, 2022.
+
+\bibitem{amora2025realtime}
+E.~N. Amora et~al.
+\newblock {AI}-driven real-time severity prediction for cyber attacks using
+  machine learning.
+\newblock In {\em 2025 3rd International Conference on Self Sustainable
+  Artificial Intelligence Systems (ICSSAS)}, 2025.
+
+\bibitem{conneau2020xlmr}
+Alexis Conneau, Kartikay Khandelwal, Naman Goyal, Vishrav Chaudhary, Guillaume
+  Wenzek, Francisco Guzm{\'a}n, Edouard Grave, Myle Ott, Luke Zettlemoyer, and
+  Veselin Stoyanov.
+\newblock Unsupervised cross-lingual representation learning at scale.
+\newblock In {\em Proceedings of the 58th Annual Meeting of the Association for
+  Computational Linguistics (ACL)}, 2020.
+
+\bibitem{demarcos2026llm}
+Luis de~Marcos et~al.
+\newblock {LLM}-guided classification and extension of the {MISP} taxonomy for
+  dark web {Q\&A} forums.
+\newblock {\em IEEE Access}, 2026.
+
+\bibitem{demsar2006statistical}
+Janez Dem{\v{s}}ar.
+\newblock Statistical comparisons of classifiers over multiple data sets.
+\newblock {\em Journal of Machine Learning Research}, 7:1--30, 2006.
+
+\bibitem{devlin2019bert}
+Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova.
+\newblock {BERT}: Pre-training of deep bidirectional transformers for language
+  understanding.
+\newblock In {\em Proceedings of NAACL-HLT}, 2019.
+
+\bibitem{dietterich1998approximate}
+Thomas~G. Dietterich.
+\newblock Approximate statistical tests for comparing supervised classification
+  learning algorithms.
+\newblock {\em Neural Computation}, 10(7):1895--1923, 1998.
+
+\bibitem{echchammakhy2025cyberner}
+Yasir Ech-Chammakhy et~al.
+\newblock {CyberNER}: A harmonized {STIX} corpus for cybersecurity named entity
+  recognition.
+\newblock In {\em 2025 IEEE 24th International Conference on Trust, Security
+  and Privacy in Computing and Communications (TrustCom)}, 2025.
+
+\bibitem{evangelatos2021ner}
+Pavlos Evangelatos et~al.
+\newblock Named entity recognition in cyber threat intelligence using
+  transformer-based models.
+\newblock In {\em 2021 IEEE International Conference on Cyber Security and
+  Resilience (CSR)}, 2021.
+
+\bibitem{feng2025promptbart}
+Xinzhu Feng et~al.
+\newblock {PROMPT-BART}: A named entity recognition model applied to cyber
+  threat intelligence.
+\newblock {\em Applied Sciences}, 2025.
+
+\bibitem{gaspar2024xai}
+Diogo Gaspar et~al.
+\newblock Explainable {AI} for intrusion detection systems: {LIME} and {SHAP}
+  applicability on multi-layer perceptron.
+\newblock {\em IEEE Access}, 2024.
+
+\bibitem{hermosilla2025xai}
+Pamela Hermosilla et~al.
+\newblock Explainable {AI} for forensic analysis: A comparative study of {SHAP}
+  and {LIME} in intrusion detection models.
+\newblock {\em Applied Sciences}, 15, 2025.
+
+\bibitem{hore2023triage}
+Soumyadeep Hore et~al.
+\newblock Towards optimal triage and mitigation of context-sensitive cyber
+  vulnerabilities.
+\newblock {\em IEEE Transactions on Dependable and Secure Computing}, 2023.
+
+\bibitem{kadoguchi2019exploring}
+Masashi Kadoguchi, Shota Hayashi, Masaki Hashimoto, and Akira Otsuka.
+\newblock Exploring the dark web for cyber threat intelligence using machine
+  learning.
+\newblock In {\em 2019 IEEE International Conference on Intelligence and
+  Security Informatics (ISI)}. IEEE, 2019.
+
+\bibitem{kalakoti2025evaluating}
+Rajesh Kalakoti et~al.
+\newblock Evaluating explainable {AI} for deep learning-based network intrusion
+  detection system alert classification.
+\newblock {\em Journal of Information Security and Applications}, 2025.
+
+\bibitem{nist80086}
+Karen Kent, Suzanne Chevalier, Tim Grance, and Hung Dang.
+\newblock {SP 800-86}: Guide to integrating forensic techniques into incident
+  response.
+\newblock Technical report, National Institute of Standards and Technology,
+  2006.
+
+\bibitem{kim2020automatic}
+Gyeongmin Kim et~al.
+\newblock Automatic extraction of named entities of cyber threats using a deep
+  {Bi-LSTM-CRF} network.
+\newblock {\em International Journal of Machine Learning and Cybernetics},
+  2020.
+
+\bibitem{loffi2025management}
+Leandro Loffi et~al.
+\newblock Management of the chain of custody of digital evidence using
+  blockchain and self-sovereign identities: A systematic literature review.
+\newblock {\em IEEE Access}, 2025.
+
+\bibitem{lone2019forensicchain}
+Auqib~Hamid Lone and Roohie~Naaz Mir.
+\newblock Forensic-chain: Blockchain based digital forensics chain of custody
+  with {PoC} in hyperledger composer.
+\newblock {\em Digital Investigation}, 28, 2019.
+
+\bibitem{lundberg2017shap}
+Scott~M. Lundberg and Su-In Lee.
+\newblock A unified approach to interpreting model predictions.
+\newblock {\em Advances in Neural Information Processing Systems (NeurIPS)},
+  2017.
+
+\bibitem{mcnemar1947note}
+Quinn McNemar.
+\newblock Note on the sampling error of the difference between correlated
+  proportions or percentages.
+\newblock {\em Psychometrika}, 12(2):153--157, 1947.
+
+\bibitem{nazir2025multilingual}
+Muhammad~Kashif Nazir et~al.
+\newblock Leveraging multilingual transformer for multiclass sentiment analysis
+  in code-mixed data of low-resource languages.
+\newblock {\em IEEE Access}, 2025.
+
+\bibitem{oasisstix21}
+{OASIS Cyber Threat Intelligence Technical Committee}.
+\newblock {STIX} version 2.1 -- {OASIS} standard.
+\newblock \url{https://docs.oasis-open.org/cti/stix/v2.1/stix-v2.1.html}, 2021.
+
+\bibitem{pakray2025nlp}
+Partha Pakray et~al.
+\newblock Natural language processing applications for low-resource languages.
+\newblock {\em Natural Language Processing}, 2025.
+
+\bibitem{pasupuleti2025threat}
+Murali~Krishna Pasupuleti.
+\newblock Threat intelligence automation using natural language processing on
+  dark web data.
+\newblock {\em International Journal of Academic and Industrial Research
+  Innovations (IJAIRI)}, 2025.
+
+\bibitem{patil2024potential}
+Harsh Patil et~al.
+\newblock Potential applicability of blockchain technology in the maintenance
+  of chain of custody in forensic casework.
+\newblock {\em Egyptian Journal of Forensic Sciences}, 2024.
+
+\bibitem{pontecuevas2025blockchain}
+Katherin~Indira Ponte~Cuevas et~al.
+\newblock Blockchain as a tool to improve chain of custody procedures in
+  digital forensics: A systematic review.
+\newblock In {\em Proceedings of the 23rd LACCEI International Multi-Conference
+  for Engineering, Education and Technology}, 2025.
+
+\bibitem{ribeiro2016lime}
+Marco~Tulio Ribeiro, Sameer Singh, and Carlos Guestrin.
+\newblock ``why should i trust you?'': Explaining the predictions of any
+  classifier.
+\newblock In {\em Proceedings of the 22nd ACM SIGKDD International Conference
+  on Knowledge Discovery and Data Mining}, 2016.
+
+\bibitem{riebe2021cysecalert}
+Thea Riebe, Tristan Wirth, Markus Bayer, Philipp Kuehn, Marc-Andr{\'e}
+  Kaufhold, Volker Knauthe, Stefan Guthe, and Christian Reuter.
+\newblock {CySecAlert}: An alert generation system for cyber security events
+  using open source intelligence data.
+\newblock In {\em Information and Communications Security (ICICS)}, 2021.
+
+\bibitem{saklani2025severity}
+Santosh Saklani et~al.
+\newblock Severity prediction of software vulnerabilities using convolutional
+  neural networks.
+\newblock {\em Information and Computer Security}, 2025.
+
+\bibitem{salih2023perspective}
+Ahmed M.~A. Salih et~al.
+\newblock A perspective on explainable artificial intelligence methods: {SHAP}
+  and {LIME}.
+\newblock {\em Advanced Intelligent Systems}, 2023.
+
+\bibitem{sangher2024lstm}
+Kanti~Singh Sangher, Amit Singh, and Hari~Mohan Pandey.
+\newblock {LSTM} and {BERT} based transformers models for cyber threat
+  intelligence for intent identification of social media platforms exploitation
+  from darknet forums.
+\newblock {\em International Journal of Information Technology}, 2024.
+
+\bibitem{sangher2023towards}
+Kanti~Singh Sangher, Amit Singh, Hari~Mohan Pandey, and Vinit Kumar.
+\newblock Towards safe cyber practices: Developing a proactive cyber-threat
+  intelligence system for dark web forum content by identifying cybercrimes.
+\newblock {\em Information}, 14(6), 2023.
+
+\bibitem{schroer2025darkside}
+Saskia~Laura Schr{\"o}er et~al.
+\newblock The dark side of the web: Towards understanding various data sources
+  in cyber threat intelligence.
+\newblock In {\em 2025 IEEE European Symposium on Security and Privacy
+  Workshops (EuroS\&PW)}. IEEE, 2025.
+
+\bibitem{shah2025madcti}
+Sayuj Shah et~al.
+\newblock {MAD-CTI}: Cyber threat intelligence analysis of the dark web using a
+  multi-agent framework.
+\newblock {\em IEEE Access}, 2025.
+
+\bibitem{sorokoletova2024scalable}
+Olga~E. Sorokoletova et~al.
+\newblock Towards a scalable {AI}-driven framework for data-independent cyber
+  threat intelligence information extraction.
+\newblock In {\em 2024 2nd International Conference on Foundation and Large
+  Language Models (FLLM)}, 2024.
+
+\bibitem{sunkara2025xai}
+Goutham Sunkara.
+\newblock Explainable {AI} for cyber threat intelligence: Enhancing analyst
+  trust.
+\newblock {\em Open Access Research Journal of Science and Technology}, 2025.
+
+\bibitem{thangaraj2024crosslingual}
+Harish Thangaraj et~al.
+\newblock Cross-lingual transfer of multilingual models on low resource african
+  languages.
+\newblock {\em arXiv preprint}, 2024.
+
+\bibitem{vaswani2017attention}
+Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  Aidan~N. Gomez, Lukasz Kaiser, and Illia Polosukhin.
+\newblock Attention is all you need.
+\newblock In {\em Advances in Neural Information Processing Systems (NeurIPS)},
+  2017.
+
+\bibitem{wang2022aptner}
+Xuren Wang et~al.
+\newblock {APTNER}: A specific dataset for {NER} missions in cyber threat
+  intelligence field.
+\newblock In {\em 2022 IEEE 25th International Conference on Computer Supported
+  Cooperative Work in Design (CSCWD)}, 2022.
+
+\bibitem{zeng2022licality}
+Zhen Zeng et~al.
+\newblock {LICALITY}---likelihood and criticality: Vulnerability risk
+  prioritization through logical reasoning and deep learning.
+\newblock {\em IEEE Transactions on Network and Service Management}, 2022.
+
+\bibitem{zeng2024illation}
+Zhen Zeng et~al.
+\newblock {ILLATION}: Improving vulnerability risk prioritization by learning
+  from network.
+\newblock {\em IEEE Transactions on Dependable and Secure Computing}, 2024.
+
+\end{thebibliography}

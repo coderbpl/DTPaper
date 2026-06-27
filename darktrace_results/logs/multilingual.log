@@ -1,0 +1,39 @@
+13:36:03 [INFO] Loading real text corpus from data/raw/coda.csv
+13:36:04 [WARNING] Parsed CoDA __key__ format (100.0% matched): 10 categories (e.g. ['Arms', 'Crypto', 'Drugs', 'Electronic', 'Financial', 'Gambling', 'Hacking', 'Others', 'Porn', 'Violence']); languages (e.g. ['ar', 'arz', 'bg', 'bn', 'ca', 'ceb', 'cs', 'cy', 'de', 'el']). Labels = category.
+13:36:04 [INFO] Using text column 'txt' and label column '__derived_label__'.
+13:36:05 [INFO] Text validation: 10000 -> 9983 rows after cleaning (dropped empties, short docs < 10 chars, duplicates).
+13:36:05 [INFO] CoDA classes (n=9983, classes=10):
+13:36:05 [INFO]     Others                       2918  (29.23%)
+13:36:05 [INFO]     Porn                         1205  (12.07%)
+13:36:05 [INFO]     Drugs                        1166  (11.68%)
+13:36:05 [INFO]     Financial                    1003  (10.05%)
+13:36:05 [INFO]     Gambling                      787  ( 7.88%)
+13:36:05 [INFO]     Crypto                        760  ( 7.61%)
+13:36:05 [INFO]     Hacking                       649  ( 6.50%)
+13:36:05 [INFO]     Arms                          599  ( 6.00%)
+13:36:05 [INFO]     Violence                      470  ( 4.71%)
+13:36:05 [INFO]     Electronic                    426  ( 4.27%)
+13:36:05 [INFO]     imbalance ratio (max/min) = 6.8
+13:36:05 [INFO] In-scope languages (n>=50): {'en': 8839, 'ru': 542, 'de': 129, 'fr': 99, 'es': 61, 'pt': 54}
+13:36:05 [WARNING] Excluded 45 language(s) with too few samples (e.g. Hindi if present): {'zh': 38, 'it': 28, 'ja': 27, 'fi': 14, 'nl': 14, 'ko': 12, 'cs': 11, 'pl': 10, 'bg': 9, 'sv': 7, 'he': 7, 'ar': 7} ...
+13:36:05 [INFO] === (A) Pooled multilingual model ===
+13:36:05 [INFO] Transformer path: fine-tuning distilbert-base-multilingual-cased on 7779 examples (GPU=True).
+13:42:15 [INFO] Pooled overall macro-F1=0.9063 CI95=[0.8927,0.9193] acc=0.8987
+13:42:15 [INFO] Per-language (pooled model):
+13:42:15 [INFO]   [de] n=24 macro-F1=0.6528 acc=0.9167
+13:42:15 [INFO]   [en] n=1757 macro-F1=0.9078 acc=0.8993
+13:42:15 [INFO]   [es] n=15 macro-F1=0.6787 acc=0.8000
+13:42:15 [INFO]   [fr] n=25 macro-F1=0.7439 acc=0.9600
+13:42:15 [INFO]   [pt] n=10 macro-F1=1.0000 acc=1.0000
+13:42:15 [INFO]   [ru] n=114 macro-F1=0.9159 acc=0.8772
+13:42:15 [INFO] === (B) Cross-lingual transfer: train=EN, test=other langs ===
+13:42:15 [INFO] Transformer path: fine-tuning distilbert-base-multilingual-cased on 7071 examples (GPU=True).
+13:48:04 [INFO]   [de] n=129 macro-F1=0.4425 acc=0.8760
+13:48:04 [INFO]   [en] n=1768 macro-F1=0.9160 acc=0.9078
+13:48:04 [INFO]   [es] n=61 macro-F1=0.5727 acc=0.8361
+13:48:04 [INFO]   [fr] n=99 macro-F1=0.5157 acc=0.8081
+13:48:04 [INFO]   [pt] n=54 macro-F1=0.6828 acc=0.9074
+13:48:04 [INFO]   [ru] n=542 macro-F1=0.4357 acc=0.7343
+13:48:04 [INFO] Wrote Table 7 fragment -> results/tables/table7_multilingual.csv
+13:48:04 [INFO] Real-data run complete — Table 7 multilingual fragment written.
+13:48:04 [INFO] Done in 720.9s. Model path: transformer

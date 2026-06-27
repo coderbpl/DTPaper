@@ -1,0 +1,34 @@
+13:30:28 [INFO] Loading real text corpus from data/raw/coda.csv
+13:30:29 [WARNING] Parsed CoDA __key__ format (100.0% matched): 10 categories (e.g. ['Arms', 'Crypto', 'Drugs', 'Electronic', 'Financial', 'Gambling', 'Hacking', 'Others', 'Porn', 'Violence']); languages (e.g. ['ar', 'arz', 'bg', 'bn', 'ca', 'ceb', 'cs', 'cy', 'de', 'el']). Labels = category.
+13:30:29 [INFO] Using text column 'txt' and label column '__derived_label__'.
+13:30:29 [INFO] Text validation: 10000 -> 9983 rows after cleaning (dropped empties, short docs < 10 chars, duplicates).
+13:30:29 [INFO] CoDA classes (n=9983, classes=10):
+13:30:29 [INFO]     Others                       2918  (29.23%)
+13:30:29 [INFO]     Porn                         1205  (12.07%)
+13:30:29 [INFO]     Drugs                        1166  (11.68%)
+13:30:29 [INFO]     Financial                    1003  (10.05%)
+13:30:29 [INFO]     Gambling                      787  ( 7.88%)
+13:30:29 [INFO]     Crypto                        760  ( 7.61%)
+13:30:29 [INFO]     Hacking                       649  ( 6.50%)
+13:30:29 [INFO]     Arms                          599  ( 6.00%)
+13:30:29 [INFO]     Violence                      470  ( 4.71%)
+13:30:29 [INFO]     Electronic                    426  ( 4.27%)
+13:30:29 [INFO]     imbalance ratio (max/min) = 6.8
+13:30:29 [INFO] === TFIDF_LogReg ===
+13:31:02 [INFO]   fold 0: macro-F1=0.9198
+13:31:34 [INFO]   fold 1: macro-F1=0.9181
+13:32:03 [INFO]   fold 2: macro-F1=0.9003
+13:32:34 [INFO]   fold 3: macro-F1=0.9202
+13:33:06 [INFO]   fold 4: macro-F1=0.9061
+13:33:48 [INFO]   TEST macro-F1=0.9034 CI95=[0.8896,0.9161]
+13:33:48 [INFO] === TFIDF_LinearSVM ===
+13:34:07 [INFO]   fold 0: macro-F1=0.9321
+13:34:27 [INFO]   fold 1: macro-F1=0.9330
+13:34:47 [INFO]   fold 2: macro-F1=0.9130
+13:35:07 [INFO]   fold 3: macro-F1=0.9317
+13:35:28 [INFO]   fold 4: macro-F1=0.9278
+13:35:54 [INFO]   TEST macro-F1=0.9192 CI95=[0.9058,0.9311]
+13:35:54 [INFO] McNemar TFIDF_LogReg vs TFIDF_LinearSVM: p=4.192e-04
+13:35:54 [INFO] Wrote Table 6 fragment -> results/tables/table6_text.csv
+13:35:54 [INFO] Real-data run complete — Table 6 text fragment written.
+13:35:54 [INFO] Done in 326.5s.

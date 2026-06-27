@@ -1,0 +1,24 @@
+14:16:26 [INFO] Loading real text corpus from data/raw/coda.csv
+14:16:27 [WARNING] Parsed CoDA __key__ format (100.0% matched): 10 categories (e.g. ['Arms', 'Crypto', 'Drugs', 'Electronic', 'Financial', 'Gambling', 'Hacking', 'Others', 'Porn', 'Violence']); languages (e.g. ['ar', 'arz', 'bg', 'bn', 'ca', 'ceb', 'cs', 'cy', 'de', 'el']). Labels = category.
+14:16:27 [INFO] Using text column 'txt' and label column '__derived_label__'.
+14:16:28 [INFO] Text validation: 10000 -> 9983 rows after cleaning (dropped empties, short docs < 10 chars, duplicates).
+14:16:28 [INFO] CoDA classes (n=9983, classes=10):
+14:16:28 [INFO]     Others                       2918  (29.23%)
+14:16:28 [INFO]     Porn                         1205  (12.07%)
+14:16:28 [INFO]     Drugs                        1166  (11.68%)
+14:16:28 [INFO]     Financial                    1003  (10.05%)
+14:16:28 [INFO]     Gambling                      787  ( 7.88%)
+14:16:28 [INFO]     Crypto                        760  ( 7.61%)
+14:16:28 [INFO]     Hacking                       649  ( 6.50%)
+14:16:28 [INFO]     Arms                          599  ( 6.00%)
+14:16:28 [INFO]     Violence                      470  ( 4.71%)
+14:16:28 [INFO]     Electronic                    426  ( 4.27%)
+14:16:28 [INFO]     imbalance ratio (max/min) = 6.8
+14:16:28 [INFO] Sealing 500 evidence items via local hash-chain ledger...
+14:16:28 [INFO] Sealed 500 items in 0.06s (8747.6 items/s); latency ms p50=0.09 p95=0.23
+14:16:28 [INFO] Chain verification (untampered): PASS
+14:16:28 [ERROR] Manifest tampering at block 250.
+14:16:28 [INFO] Tamper-detection test: modified block 250 -> DETECTED
+14:16:28 [INFO] Wrote Table 8 fragment -> results/tables/table8_blockchain.csv
+14:16:28 [INFO] Real-data run complete — Table 8 blockchain fragment written.
+14:16:28 [INFO] Done in 2.3s.

@@ -23,3 +23,22 @@ torch>=2.0
 stix2>=3.0
 taxii2-client>=2.3
 tabulate>=0.9  # for build_all_tables markdown output
+
+# ---------------------------------------------------------------------------
+# Statistical validation (manuscript Section 8.13 / src/exp_stats.py)
+# PINNED for reproducibility. The stats layer (McNemar, paired bootstrap,
+# Wilson CI, Friedman+Nemenyi, Holm-Bonferroni) depends ONLY on the four
+# packages below. These exact versions are a known-good, mutually compatible
+# CPU-only stack; install them to reproduce stats_results.json bit-for-bit
+# (results are deterministic given seed=42).
+#
+#   pip install numpy==1.26.4 scipy==1.11.4 scikit-learn==1.3.2 pandas==2.1.4
+#
+# Note: pin numpy<2 here because scikit-learn 1.3.x is built against the
+# NumPy 1.x ABI; numpy 2.x can break it. If you already run numpy 2.x with a
+# matching scikit-learn>=1.4, that combination is also fine.
+# numpy==1.26.4
+# scipy==1.11.4
+# scikit-learn==1.3.2
+# pandas==2.1.4
+# ---------------------------------------------------------------------------

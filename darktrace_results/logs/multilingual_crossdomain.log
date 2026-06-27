@@ -1,0 +1,12 @@
+13:48:15 [INFO] [hi] loading data/raw/hindi_hostility.csv
+13:48:15 [INFO] [hi] 5728 rows after mapping/cleaning (2678 threat / 3050 benign).
+13:48:15 [INFO] Transformer path: fine-tuning distilbert-base-multilingual-cased on 4582 examples (GPU=True).
+13:51:46 [INFO] [hi] macro-F1=0.9580 CI95=[0.9453,0.9698] acc=0.9581 (model=transformer, n_test=1146)
+13:51:46 [INFO] [ar] loading data/raw/arabic_osact.csv
+13:51:46 [INFO] [ar] auto-detected OSACT offensive column ('col2') as the label; text from 'col1'.
+13:51:46 [INFO] [ar] 8887 rows after mapping/cleaning (3172 threat / 5715 benign).
+13:51:46 [INFO] Transformer path: fine-tuning distilbert-base-multilingual-cased on 7109 examples (GPU=True).
+13:57:11 [INFO] [ar] macro-F1=0.6967 CI95=[0.6733,0.7198] acc=0.7340 (model=transformer, n_test=1778)
+13:57:11 [INFO] Wrote Table 7b fragment -> results/tables/table7b_crossdomain.csv
+13:57:11 [INFO] Real-data run complete — Table 7b cross-domain fragment written.
+13:57:11 [INFO] Done in 536.1s.

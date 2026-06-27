@@ -29,6 +29,7 @@ POST = [
     ("src.make_figures", None),
     ("src.make_scoring_figures", None),
     ("src.build_all_tables", None),
+    ("src.exp_stats", None),   # statistical validation (Section 8.13): CIs + tests
 ]
 
 

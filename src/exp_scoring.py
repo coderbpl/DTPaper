@@ -47,7 +47,7 @@ from sklearn.metrics import (roc_auc_score, average_precision_score, brier_score
 from sklearn.inspection import permutation_importance
 from sklearn.calibration import CalibratedClassifierCV
 
-from .metrics_stats import bootstrap_ci, mcnemar_test
+from .metrics_stats import bootstrap_ci, mcnemar_test, save_predictions
 from .utils import load_config, ensure_dirs, get_logger, save_json, set_seed
 
 # optional XAI deps
@@ -583,6 +583,22 @@ def run(cfg, logger):
         logger.info(f"RQ3-a: ensemble AUC {ens_rank['auc']:.4f} vs black-box "
                     f"{mlp_rank['auc']:.4f} (gap {ens_rank['auc']-mlp_rank['auc']:+.4f}, "
                     f"McNemar p={p_mc:.3e})")
+
+    # persist per-instance predictions so exp_stats can run the paired-bootstrap
+    # significance battery (macro-F1 difference CI, etc.) without re-training.
+    # preds dir is derived from the configured tables dir (e.g. results/preds/).
+    try:
+        preds_dir = os.path.join(os.path.dirname(cfg["paths"]["tables"]), "preds")
+        save_predictions(
+            os.path.join(preds_dir, "scoring_explainable.npz"),
+            yte, (ens_scores >= 0.5).astype(int), y_proba=ens_scores,
+            meta={"task": "scoring", "model": "explainable_ensemble"})
+        save_predictions(
+            os.path.join(preds_dir, "scoring_blackbox.npz"),
+            yte, (mlp_scores >= 0.5).astype(int), y_proba=mlp_scores,
+            meta={"task": "scoring", "model": "blackbox_mlp"})
+    except Exception as _e:
+        logger.warning(f"could not save scoring predictions: {_e}")
 
     return results
 

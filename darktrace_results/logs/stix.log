@@ -1,0 +1,22 @@
+14:16:29 [INFO] Loading real text corpus from data/raw/coda.csv
+14:16:31 [WARNING] Parsed CoDA __key__ format (100.0% matched): 10 categories (e.g. ['Arms', 'Crypto', 'Drugs', 'Electronic', 'Financial', 'Gambling', 'Hacking', 'Others', 'Porn', 'Violence']); languages (e.g. ['ar', 'arz', 'bg', 'bn', 'ca', 'ceb', 'cs', 'cy', 'de', 'el']). Labels = category.
+14:16:31 [INFO] Using text column 'txt' and label column '__derived_label__'.
+14:16:31 [INFO] Text validation: 10000 -> 9983 rows after cleaning (dropped empties, short docs < 10 chars, duplicates).
+14:16:31 [INFO] CoDA classes (n=9983, classes=10):
+14:16:31 [INFO]     Others                       2918  (29.23%)
+14:16:31 [INFO]     Porn                         1205  (12.07%)
+14:16:31 [INFO]     Drugs                        1166  (11.68%)
+14:16:31 [INFO]     Financial                    1003  (10.05%)
+14:16:31 [INFO]     Gambling                      787  ( 7.88%)
+14:16:31 [INFO]     Crypto                        760  ( 7.61%)
+14:16:31 [INFO]     Hacking                       649  ( 6.50%)
+14:16:31 [INFO]     Arms                          599  ( 6.00%)
+14:16:31 [INFO]     Violence                      470  ( 4.71%)
+14:16:31 [INFO]     Electronic                    426  ( 4.27%)
+14:16:31 [INFO]     imbalance ratio (max/min) = 6.8
+14:16:31 [INFO] Built STIX 2.1 bundle (stix2 lib): 301 objects.
+14:16:31 [INFO] Bundle validation: PASS (301 objects, 300 indicators)
+14:16:31 [INFO] Wrote STIX bundle -> results/stix/darktrace_bundle.json
+14:16:31 [INFO] Wrote Table 9 fragment -> results/tables/table9_stix.csv
+14:16:31 [INFO] Real-data run complete — Table 9 STIX fragment written.
+14:16:31 [INFO] Done in 2.4s.

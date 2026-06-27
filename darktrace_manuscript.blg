@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2022/dev/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: darktrace_manuscript.aux
+The style file: plain.bst
+Database file #1: references.bib
+You've used 43 entries,
+            2118 wiz_defined-function locations,
+            685 strings with 12358 characters,
+and the built_in function-call counts, 11712 in all, are:
+= -- 1081
+> -- 673
+< -- 0
++ -- 267
+- -- 220
+* -- 654
+:= -- 2126
+add.period$ -- 131
+call.type$ -- 43
+change.case$ -- 214
+chr.to.int$ -- 0
+cite$ -- 43
+duplicate$ -- 480
+empty$ -- 907
+format.name$ -- 220
+if$ -- 2391
+int.to.chr$ -- 0
+int.to.str$ -- 43
+missing$ -- 41
+newline$ -- 218
+num.names$ -- 86
+pop$ -- 252
+preamble$ -- 1
+purify$ -- 170
+quote$ -- 0
+skip$ -- 354
+stack$ -- 0
+substring$ -- 291
+swap$ -- 55
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 172
+warning$ -- 0
+while$ -- 92
+width$ -- 45
+write$ -- 442

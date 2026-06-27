@@ -1,0 +1,106 @@
+{
+  "experiment": "phase2_multilingual_classification",
+  "reportable": true,
+  "scope_note": "classification only; NER excluded (CoDA has no entity labels)",
+  "model_path": "transformer",
+  "classes": [
+    "Arms",
+    "Crypto",
+    "Drugs",
+    "Electronic",
+    "Financial",
+    "Gambling",
+    "Hacking",
+    "Others",
+    "Porn",
+    "Violence"
+  ],
+  "seed": 42,
+  "languages": {
+    "de": 129,
+    "en": 8839,
+    "es": 61,
+    "fr": 99,
+    "pt": 54,
+    "ru": 542
+  },
+  "evaluations": {
+    "pooled": {
+      "overall": {
+        "macro_f1": 0.9063379524087984,
+        "accuracy": 0.8987146529562982,
+        "macro_f1_ci95": [
+          0.892748286430911,
+          0.9192642315329926
+        ]
+      },
+      "per_language": {
+        "de": {
+          "n": 24,
+          "macro_f1": 0.6527777777777777,
+          "accuracy": 0.9166666666666666
+        },
+        "en": {
+          "n": 1757,
+          "macro_f1": 0.9077601188194228,
+          "accuracy": 0.8992601024473534
+        },
+        "es": {
+          "n": 15,
+          "macro_f1": 0.6787439613526569,
+          "accuracy": 0.8
+        },
+        "fr": {
+          "n": 25,
+          "macro_f1": 0.7439024390243902,
+          "accuracy": 0.96
+        },
+        "pt": {
+          "n": 10,
+          "macro_f1": 1.0,
+          "accuracy": 1.0
+        },
+        "ru": {
+          "n": 114,
+          "macro_f1": 0.9158972686369946,
+          "accuracy": 0.8771929824561403
+        }
+      }
+    },
+    "cross_lingual_train_en": {
+      "trained_on": "en",
+      "per_language": {
+        "de": {
+          "n": 129,
+          "macro_f1": 0.4425459956709956,
+          "accuracy": 0.875968992248062
+        },
+        "en": {
+          "n": 1768,
+          "macro_f1": 0.9159653578744228,
+          "accuracy": 0.9078054298642534
+        },
+        "es": {
+          "n": 61,
+          "macro_f1": 0.5726950354609929,
+          "accuracy": 0.8360655737704918
+        },
+        "fr": {
+          "n": 99,
+          "macro_f1": 0.5156976383809583,
+          "accuracy": 0.8080808080808081
+        },
+        "pt": {
+          "n": 54,
+          "macro_f1": 0.6827886710239651,
+          "accuracy": 0.9074074074074074
+        },
+        "ru": {
+          "n": 542,
+          "macro_f1": 0.4356982761301884,
+          "accuracy": 0.7343173431734318
+        }
+      }
+    }
+  }
+}

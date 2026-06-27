@@ -1,0 +1,3 @@
+Model_dataset,Accuracy,Macro_F1,AUC,FPR
+DarkTrace TFIDF_LogReg (CoDA),0.8963,0.9034,NA,0.0129
+DarkTrace TFIDF_LinearSVM (CoDA),0.9109,0.9192,NA,0.0112

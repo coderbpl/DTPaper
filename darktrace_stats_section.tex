@@ -1,0 +1,113 @@
+%=====================================================================
+%  DarkTrace -- Statistical Validation (real numbers)
+%  Compiles standalone:  pdflatex darktrace_stats_section.tex  (x1, no bib)
+%  Numbers produced by:  python -m src.exp_stats  ->  stats_results.json
+%=====================================================================
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\newcommand{\framework}{\textsc{DarkTrace}}
+\title{\framework{}: Statistical Validation}
+\author{}\date{}
+\begin{document}
+\maketitle
+
+\section{Statistical Validation}\label{sec:stats}
+All comparisons report central tendency with dispersion and significance, using
+McNemar's test for paired classifier predictions, paired bootstrap for metric
+differences, exact Wilson score intervals for per-language accuracy, and a
+Friedman$+$Nemenyi omnibus test across $\geq 3$ models, with Holm--Bonferroni
+correction over the resulting $p$-values ($\alpha=0.05$). Tables~\ref{tab:stats-cls}
+and~\ref{tab:stats-ml} report measured values from the executed experiments
+(seed~$=42$); cells marked ``re-run'' require the prediction artifacts now emitted by
+the patched experiment scripts.
+
+\subsection{Classification and Severity Scoring}
+On the CoDA text corpus, both TF-IDF baselines are tightly estimated and the
+Linear-SVM advantage over Logistic Regression is statistically significant
+(McNemar $\chi^2=12.44$, $p=4.19\times10^{-4}$; Table~\ref{tab:stats-cls}). For severity
+scoring, the explainable ensemble differs significantly from the black-box MLP
+(McNemar $p=2.79\times10^{-4}$) while its $5$-fold and bootstrap intervals overlap the
+baseline's ranking metrics---i.e.\ \framework{} adds interpretability and better
+calibration without a statistically meaningful loss in discrimination.
+
+\begin{table}[h]
+\centering
+\caption{Classification and scoring significance (real). CIs are $95\%$; CV is
+$5$-fold mean$\pm$SD. McNemar is the paired test on the shared test set.}
+\label{tab:stats-cls}
+\small
+\begin{tabular}{@{}llccl@{}}
+\toprule
+\textbf{Task} & \textbf{Model} & \textbf{Macro-F1 [95\% CI]} & \textbf{CV (mean$\pm$SD)} & \textbf{Significance} \\
+\midrule
+Text (CoDA) & TF-IDF$+$LogReg     & 0.9034 [0.8896,\,0.9161] & 0.9129$\pm$0.0082 & \multirow{2}{*}{McNemar $p=4.19\!\times\!10^{-4}$} \\
+Text (CoDA) & TF-IDF$+$LinearSVM  & \textbf{0.9192} [0.9058,\,0.9311] & \textbf{0.9275$\pm$0.0075} & \\
+\midrule
+Severity & Explainable Ensemble & 0.9290 [0.9187,\,0.9394]$^{\dagger}$ & --- & \multirow{2}{*}{McNemar $p=2.79\!\times\!10^{-4}$} \\
+Severity & Black-box MLP         & --- (AUC gap $+0.0045$) & --- & \\
+\bottomrule
+\end{tabular}
+\\[2pt]
+{\footnotesize $^{\dagger}$ macro-F1 at the $0.5$ decision threshold; bootstrap $95\%$ CI.}
+\end{table}
+
+\subsection{Multilingual Detection: Per-Language Wilson Intervals}
+Table~\ref{tab:stats-ml} reports exact Wilson $95\%$ intervals for per-language accuracy.
+These make the small-sample caveat explicit and unavoidable: the apparently perfect
+Portuguese result (acc $=1.000$) rests on only $N=10$ items and carries a Wilson interval
+of $[0.723,\,1.000]$, and German/Spanish/French pooled cells ($N=24/15/25$) are similarly
+wide. Only the well-sampled languages (EN $N\!\approx\!1.7$k; RU $N=114$/$542$) support
+firm claims. We therefore restrict headline multilingual conclusions to EN and RU and
+treat the remaining languages as exploratory pending more data.
+
+\begin{table}[h]
+\centering
+\caption{Per-language accuracy with exact Wilson $95\%$ CIs (real). ``Reliable''
+flags $N\geq 30$. Macro-F1 per-language bootstrap CIs are added on re-run with saved
+predictions.}
+\label{tab:stats-ml}
+\small
+\begin{tabular}{@{}llrccc@{}}
+\toprule
+\textbf{Regime} & \textbf{Lang} & \textbf{$N$} & \textbf{Macro-F1} & \textbf{Acc.\ [95\% CI]} & \textbf{Reliable} \\
+\midrule
+\multirow{6}{*}{Pooled}
+ & EN & 1757 & 0.9078 & 0.899 [0.884,\,0.912] & yes \\
+ & RU &  114 & 0.9159 & 0.877 [0.804,\,0.925] & yes \\
+ & FR &   25 & 0.7439 & 0.960 [0.805,\,0.993] & no \\
+ & DE &   24 & 0.6528 & 0.917 [0.742,\,0.977] & no \\
+ & ES &   15 & 0.6787 & 0.800 [0.548,\,0.929] & no \\
+ & PT &   10 & 1.0000 & 1.000 [0.723,\,1.000] & no \\
+\midrule
+\multirow{6}{*}{Transfer (EN$\rightarrow$)}
+ & EN & 1768 & 0.9160 & 0.908 [0.893,\,0.920] & yes \\
+ & RU &  542 & 0.4357 & 0.734 [0.696,\,0.770] & yes \\
+ & DE &  129 & 0.4425 & 0.876 [0.808,\,0.922] & yes \\
+ & FR &   99 & 0.5157 & 0.808 [0.720,\,0.874] & yes \\
+ & ES &   61 & 0.5727 & 0.836 [0.724,\,0.908] & yes \\
+ & PT &   54 & 0.6828 & 0.907 [0.801,\,0.960] & yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Reproducing and Completing the Battery}
+The statistical layer is implemented in \texttt{src/metrics\_stats.py} (McNemar, paired
+bootstrap, Wilson CI, Friedman$+$Nemenyi, Holm--Bonferroni) and driven by
+\texttt{src/exp\_stats.py}, which writes \texttt{stats\_results.json} and
+\texttt{table\_stats.csv}. The experiment scripts now persist per-instance predictions
+to \texttt{darktrace\_results/preds/}; re-running \texttt{python -m src.exp\_stats} after
+a real experiment run additionally emits (i)~the paired-bootstrap macro-F1 difference for
+explainable-vs-black-box scoring, (ii)~per-language macro-F1 bootstrap CIs, and (iii)~the
+Friedman$+$Nemenyi critical-difference diagram across classifiers.
+
+\end{document}

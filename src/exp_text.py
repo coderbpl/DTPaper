@@ -24,7 +24,7 @@ from sklearn.model_selection import StratifiedKFold, train_test_split
 from sklearn.pipeline import Pipeline
 
 from .metrics_stats import (classification_metrics, per_class_f1, aggregate_folds,
-                            mcnemar_test, bootstrap_ci)
+                            mcnemar_test, bootstrap_ci, save_predictions)
 from .utils import load_config, ensure_dirs, get_logger, save_json, set_seed
 
 
@@ -290,10 +290,32 @@ def run(cfg, logger):
             m = classification_metrics(ytr[vai], pv, labels=np.arange(len(classes)))
             fold_metrics.append(m)
             logger.info(f"  fold {k}: macro-F1={m['macro_f1']:.4f}")
+        # persist per-fold macro-F1 vector for the Friedman+Nemenyi omnibus test
+        try:
+            import json as _json
+            preds_dir = os.path.join(
+                os.path.dirname(cfg["paths"]["tables"]), "preds")
+            os.makedirs(preds_dir, exist_ok=True)
+            _json.dump({"model": name,
+                        "fold_macro_f1": [float(fm["macro_f1"]) for fm in fold_metrics]},
+                       open(os.path.join(preds_dir, f"folds_{name}.json"), "w"))
+        except Exception as _e:
+            logger.warning(f"could not save folds for {name}: {_e}")
         model = build_models(cfg, seed)[name].fit(Xtr, ytr)
         pte = model.predict(Xte); test_preds[name] = pte
         m = classification_metrics(yte, pte, labels=np.arange(len(classes)))
         lo, hi = bootstrap_ci(yte, pte, "macro_f1", n_boot=cfg["bootstrap"], seed=seed)
+        # persist per-instance predictions for statistical re-analysis (exp_stats).
+        # preds dir is derived from the configured tables dir so it lands next to
+        # the other outputs (e.g. results/preds/), not a hardcoded location.
+        try:
+            preds_dir = os.path.join(
+                os.path.dirname(cfg["paths"]["tables"]), "preds")
+            save_predictions(
+                os.path.join(preds_dir, f"text_{name}.npz"),
+                yte, pte, meta={"task": "text", "model": name, "classes": classes})
+        except Exception as _e:
+            logger.warning(f"could not save predictions for {name}: {_e}")
         results["models"][name] = {
             "cv": aggregate_folds(fold_metrics), "test": m,
             "test_macro_f1_ci95": [lo, hi],

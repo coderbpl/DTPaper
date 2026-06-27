@@ -1,0 +1,2426 @@
+14:16:33 [INFO] Loading real text corpus from data/raw/coda.csv
+14:16:34 [WARNING] Parsed CoDA __key__ format (100.0% matched): 10 categories (e.g. ['Arms', 'Crypto', 'Drugs', 'Electronic', 'Financial', 'Gambling', 'Hacking', 'Others', 'Porn', 'Violence']); languages (e.g. ['ar', 'arz', 'bg', 'bn', 'ca', 'ceb', 'cs', 'cy', 'de', 'el']). Labels = category.
+14:16:34 [INFO] Using text column 'txt' and label column '__derived_label__'.
+14:16:34 [INFO] Text validation: 10000 -> 9983 rows after cleaning (dropped empties, short docs < 10 chars, duplicates).
+14:16:34 [INFO] CoDA classes (n=9983, classes=10):
+14:16:34 [INFO]     Others                       2918  (29.23%)
+14:16:34 [INFO]     Porn                         1205  (12.07%)
+14:16:34 [INFO]     Drugs                        1166  (11.68%)
+14:16:34 [INFO]     Financial                    1003  (10.05%)
+14:16:34 [INFO]     Gambling                      787  ( 7.88%)
+14:16:34 [INFO]     Crypto                        760  ( 7.61%)
+14:16:34 [INFO]     Hacking                       649  ( 6.50%)
+14:16:34 [INFO]     Arms                          599  ( 6.00%)
+14:16:34 [INFO]     Violence                      470  ( 4.71%)
+14:16:34 [INFO]     Electronic                    426  ( 4.27%)
+14:16:34 [INFO]     imbalance ratio (max/min) = 6.8
+14:16:35 [WARNING] Risk label: ORDINAL SEVERITY (0-3) from a STATED category map (distribution={0: 96, 1: 66, 2: 93, 3: 45}). NOTE: derived from categories, not analyst ratings; state this in the manuscript.
+14:16:36 [INFO] Prepared 300 real findings (risk_mode=severity); 219 have a faithful top-10 attribution.
+14:16:36 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:36 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:36 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:36 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:37 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:37 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] [full] actionability=0.955 props={'P1_has_label': 1.0, 'P2_has_severity': 1.0, 'P3_has_faithful_expl': 0.73, 'P4_has_sealed_evidence': 1.0, 'P5_verifiable_provenance': 1.0, 'P6_standards_export': 1.0}
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:38 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:38 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] [no_scoring] actionability=0.667 props={'P1_has_label': 1.0, 'P2_has_severity': 0.0, 'P3_has_faithful_expl': 0.0, 'P4_has_sealed_evidence': 1.0, 'P5_verifiable_provenance': 1.0, 'P6_standards_export': 1.0}
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:39 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:39 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] [no_explanation] actionability=0.833 props={'P1_has_label': 1.0, 'P2_has_severity': 1.0, 'P3_has_faithful_expl': 0.0, 'P4_has_sealed_evidence': 1.0, 'P5_verifiable_provenance': 1.0, 'P6_standards_export': 1.0}
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] Built STIX 2.1 bundle (stix2 lib): 2 objects.
+14:16:40 [INFO] Bundle validation: PASS (2 objects, 1 indicators)
+14:16:40 [INFO] [no_sealing] actionability=0.622 props={'P1_has_label': 1.0, 'P2_has_severity': 1.0, 'P3_has_faithful_expl': 0.73, 'P4_has_sealed_evidence': 0.0, 'P5_verifiable_provenance': 0.0, 'P6_standards_export': 1.0}
+14:16:41 [INFO] [no_export] actionability=0.622 props={'P1_has_label': 1.0, 'P2_has_severity': 1.0, 'P3_has_faithful_expl': 0.73, 'P4_has_sealed_evidence': 1.0, 'P5_verifiable_provenance': 0.0, 'P6_standards_export': 0.0}
+14:16:41 [INFO] Wrote Table 11 (ablation) fragment -> results/tables/table11_ablation.csv
+14:16:41 [INFO] Real-data run complete — Table 11 ablation fragment written.
+14:16:41 [INFO] Done in 8.6s.

@@ -1,0 +1,14 @@
+{
+  "experiment": "phase4_blockchain_sealing",
+  "reportable": true,
+  "backend": "local_hash_chain",
+  "n_evidence": 500,
+  "throughput_items_per_s": 8747.573422985639,
+  "latency_ms": {
+    "p50": 0.09417533874511719,
+    "p95": 0.2334833145141601,
+    "mean": 0.11383533477783203
+  },
+  "chain_verified_clean": true,
+  "tamper_detected": true
+}
